@@ -250,6 +250,20 @@ footer .wrap { display: grid; gap: 8px; }
 .bloc-head p { color: var(--muted); max-width: 66ch; }
 .bloc-2 .p-block { border-top: 3px solid var(--fire); }
 .lvl-tag { display: inline-block; font-family: var(--font-mono); font-size: 12px; padding: 3px 8px; border-radius: 6px; background: var(--fire-soft); color: var(--fire); margin-left: 8px; vertical-align: middle; }
+/* ---- QCM : cases à cocher ---- */
+.hint { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); margin: -6px 0 10px; }
+.opt { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; }
+.opt::before { content: ""; width: 18px; height: 18px; margin-top: 2px; border: 2px solid var(--muted); border-radius: 4px; box-sizing: border-box; }
+.opt.sel { border-color: var(--ink); }
+.opt.sel::before { background: var(--ink); border-color: var(--ink); box-shadow: inset 0 0 0 3px var(--bg); }
+.opt.good::before { border-color: var(--exit); }
+.opt.good.sel::before, .opt.good:not(.miss)::before { background: var(--exit); box-shadow: inset 0 0 0 3px var(--exit-soft); }
+.opt.bad::before { background: var(--fire); border-color: var(--fire); box-shadow: inset 0 0 0 3px var(--fire-soft); }
+.opt.miss { border-style: dashed; }
+.opt.good.sel { border-color: var(--exit); }
+.opt.bad.sel { border-color: var(--fire); }
+.vbar { margin-top: 12px; display: flex; justify-content: flex-end; }
+.vbtn:disabled { opacity: .45; cursor: default; }
 /* ---- choix du QCM ---- */
 .qmodes { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; max-width: 720px; margin-bottom: 12px; }
 .qm { text-align: left; display: grid; gap: 3px; background: var(--surface); color: var(--ink); border: 2px solid var(--line); border-radius: 10px; padding: 12px 14px; cursor: pointer; font: inherit; min-width: 0; }
@@ -325,7 +339,7 @@ footer .wrap { display: grid; gap: 8px; }
     <div class="wrap">
       <div class="sec-head">
         <h2>Les examens blancs</h2>
-        <p>Choisissez votre niveau. Les questions et l'ordre des réponses changent à chaque tentative.</p>
+        <p>Choisissez votre niveau. Comme à l'examen, chaque question peut avoir une ou plusieurs bonnes réponses : cochez toutes les bonnes, et seulement elles, puis validez. Les questions et l'ordre des réponses changent à chaque tentative.</p>
       </div>
       <div class="qmodes" id="qmodes">
         <button class="qm on" data-m="1"><span>SSIAP 1</span><b>Examen blanc · 40 questions</b><i>Chapitres 1 à 20 · 100 questions en banque</i></button>
@@ -355,6 +369,8 @@ footer .wrap { display: grid; gap: 8px; }
     <div class="wrap">
       <div class="sec-head"><h2>Mises à jour</h2><p>Le site avance chaque semaine.</p></div>
       <div class="log">
+        <div><time>05/10/2026</time><span>QCM refaits : 180 questions reformulées pour être précises même hors du chapitre, dont 72 à 2 ou 3 bonnes réponses, comme à l'examen. On coche, puis on valide.</span></div>
+        <div><time>05/10/2026</time><span>Relecture complète des 36 chapitres et des 180 questions : références d'articles précisées (CO 38, MS 73, DF 10, R.4227-34, R.4512-7, R.441-3, art. 2 et 7 de l'arrêté du 2 mai 2005…) et deux questions reformulées pour lever toute ambiguïté.</span></div>
         <div><time>05/10/2026</time><span>Le bloc SSIAP 2 passe à 16 chapitres (21 à 36) : management, formation, rapports, consignes, incidents techniques, permis de feu, SSI de catégorie A, extinction automatique, vérifications, Code du travail, PC en crise et accueil des secours.</span></div>
         <div><time>05/10/2026</time><span>Deux examens blancs séparés de 40 questions : un SSIAP 1, un SSIAP 2.</span></div>
         <div><time>05/10/2026</time><span>Les 25 chapitres du parcours sont en ligne, chacun avec son schéma et son QCM de 5 questions. Le QCM général puise dans les 125 questions.</span></div>
@@ -417,18 +433,18 @@ const CH = [
   ess: [
     "Pour entrer en formation SSIAP 1, il faut un <b>secourisme valide</b> (SST ou PSE1 à jour, ou PSC1 de moins de 2 ans), une <b>aptitude médicale</b> et savoir rédiger une anomalie sur la main courante.",
     "La formation SSIAP 1 dure <b>67 heures</b> hors examen, en 5 parties : le feu (6 h), la sécurité incendie (17 h), les installations techniques (9 h), le rôle de l'agent (18 h), la mise en pratique (17 h).",
-    "L'examen comprend un <b>QCM de 30 questions en 30 minutes</b> (12/20 minimum) et une <b>épreuve pratique</b> : une ronde avec une anomalie et un sinistre à traiter.",
+    "L'examen comprend un <b>QCM de 30 questions en 30 minutes</b> (12/20 minimum) et une <b>épreuve pratique</b> : une ronde d'environ 15 minutes avec des anomalies et un sinistre à traiter.",
     "Le diplôme se garde par un <b>recyclage tous les 3 ans</b> (14 h pour le SSIAP 1). Si le délai est dépassé, ou s'il y a moins de 1 607 h d'activité sur 3 ans, il faut une <b>remise à niveau</b> (21 h)."
   ],
   schema: { title: "Le parcours", steps: [["Prérequis", "secourisme + aptitude médicale"], ["Formation", "67 h"], ["Examen", "QCM + ronde"], ["Recyclage", "tous les 3 ans"]] },
   terrain: ["Le <b>secourisme</b> a son propre rythme : <b>SST</b> valable 24 mois (MAC de 7 h), <b>PSE1</b> à entretenir chaque année (formation continue de 6 h minimum).", "Un secourisme périmé bloque le recyclage SSIAP : notez vos dates d'échéance."],
   retenir: ["SSIAP 1 : 67 h, QCM de 30 questions + ronde pratique.", "Recyclage SSIAP tous les 3 ans, au plus tard à la date anniversaire."],
-  refs: "Arrêté du 2 mai 2005, art. 4 et 7 · SST : référentiel INRS · PSE1 : arrêté du 24 août 2007",
+  refs: "Arrêté du 2 mai 2005, art. 4 et 7 · SST : référentiel INRS · PSE1 : arrêté du 24 août 2007 (référentiel) et arrêté du 24 mai 2000 (formation continue)",
   qcm: [
     ["Combien d'heures dure la formation SSIAP 1 hors examen ?", ["35 h", "67 h", "70 h", "120 h"], 1, "67 heures, réparties en 5 parties."],
     ["Le recyclage SSIAP a lieu…", ["Tous les ans", "Tous les 2 ans", "Tous les 3 ans", "Tous les 5 ans"], 2, "Tous les 3 ans, au plus tard à la date anniversaire du diplôme."],
     ["Le QCM de l'examen SSIAP 1 comporte…", ["10 questions", "20 questions", "30 questions", "40 questions"], 2, "30 questions en 30 minutes, avec 12/20 minimum."],
-    ["Le certificat SST est valable…", ["12 mois", "24 mois", "36 mois", "Sans limite"], 1, "24 mois. Le MAC SST de 7 h le renouvelle, même s'il a expiré."],
+    ["Le certificat SST est valable…", ["12 mois", "24 mois", "36 mois", "Sans limite"], 1, "24 mois. Le MAC SST de 7 h le renouvelle. Après expiration, un MAC reste possible si le délai n'est pas trop long ; sinon, on refait la formation initiale."],
     ["Quand faut-il une remise à niveau plutôt qu'un recyclage ?", ["Jamais", "Si le recyclage est dépassé ou s'il manque d'activité sur 3 ans", "Après chaque alarme", "Tous les ans"], 1, "Recyclage dépassé ou moins de 1 607 h d'activité sur 3 ans : remise à niveau (21 h pour le SSIAP 1)."]
   ] },
 
@@ -459,7 +475,7 @@ const CH = [
     "La fumée monte et s'accumule en hauteur, puis descend. C'est pour ça qu'on évacue en se baissant et qu'on désenfume par le haut."
   ],
   schema: { title: "Les 4 modes de propagation", steps: [["Conduction", "à travers les matériaux"], ["Convection", "par les gaz chauds"], ["Rayonnement", "à distance"], ["Projection", "particules enflammées"]] },
-  terrain: ["Une <b>porte coupe-feu</b> calée ouverte laisse passer la convection : c'est l'anomalie la plus fréquente en ronde.", "Dans la fumée, on se baisse : l'air respirable est près du sol."],
+  terrain: ["Une <b>porte coupe-feu</b> calée ouverte laisse passer la convection : c'est une anomalie très fréquente en ronde.", "Dans la fumée, on se baisse : l'air respirable est près du sol."],
   retenir: ["Conduction, convection, rayonnement, projection.", "La fumée est le premier danger : toxique, chaude, opaque."],
   refs: "Programme SSIAP 1, partie 1",
   qcm: [
@@ -494,7 +510,7 @@ const CH = [
   ess: [
     "Un <b>ERP</b> (établissement recevant du public) est un bâtiment où des personnes extérieures sont admises : magasin, hôpital, école, salle de sport…",
     "Chaque ERP a un <b>type</b>, selon son activité, désigné par une lettre : <b>M</b> magasins, <b>U</b> établissements de soins, <b>J</b> structures pour personnes âgées ou handicapées, <b>L</b> salles de spectacle, <b>N</b> restaurants, <b>R</b> enseignement, <b>W</b> bureaux…",
-    "Chaque ERP a aussi une <b>catégorie</b>, selon son effectif (public + personnel) : 1re plus de 1 500 personnes, 2e de 701 à 1 500, 3e de 301 à 700, 4e 300 et moins, 5e en dessous d'un seuil propre à chaque type (200 en type M).",
+    "Chaque ERP a aussi une <b>catégorie</b>, selon son effectif (public + personnel, sauf le personnel installé dans des locaux indépendants avec leurs propres dégagements) : 1re plus de 1 500 personnes, 2e de 701 à 1 500, 3e de 301 à 700, 4e 300 et moins. La 5e catégorie se détermine sur le seul effectif du public, en dessous d'un seuil propre à chaque type (type M : moins de 200 personnes au total, moins de 100 en sous-sol ou en étages).",
     "Les catégories 1 à 4 forment le <b>1er groupe</b>, la 5e le <b>2e groupe</b> (petits établissements, règles allégées)."
   ],
   schema: { title: "Les catégories", steps: [["1re", "+ de 1 500"], ["2e", "701 à 1 500"], ["3e", "301 à 700"], ["4e", "300 et moins"], ["5e", "sous le seuil"]] },
@@ -518,7 +534,7 @@ const CH = [
   schema: { title: "Les leviers", steps: [["Prévenir", "limiter les départs de feu"], ["Isoler", "locaux à risques, compartiments"], ["Évacuer", "dégagements, éclairage"], ["Désenfumer", "évacuer la fumée"], ["Secourir", "alarme, alerte, moyens"]] },
   terrain: ["Une porte coupe-feu affiche sa résistance (par exemple EI 30) : elle ne joue son rôle que <b>fermée</b>.", "Les <b>locaux à risques</b> (réserves, locaux techniques, poubelles) doivent rester fermés et dégagés."],
   retenir: ["Objectif : évacuer tout le monde et faciliter l'intervention.", "Réaction = alimente-t-il le feu ? Résistance = combien de temps tient-il ?"],
-  refs: "Arrêté du 25 juin 1980, art. GN 1 et dispositions CO",
+  refs: "CCH, art. R.143-2 et s. (ex-R.123-2) · arrêté du 25 juin 1980, chapitre CO",
   qcm: [
     ["Le but premier du règlement de sécurité est…", ["Protéger les marchandises", "Permettre l'évacuation du public et faciliter l'intervention des secours", "Réduire les coûts", "Décorer le bâtiment"], 1, "La priorité est la vie des personnes."],
     ["La réaction au feu indique…", ["Combien de temps un mur tient", "Si un matériau alimente le feu", "La vitesse des pompiers", "La couleur de la flamme"], 1, "Elle classe les matériaux selon leur participation au feu (A1 à F)."],
@@ -536,7 +552,7 @@ const CH = [
   schema: { title: "L'arrivée des secours", steps: [["Voie engins", "les véhicules arrivent"], ["Voie échelles", "l'échelle se déploie"], ["Façade accessible", "ouvertures pour entrer"], ["Hydrants", "l'eau est disponible"]] },
   terrain: ["En ronde extérieure : pas de voiture, de benne ni de palette sur les voies pompiers et devant les poteaux d'incendie.", "Le jour d'un feu, un agent attend les secours à l'entrée prévue et les guide."],
   retenir: ["Voie engins pour rouler, voie échelles pour monter.", "Hydrants et accès toujours dégagés."],
-  refs: "Arrêté du 25 juin 1980, art. CO 1 à CO 5",
+  refs: "Arrêté du 25 juin 1980, art. CO 1 à CO 5 (desserte) · colonnes sèches : art. MS 18 · hydrants : réglementation DECI",
   qcm: [
     ["La voie engins sert à…", ["Garer les voitures du personnel", "Faire circuler et stationner les véhicules de secours", "Livrer les marchandises", "Stocker des palettes"], 1, "Elle doit permettre aux engins de secours d'arriver."],
     ["La voie échelles sert à…", ["Mettre en station une échelle aérienne devant la façade", "Ranger les échelles du magasin", "Faire passer les piétons", "Rien de particulier"], 0, "Elle permet aux pompiers d'atteindre les étages par l'extérieur."],
@@ -549,13 +565,13 @@ const CH = [
   ess: [
     "Un <b>dégagement</b> est tout passage qui permet de sortir : couloir, escalier, porte, sortie.",
     "La largeur se compte en <b>unités de passage</b> (UP) : 1 UP vaut 0,90 m, 2 UP valent 1,40 m, et au-delà chaque UP ajoute 0,60 m.",
-    "Le nombre de dégagements dépend de l'effectif : 1 seul en dessous de 20 personnes, 2 au minimum à partir de 50 personnes, et au-delà de 500 personnes, 2 plus 1 par tranche de 500.",
+    "Le nombre de dégagements dépend de l'effectif : 1 seul en dessous de 20 personnes ; de 20 à 100 personnes, 2 dégagements (dont un peut être accessoire) ; de 101 à 500, 2 dégagements ; au-delà des 500 premières personnes, on ajoute 1 dégagement par tranche de 500 personnes ou fraction de 500 (CO 38).",
     "Les sorties sont <b>signalées</b>, <b>éclairées</b>, et doivent s'ouvrir facilement dans le sens de la sortie quand l'effectif l'impose."
   ],
   schema: { title: "Les unités de passage", steps: [["1 UP", "0,90 m"], ["2 UP", "1,40 m"], ["3 UP et +", "+ 0,60 m par UP"]] },
   terrain: ["Une issue encombrée ou verrouillée pendant l'ouverture au public est une <b>anomalie grave</b> : on la fait dégager tout de suite.", "Lors d'une évacuation, on dirige le public vers le <b>point de rassemblement</b> et on vérifie que personne ne reste."],
   retenir: ["1 UP = 0,90 m · 2 UP = 1,40 m · ensuite + 0,60 m.", "Issues dégagées, signalées, éclairées."],
-  refs: "Arrêté du 25 juin 1980, art. CO 34 à CO 49",
+  refs: "Arrêté du 25 juin 1980, art. CO 34 à CO 60 (notamment CO 36 et CO 38)",
   qcm: [
     ["Combien mesure 1 unité de passage ?", ["0,60 m", "0,90 m", "1,20 m", "1,40 m"], 1, "1 UP = 0,90 m."],
     ["Combien mesurent 2 unités de passage ?", ["1,20 m", "1,40 m", "1,80 m", "2 m"], 1, "2 UP = 1,40 m."],
@@ -569,7 +585,7 @@ const CH = [
     "Le <b>désenfumage</b> évacue la fumée pour garder les chemins de sortie praticables et faciliter le travail des secours. On évacue la fumée <b>en haut</b> et on fait entrer de l'air frais <b>en bas</b>.",
     "Il peut être <b>naturel</b> (ouvrants en façade ou en toiture, la fumée sort seule) ou <b>mécanique</b> (des ventilateurs extraient la fumée).",
     "L'<b>éclairage de sécurité</b> s'allume quand le courant normal est coupé. Il a deux rôles : l'<b>évacuation</b> (baliser les sorties et les changements de direction) et l'<b>ambiance</b> ou anti-panique (éclairer les grandes salles).",
-    "Les blocs autonomes (BAES) doivent tenir <b>au moins 1 heure</b>. L'éclairage d'ambiance est exigé dans les locaux recevant 100 personnes ou plus en étage, ou 50 en sous-sol."
+    "Les blocs autonomes (BAES) doivent tenir <b>au moins 1 heure</b>. L'éclairage d'ambiance est exigé dans tout local ou hall où l'effectif du public peut atteindre 100 personnes en étage ou au rez-de-chaussée, ou 50 en sous-sol."
   ],
   schema: { title: "Le désenfumage", steps: [["Amenée d'air", "en partie basse"], ["Zone enfumée", "la fumée monte"], ["Évacuation", "en partie haute"]] },
   terrain: ["En ronde : un BAES éteint, cassé ou masqué est une anomalie à signaler.", "Les commandes de désenfumage (boîtiers, treuils) doivent rester accessibles et signalées."],
@@ -586,14 +602,14 @@ const CH = [
   obj: ["Choisir le bon extincteur", "Savoir utiliser un extincteur et un RIA"],
   ess: [
     "Les principaux extincteurs : à <b>eau pulvérisée</b> avec additif (feux A et B), à <b>CO2</b> (feux B, et près des installations électriques), à <b>poudre</b> polyvalente (feux A, B, C).",
-    "En ERP, il faut au moins <b>1 extincteur à eau pulvérisée de 6 litres pour 200 m²</b>, et au moins un par niveau. Ils sont vérifiés <b>chaque année</b>.",
+    "La règle de base, en ERP (MS 38 et MS 39) comme dans le Code du travail (R.4227-29) : au moins <b>1 extincteur à eau pulvérisée de 6 litres pour 200 m²</b>, et au moins un par niveau. Ils sont vérifiés <b>chaque année</b>.",
     "Le <b>RIA</b> (robinet d'incendie armé) est un tuyau semi-rigide toujours sous eau, enroulé sur un dévidoir. Il donne de l'eau en continu, pour des feux plus importants qu'un extincteur.",
     "Un extincteur se vide en quelques secondes : on attaque <b>la base des flammes</b>, dos au vent ou à une sortie, sans jamais se laisser couper la retraite."
   ],
   schema: { title: "Utiliser un extincteur", steps: [["Choisir", "le bon agent pour le feu"], ["Dégoupiller", "et percuter si besoin"], ["Approcher", "dos à la sortie"], ["Viser la base", "des flammes, par balayage"]] },
   terrain: ["En ronde : extincteur à sa place, visible, accessible, plombé, avec son étiquette de vérification à jour.", "Le CO2 refroidit fortement : on ne le tient pas par le diffuseur."],
   retenir: ["Eau pulvérisée : A et B · CO2 : B et électrique · poudre : A, B, C.", "1 extincteur de 6 L pour 200 m², au moins 1 par niveau."],
-  refs: "Arrêté du 25 juin 1980, art. MS 38 · Code du travail, art. R.4227-29",
+  refs: "Arrêté du 25 juin 1980, art. MS 38 et MS 39 · Code du travail, art. R.4227-29",
   qcm: [
     ["Quel extincteur près d'une armoire électrique ?", ["Eau sans additif", "CO2", "Seau d'eau", "Aucun"], 1, "Le CO2 est utilisable près des installations électriques."],
     ["Combien d'extincteurs à eau de 6 L en ERP ?", ["1 pour 50 m²", "1 pour 200 m² et au moins 1 par niveau", "1 par bâtiment", "1 pour 1 000 m²"], 1, "Au moins 1 pour 200 m² et 1 par niveau."],
@@ -606,9 +622,9 @@ const CH = [
 { n: 12, p: 3, t: "Électricité, ascenseurs, ventilation",
   obj: ["Connaître les risques des installations techniques", "Savoir ce que l'agent peut faire, et ne pas faire"],
   ess: [
-    "L'<b>électricité</b> est une cause fréquente de départ de feu : surcharge, court-circuit, échauffement. Les locaux électriques (TGBT, tableaux) sont des locaux à risques, fermés et dégagés.",
+    "L'<b>électricité</b> est une cause fréquente de départ de feu : surcharge, court-circuit, échauffement. Les locaux de service électrique (TGBT, tableaux) sont isolés, fermés à clé, dégagés et signalés (section EL).",
     "Intervenir sur une installation électrique demande une <b>habilitation électrique</b> (norme NF C 18-510). Sans elle, l'agent ne touche à rien : il peut seulement utiliser la <b>coupure d'urgence</b> prévue par les consignes.",
-    "Pour les <b>ascenseurs</b>, une personne bloquée se rassure, on prévient l'ascensoriste ; seule une personne formée et autorisée manœuvre l'appareil. En cas de feu, on n'utilise pas les ascenseurs pour évacuer.",
+    "Pour les <b>ascenseurs</b>, une personne bloquée se rassure, on prévient l'ascensoriste ; seule une personne formée et autorisée manœuvre l'appareil. En cas de feu, le public n'utilise pas les ascenseurs, sauf ascenseurs prévus pour évacuer les personnes handicapées (AS 4 et AS 5), utilisés sur ordre du service de sécurité ou des secours.",
     "La <b>ventilation</b> et la climatisation (CTA) peuvent propager la fumée : sur alarme feu, le SSI peut les arrêter."
   ],
   schema: { title: "Réflexe face à un incident technique", steps: [["Constater", "quoi, où"], ["Sécuriser", "personnes et zone"], ["Prévenir", "PC, technicien"], ["Noter", "main courante"]] },
@@ -618,7 +634,7 @@ const CH = [
   qcm: [
     ["Pour intervenir sur une installation électrique, il faut…", ["Rien de particulier", "Une habilitation électrique", "Le SSIAP 1 suffit", "Un extincteur"], 1, "L'habilitation électrique (NF C 18-510) est obligatoire."],
     ["Un local électrique (TGBT) doit être…", ["Utilisé pour stocker des cartons", "Fermé et dégagé", "Toujours ouvert", "Sans signalisation"], 1, "C'est un local à risques : fermé, dégagé, signalé."],
-    ["Pendant un feu, on évacue par…", ["L'ascenseur", "Les escaliers et dégagements", "Le monte-charge", "La fenêtre"], 1, "On n'utilise pas les ascenseurs pour évacuer."],
+    ["Pendant un feu, on évacue par…", ["L'ascenseur", "Les escaliers et dégagements", "Le monte-charge", "La fenêtre"], 1, "Le public n'utilise pas les ascenseurs pour évacuer (sauf ascenseurs prévus pour les personnes handicapées, sur ordre)."],
     ["Une personne bloquée dans un ascenseur, on…", ["Force les portes", "La rassure et on prévient l'ascensoriste", "La laisse seule", "Coupe tout le courant du bâtiment"], 1, "Rassurer, prévenir, attendre la personne formée."],
     ["Pourquoi arrêter la ventilation sur alarme feu ?", ["Pour économiser l'énergie", "Pour éviter qu'elle propage la fumée", "Pour faire du bruit", "Ce n'est jamais fait"], 1, "La ventilation peut transporter la fumée d'une zone à l'autre."]
   ] },
@@ -646,13 +662,13 @@ const CH = [
   ess: [
     "Ce sont des <b>tuyaux fixes</b> qui montent dans le bâtiment, avec une prise d'incendie à chaque niveau. Ils évitent aux pompiers de dérouler des tuyaux dans les escaliers.",
     "La <b>colonne sèche</b> est vide : les pompiers l'alimentent en branchant leur engin sur le <b>raccord</b> en bas, côté voie. La <b>colonne humide</b> (en charge) est toujours pleine d'eau sous pression.",
-    "En ERP, des colonnes sèches sont exigées quand des locaux à risques importants sont à plus de 18 m de la voie des engins. En IGH : colonne sèche jusqu'à 50 m, colonne humide au-delà.",
+    "En ERP, des colonnes sèches sont exigées quand des locaux à risques importants sont dans des étages dont le plancher bas est à plus de 18 m au-dessus de la voie des engins (MS 18). En IGH : colonne sèche jusqu'à 50 m, colonne humide au-delà.",
     "Les colonnes sont <b>réservées aux sapeurs-pompiers</b>. Ce n'est pas un RIA."
   ],
   schema: { title: "Sèche ou humide", steps: [["Sèche", "vide, alimentée par les pompiers"], ["Humide", "toujours pleine, sous pression"], ["Aux étages", "une prise par niveau"]] },
   terrain: ["Raccord accessible, signalisation lisible, coffrets des prises fermés et dégagés.", "Le jour d'un feu, guider les pompiers vers le raccord et l'escalier le plus proche du feu."],
   retenir: ["Sèche = vide · humide = pleine.", "IGH : sèche jusqu'à 50 m, humide au-delà."],
-  refs: "ERP : arrêté du 25 juin 1980, MS 18 · IGH : arrêté du 30 décembre 2011, GH 54 et GH 55 · NF S 61-759-1",
+  refs: "ERP : arrêté du 25 juin 1980, MS 18 · IGH : arrêté du 30 décembre 2011, GH 54 et GH 55 · NF S 61-759 et NF S 61-759-1",
   qcm: [
     ["Une colonne sèche est…", ["Toujours pleine d'eau", "Vide, alimentée par les pompiers", "Un extincteur", "Un RIA"], 1, "Elle est vide jusqu'au branchement des pompiers."],
     ["Qui utilise les colonnes ?", ["Le public", "Les agents SSIAP", "Les sapeurs-pompiers", "Les employés du magasin"], 2, "Elles sont réservées aux sapeurs-pompiers."],
@@ -684,7 +700,7 @@ const CH = [
 { n: 16, p: 4, t: "Le service de sécurité, le PC et la main courante",
   obj: ["Connaître les 8 missions de l'agent", "Comprendre le rôle du PC et de la main courante"],
   ess: [
-    "Les missions de l'agent SSIAP 1 : <b>prévention</b> des incendies, <b>sensibilisation</b> des employés, <b>entretien élémentaire</b> des moyens de secours, <b>alerte et accueil</b> des secours, <b>évacuation</b> du public, <b>intervention précoce</b> sur un feu, <b>assistance à personnes</b>, <b>exploitation du PC</b> sécurité.",
+    "Les 8 missions du service de sécurité incendie (arrêté du 2 mai 2005, art. 2), que l'agent SSIAP 1 exerce : <b>prévention</b> des incendies, <b>sensibilisation</b> des employés, <b>entretien élémentaire</b> des moyens de secours, <b>alerte et accueil</b> des secours, <b>évacuation</b> du public, <b>intervention précoce</b> sur un feu, <b>assistance à personnes</b>, <b>exploitation du PC</b> sécurité.",
     "Le <b>PC sécurité</b> (poste central) centralise les informations : SSI, téléphone, radios, plans, consignes. C'est le cerveau de la sécurité du site.",
     "La <b>main courante</b> est le journal du poste : chaque événement s'y écrit avec l'<b>heure</b>, les <b>faits</b>, les <b>actions</b> et le <b>nom</b> de l'agent.",
     "Le <b>registre de sécurité</b> (CCH, art. R.143-44) trace les vérifications, les travaux, les exercices et le personnel de sécurité. C'est l'exploitant qui en est responsable."
@@ -692,7 +708,7 @@ const CH = [
   schema: { title: "La prise de poste", steps: [["Lire", "la main courante"], ["Écouter", "les consignes"], ["Vérifier", "SSI, radios, clés"], ["Relever", "transmettre au suivant"]] },
   terrain: ["Écrire au fil de l'eau, sans blanc ni rature masquée.", "Ce qui n'est pas écrit n'existe pas en cas de litige."],
   retenir: ["8 missions, de la prévention à l'exploitation du PC.", "Main courante : heure, faits, actions, nom."],
-  refs: "Arrêté du 2 mai 2005, annexe I · CCH, art. R.143-44",
+  refs: "Arrêté du 2 mai 2005, art. 2 et annexe I · CCH, art. R.143-44",
   qcm: [
     ["Combien de missions a l'agent SSIAP 1 ?", ["3", "5", "8", "12"], 2, "8 missions fixées par l'arrêté du 2 mai 2005."],
     ["Que note-t-on sur la main courante ?", ["Uniquement les incendies", "Heure, faits, actions et nom de l'agent", "Rien, c'est facultatif", "Les horaires du magasin"], 1, "Chaque événement, avec ces 4 informations."],
@@ -705,7 +721,7 @@ const CH = [
   ess: [
     "La <b>ronde</b> empêche un incendie de démarrer ou de se propager. On contrôle : issues de secours, extincteurs et RIA, éclairage de sécurité, portes coupe-feu, circulations, locaux techniques.",
     "Une anomalie simple se corrige sur place (déplacer un chariot). Sinon, on prévient le chef d'équipe et on la note.",
-    "Une <b>entreprise extérieure</b> qui travaille sur le site doit être identifiée à l'entrée (liste transmise, carte professionnelle). Le Code du travail impose une inspection commune et, pour certains travaux, un plan de prévention.",
+    "Une <b>entreprise extérieure</b> qui travaille sur le site doit être identifiée à l'entrée (liste transmise, carte professionnelle). Le Code du travail impose une inspection commune préalable (R.4512-2) et un plan de prévention, qui doit être écrit pour les travaux dangereux ou dès 400 h sur 12 mois (R.4512-7).",
     "Les <b>travaux par point chaud</b> (soudure, meulage, découpe) se font sous <b>permis de feu</b>, et pas en présence du public s'ils présentent un danger (art. GN 13). Après les travaux, la zone est surveillée le temps prévu par le permis."
   ],
   schema: { title: "Le permis de feu", steps: [["Avant", "permis signé, extincteur à portée"], ["Pendant", "combustibles éloignés"], ["Après", "surveillance de la zone"]] },
@@ -730,13 +746,13 @@ const CH = [
   schema: { title: "Sur alarme feu", steps: [["Alarme", "zone lue sur l'ECS"], ["Levée de doute", "un agent sur place"], ["Alerte", "18 ou 112"], ["Évacuation", "vers l'extérieur"], ["Accueil", "guider les secours"]] },
   terrain: ["Une alarme n'est jamais « encore une fausse alarme » avant d'avoir vérifié.", "Ma sécurité d'abord : je n'entre pas dans un local enfumé et je garde toujours une sortie derrière moi."],
   retenir: ["Levée de doute avant tout.", "Qui, où, quoi, victimes, actions, rappel."],
-  refs: "Arrêté du 2 mai 2005, annexe I",
+  refs: "Arrêté du 2 mai 2005, art. 2 et annexe I",
   qcm: [
     ["Que fait-on d'abord sur une alarme feu ?", ["On évacue sans vérifier", "On envoie un agent en levée de doute", "On coupe l'alarme", "On attend la suivante"], 1, "La levée de doute confirme ou non le feu."],
     ["Quel numéro pour les sapeurs-pompiers ?", ["15", "17", "18", "115"], 2, "18 pour les pompiers (112 fonctionne aussi)."],
     ["Dans le message d'alerte, on donne d'abord…", ["Le nom du directeur", "Qui appelle, puis où", "La météo", "Le prix des dégâts"], 1, "Qui, puis où, puis quoi."],
     ["Qui raccroche en premier ?", ["L'appelant", "L'opérateur des secours", "Peu importe", "Personne ne raccroche"], 1, "C'est l'opérateur qui met fin à l'appel."],
-    ["Le 112 est…", ["Le numéro de la police municipale", "Le numéro d'urgence européen", "Le numéro du SAMU social", "Un numéro payant"], 1, "Joignable depuis tout téléphone, dans toute l'Europe."]
+    ["Le 112 est…", ["Le numéro de la police municipale", "Le numéro d'urgence européen", "Le numéro du SAMU social", "Un numéro payant"], 1, "Gratuit, joignable depuis tout téléphone dans tous les pays de l'Union européenne."]
   ] },
 { n: 19, p: 4, t: "Évacuer et assister les personnes",
   obj: ["Savoir organiser une évacuation", "Savoir réagir face à une personne en difficulté"],
@@ -744,7 +760,7 @@ const CH = [
     "L'évacuation s'organise avec des <b>guides</b> (ils montrent le chemin vers les sorties) et des <b>serre-files</b> (ils ferment la marche et vérifient que personne ne reste).",
     "On évacue vers le <b>point de rassemblement</b>, on <b>compte</b> les personnes et on ne laisse revenir personne avant l'accord des secours.",
     "Les personnes qui ne peuvent pas descendre seules sont aidées ou mises à l'abri dans un <b>espace d'attente sécurisé</b> quand le bâtiment en dispose, et signalées aux secours.",
-    "Le Code du travail impose des <b>exercices d'évacuation au moins tous les 6 mois</b> (art. R.4227-39).",
+    "Dans les établissements de plus de 50 personnes ou manipulant des matières inflammables, le Code du travail impose des <b>exercices d'évacuation au moins tous les 6 mois</b> (art. R.4227-34, R.4227-37 et R.4227-39).",
     "Assistance à personnes : <b>protéger</b>, <b>alerter</b> (15 ou 18), <b>secourir</b> selon sa formation SST ou PSE."
   ],
   schema: { title: "L'évacuation", steps: [["Alarme générale", "le public est prévenu"], ["Guides", "montrent les sorties"], ["Serre-files", "vérifient que personne ne reste"], ["Rassemblement", "on compte"]] },
@@ -762,14 +778,14 @@ const CH = [
   obj: ["Savoir ce qu'est un IGH", "Comprendre le transfert horizontal"],
   ess: [
     "Un <b>IGH</b> (immeuble de grande hauteur) est un bâtiment dont le plancher bas du dernier niveau est à plus de <b>50 m</b> pour l'habitation, et plus de <b>28 m</b> pour les autres usages. Au-delà de 200 m, c'est un ITGH.",
-    "En IGH, le bâtiment est découpé en <b>compartiments</b> (75 m de long et 2 500 m² au maximum) qui enferment le feu, avec au moins 2 escaliers protégés par compartiment.",
+    "En IGH, le bâtiment est découpé en <b>compartiments</b> (75 m de long et 2 500 m² au maximum) qui enferment le feu, avec au moins 2 escaliers protégés par compartiment, sauf dérogation.",
     "Dans un hôpital (<b>type U</b>) ou un EHPAD (<b>type J</b>), beaucoup de personnes ne peuvent pas marcher. On pratique le <b>transfert horizontal</b> : on les déplace <b>sur le même étage</b>, vers une zone protégée voisine, derrière les portes coupe-feu.",
     "L'évacuation verticale n'intervient qu'<b>en cas d'extrême nécessité</b>. Chaque niveau avec des chambres a au moins 2 zones protégées."
   ],
   schema: { title: "Le transfert horizontal", steps: [["Zone sinistrée", "le feu"], ["Portes coupe-feu", "on les franchit"], ["Zone protégée", "même étage, à l'abri"]] },
   terrain: ["En IGH, une porte de compartiment calée ouverte casse tout le principe de sécurité.", "En établissement de soins, l'agent travaille avec le personnel soignant, qui connaît les patients."],
   retenir: ["IGH : plus de 50 m (habitation), plus de 28 m (autres).", "Transfert horizontal : même étage, zone voisine."],
-  refs: "CCH, art. R.146-3 et R.146-4 · arrêté du 30 décembre 2011 · type U, art. U 8 et U 10",
+  refs: "CCH, art. R.146-3, R.146-4, R.146-9 et R.146-10 · arrêté du 30 décembre 2011 · type U, art. U 8 et U 10",
   qcm: [
     ["Un immeuble de bureaux devient IGH au-delà de…", ["18 m", "28 m", "50 m", "100 m"], 1, "Plus de 28 m pour les usages autres que l'habitation."],
     ["Un immeuble d'habitation devient IGH au-delà de…", ["28 m", "50 m", "60 m", "200 m"], 1, "Plus de 50 m pour l'habitation."],
@@ -787,15 +803,15 @@ const CH2 = [
   ess: [
     "Le <b>chef d'équipe SSIAP 2</b> encadre les agents SSIAP 1. Il est le lien entre le terrain et le chef de service SSIAP 3 ou l'exploitant.",
     "Ses missions, fixées par l'arrêté du 2 mai 2005 : <b>management de l'équipe</b> de sécurité ; <b>formation</b> du personnel en matière de sécurité incendie ; <b>prévision technique</b> encadrée par les règlements de sécurité ; <b>entretien élémentaire</b> des moyens concourant à la sécurité ; <b>assistance à personnes</b> ; veille au respect de l'<b>hygiène et sécurité du travail</b> en matière d'incendie ; <b>direction du poste de sécurité lors des sinistres</b>.",
-    "Pour entrer en formation : être titulaire du <b>SSIAP 1</b> et justifier d'au moins <b>1 607 heures</b> d'activité d'agent sur les 24 derniers mois, avoir un <b>secourisme valide</b> et l'<b>aptitude médicale</b>.",
+    "Pour entrer en formation : être titulaire du <b>SSIAP 1</b> et justifier d'au moins <b>1 607 heures</b> d'activité d'agent sur les 24 derniers mois, être titulaire du <b>PSC1 de moins de 2 ans</b>, ou du <b>SST</b> ou du <b>PSE1</b> en cours de validité, et fournir un <b>certificat médical de moins de 3 mois</b> (annexe VII).",
     "La formation dure <b>70 heures</b> hors examen, en 4 parties : rôle et missions du chef d'équipe (38 h), manipulation du SSI (10 h), hygiène et sécurité du travail (6 h), chef du PC en situation de crise (16 h).",
     "L'examen comporte <b>3 épreuves</b> : un <b>QCM de 40 questions en 40 minutes</b> (12/20 minimum), une <b>épreuve orale</b> (animer une séquence pédagogique de 15 minutes, après un temps de préparation) et une <b>épreuve pratique</b> (diriger le PC dans un exercice de crise d'une vingtaine de minutes, avec plusieurs incidents à traiter). L'oral et la pratique sont notés apte ou inapte.",
-    "Le diplôme se garde par un <b>recyclage tous les 3 ans</b>, ou une remise à niveau si le délai est dépassé."
+    "Le diplôme se garde par un <b>recyclage tous les 3 ans</b>, au plus tard à la date anniversaire du diplôme. Une <b>remise à niveau</b> est exigée si cette date est dépassée ou si l'on ne justifie pas de 1 607 h d'activité SSIAP sur les 36 derniers mois (art. 7)."
   ],
   schema: { title: "Les 4 parties de la formation", steps: [["Chef d'équipe", "38 h"], ["SSI", "10 h"], ["Hygiène et sécurité", "6 h"], ["PC en crise", "16 h"]] },
   terrain: ["Le SSIAP 2 reste un agent de terrain : il fait des rondes, mais il doit aussi <b>voir l'ensemble</b> (planning, matériel, consignes, équipe).", "Il est le premier interlocuteur des secours quand il dirige le PC."],
   retenir: ["7 missions, dont la direction du PC lors des sinistres.", "70 h de formation ; QCM de 40 questions, oral de 15 min, pratique au PC."],
-  refs: "Arrêté du 2 mai 2005, art. 3, 5, 7 et annexe III",
+  refs: "Arrêté du 2 mai 2005, art. 2, 5 et 7 · annexes III (programme), V (recyclage et remise à niveau) et IX (examens)",
   qcm: [
     ["Combien d'heures d'activité faut-il pour entrer en formation SSIAP 2 ?", ["607 h sur 12 mois", "1 607 h sur 24 mois", "3 000 h sur 36 mois", "Aucune condition"], 1, "Au moins 1 607 heures d'activité d'agent sur les 24 derniers mois."],
     ["Combien de questions compte le QCM de l'examen SSIAP 2 ?", ["20", "30", "40", "50"], 2, "40 questions."],
@@ -848,13 +864,13 @@ const CH2 = [
     "Le chef d'équipe forme ses agents et <b>sensibilise le personnel</b> du site : extincteurs, conduite à tenir sur alarme, rôle des guides et serre-files, évacuation.",
     "Une séquence a <b>un seul objectif</b>, annoncé au début et formulé en action : « À la fin, vous saurez éteindre un feu de poubelle avec un extincteur à eau ».",
     "Elle suit 4 temps : <b>introduction</b> (objectif, plan, pourquoi c'est utile), <b>développement</b> (2 ou 3 points, du plus simple au plus complexe), <b>vérification</b> (questions, faire refaire le geste), <b>conclusion</b> (ce qu'il faut retenir).",
-    "On utilise des <b>méthodes actives</b> : montrer, faire faire, corriger. On parle simplement, on regarde le groupe, on tient le temps.",
-    "À l'examen, l'épreuve orale dure <b>15 minutes</b> sur un sujet tiré au sort du programme SSIAP 1 ou 2."
+    "On montre le geste (méthode démonstrative), puis on rend le stagiaire acteur (méthode active) : faire faire, faire dire, corriger. On parle simplement, on regarde le groupe, on tient le temps.",
+    "À l'examen, l'épreuve orale consiste à animer une séquence pédagogique de <b>15 minutes</b> sur un thème de sécurité incendie tiré au sort, après <b>15 minutes de préparation</b>."
   ],
   schema: { title: "Une séquence de 15 minutes", steps: [["Introduction", "2 min : objectif, plan"], ["Développement", "9 min : 2 ou 3 points"], ["Vérification", "3 min : questions, gestes"], ["Conclusion", "1 min : à retenir"]] },
   terrain: ["Préparer une fiche de séquence : objectif, plan minuté, matériel, questions de vérification.", "Toujours vérifier le matériel avant (extincteur de démonstration, plan, vidéo)."],
   retenir: ["Un objectif formulé en action.", "Introduction, développement, vérification, conclusion."],
-  refs: "Arrêté du 2 mai 2005, art. 5 et annexe III",
+  refs: "Arrêté du 2 mai 2005, art. 5 · annexes III et IX",
   qcm: [
     ["Un objectif pédagogique se formule…", ["Avec un verbe d'action", "Avec un titre vague", "Par une question", "Il n'est pas nécessaire"], 0, "« À la fin, vous saurez + action »."],
     ["Dans quel ordre se déroule une séquence ?", ["Conclusion, introduction, développement", "Introduction, développement, vérification, conclusion", "Vérification, développement, introduction", "Peu importe"], 1, "Introduction, développement, vérification, conclusion."],
@@ -873,29 +889,29 @@ const CH2 = [
   schema: { title: "La traçabilité", steps: [["Main courante", "tout, au fil de l'eau"], ["Rapport", "les incidents importants"], ["Hiérarchie", "informée par écrit"], ["Registre", "ce qui touche la sécurité du bâtiment"]] },
   terrain: ["Un bon rapport tient sur une page et se lit en 2 minutes.", "Relire avant d'envoyer : pas d'abréviation obscure, pas d'opinion, des heures précises."],
   retenir: ["Qui, quoi, où, quand, comment, actions, suites.", "Registre de sécurité : R.143-44, sous la responsabilité de l'exploitant."],
-  refs: "CCH, art. R.143-44 (ex-R.123-51) · arrêté du 25 juin 1980, art. GE",
+  refs: "CCH, art. R.143-44 (ex-R.123-51) · Code du travail, art. R.4227-39 (exercices consignés) · arrêté du 2 mai 2005, art. 2",
   qcm: [
     ["Un rapport d'incident contient…", ["Des opinions personnelles", "Des faits : qui, quoi, où, quand, comment", "Uniquement la date", "Rien d'obligatoire"], 1, "Des faits précis, les actions et les suites."],
-    ["Qui est responsable du registre de sécurité ?", ["L'agent SSIAP 1", "Le chef d'équipe", "L'exploitant", "Les pompiers"], 2, "L'exploitant (CCH, art. R.143-44)."],
+    ["À quel niveau l'arrêté du 2 mai 2005 confie-t-il la tenue des registres de sécurité ?", ["L'agent SSIAP 1", "Le chef d'équipe SSIAP 2", "Le chef de service SSIAP 3", "Les sapeurs-pompiers"], 2, "Au chef de service SSIAP 3 (art. 2). L'exploitant reste responsable du registre ; le SSIAP 2 l'alimente et en rend compte."],
     ["Que trouve-t-on dans le registre de sécurité ?", ["Les plannings de vente", "Vérifications, travaux, exercices, consignes, personnel de sécurité", "Les fiches de paie", "Les plaintes des clients"], 1, "Tout ce qui touche à la sécurité du bâtiment."],
     ["Sur la main courante, une erreur…", ["Se masque au correcteur", "Se barre d'un trait, lisible, et se corrige", "Se déchire", "S'efface au crayon"], 1, "On ne masque rien : on barre lisiblement."],
-    ["L'ancien article du registre de sécurité était…", ["R.123-51", "MS 73", "GN 13", "L.4121-1"], 0, "R.123-51, devenu R.143-44 en 2021."]
+    ["L'ancien article du registre de sécurité était…", ["R.123-51", "MS 73", "GN 13", "L.4121-1"], 0, "R.123-51, renuméroté R.143-44 au 1er juillet 2021."]
   ] },
 { n: 26, p: 5, t: "Faire appliquer les consignes de sécurité",
   obj: ["Distinguer consignes générales et particulières", "Faire respecter les consignes sans conflit"],
   ess: [
     "Les <b>consignes générales</b> s'appliquent à tout l'établissement (conduite à tenir en cas d'incendie, évacuation). Les <b>consignes particulières</b> visent un local ou un poste (PC, local de charge, cuisine, réserve).",
-    "Le Code du travail impose une <b>consigne de sécurité incendie</b> écrite dans les établissements de plus de 50 personnes ou utilisant des matières inflammables (art. R.4227-37) : matériel, personnes chargées de l'évacuation et de l'alerte, appel des secours (R.4227-38).",
+    "Le Code du travail impose une <b>consigne de sécurité incendie</b> écrite et affichée (R.4227-37) dans les établissements où plus de 50 personnes sont habituellement occupées ou réunies, ou qui manipulent des matières inflammables (R.4227-34) : matériel, personnes chargées de l'évacuation et de l'alerte, appel des secours (R.4227-38).",
     "Le chef d'équipe connaît les consignes, les <b>explique</b> aux agents et au personnel, et les <b>fait appliquer</b> : stockage devant une issue, porte coupe-feu calée, fumeur en réserve.",
     "Il fait <b>remonter</b> une consigne inadaptée ou dépassée pour qu'elle soit mise à jour."
   ],
   schema: { title: "Faire appliquer", steps: [["Connaître", "les consignes du site"], ["Expliquer", "le pourquoi"], ["Constater", "l'écart"], ["Corriger", "et tracer"]] },
   terrain: ["Expliquer le « pourquoi » (« cette porte retient la fumée ») convainc mieux que l'ordre seul.", "Un écart répété se signale par écrit à la hiérarchie."],
-  retenir: ["Générales = tout le site ; particulières = un local ou un poste.", "Consigne incendie écrite : R.4227-37 et R.4227-38."],
-  refs: "Code du travail, art. R.4227-37 à R.4227-39 · arrêté du 25 juin 1980, art. MS 47",
+  retenir: ["Générales = tout le site ; particulières = un local ou un poste.", "Consigne incendie écrite : R.4227-34, R.4227-37 et R.4227-38."],
+  refs: "Code du travail, art. R.4227-34, R.4227-37 à R.4227-39 · arrêté du 25 juin 1980, art. MS 47",
   qcm: [
     ["Une consigne pour le local de charge des batteries est…", ["Générale", "Particulière", "Facultative", "Nationale"], 1, "Elle vise un local précis : consigne particulière."],
-    ["La consigne incendie écrite est obligatoire au-delà de…", ["10 personnes", "50 personnes", "200 personnes", "1 500 personnes"], 1, "Plus de 50 personnes, ou matières inflammables (R.4227-37)."],
+    ["La consigne incendie écrite est obligatoire au-delà de…", ["10 personnes", "50 personnes", "200 personnes", "1 500 personnes"], 1, "Plus de 50 personnes habituellement présentes, ou matières inflammables (R.4227-34 et R.4227-37)."],
     ["Pour faire respecter une consigne, le mieux est…", ["Crier", "Expliquer le pourquoi", "Ignorer l'écart", "Menacer de sanctions"], 1, "Comprendre la raison aide à appliquer."],
     ["Une consigne dépassée…", ["S'applique quand même sans rien dire", "Se signale pour être mise à jour", "Se déchire", "Ne concerne pas le chef d'équipe"], 1, "On la fait remonter pour mise à jour."],
     ["Les exercices prévus par la consigne ont lieu au moins…", ["Tous les mois", "Tous les 6 mois", "Tous les ans", "Tous les 5 ans"], 1, "Au moins tous les 6 mois (R.4227-39)."]
@@ -911,7 +927,7 @@ const CH2 = [
   schema: { title: "Face à un incident technique", steps: [["Constater", "quoi, où, depuis quand"], ["Sécuriser", "personnes et zone"], ["Prévenir", "mainteneur, hiérarchie"], ["Compenser", "jusqu'à réparation"], ["Tracer", "main courante"]] },
   terrain: ["Le chef d'équipe connaît les <b>numéros d'astreinte</b> des mainteneurs (SSI, ascenseurs, électricité, sprinklers).", "Ne jamais laisser une zone hors service « en attendant » sans mesure compensatoire."],
   retenir: ["Constater, sécuriser, prévenir, compenser, tracer.", "Équipement hors service = mesure compensatoire."],
-  refs: "Arrêté du 25 juin 1980, dispositions MS",
+  refs: "Arrêté du 25 juin 1980, section MS (SSI) · NF S 61-933 (exploitation et maintenance du SSI)",
   qcm: [
     ["Une zone de détection hors service pour travaux…", ["Reste hors service sans limite", "Est compensée, tracée et limitée dans le temps", "Ne concerne pas le PC", "Est normale"], 1, "Durée limitée, trace écrite, mesure compensatoire."],
     ["Exemple de mesure compensatoire ?", ["Fermer les yeux", "Renforcer les rondes dans la zone", "Couper l'alarme générale", "Démonter le détecteur"], 1, "Rondes renforcées, agent posté, etc."],
@@ -922,18 +938,18 @@ const CH2 = [
 { n: 28, p: 5, t: "Le permis de feu, du côté du chef d'équipe",
   obj: ["Analyser une demande de travaux par point chaud", "Délivrer et clôturer un permis de feu"],
   ess: [
-    "Les <b>travaux par point chaud</b> (soudure, meulage, découpe, chalumeau) sont une cause majeure d'incendie. En ERP, les travaux dangereux sont interdits en présence du public (art. GN 13).",
+    "Les <b>travaux par point chaud</b> (soudure, meulage, découpe, chalumeau) sont une cause majeure d'incendie. En ERP, l'exploitant ne peut pas faire effectuer, en présence du public, des travaux qui le mettraient en danger ou gêneraient son évacuation (art. GN 13).",
     "Avant de délivrer un permis de feu, le chef d'équipe <b>analyse</b> : la zone (combustibles autour, gaines, faux plafonds), la détection (faut-il isoler une zone pour éviter une fausse alarme, et compenser ?), les moyens de secours à prévoir.",
     "Le permis est <b>écrit</b> et <b>signé</b> par l'entreprise et l'établissement. Il précise la date, la zone, la nature des travaux, les mesures de prévention, la durée de validité et la surveillance après travaux.",
     "Pendant : extincteur à portée, combustibles éloignés ou protégés. Après : <b>surveillance de la zone</b> le temps prévu par le permis, puis contrôle final, remise en service de la détection, et clôture signée.",
-    "L'entreprise extérieure relève aussi du Code du travail : <b>inspection commune</b> préalable (R.4512-2) et <b>plan de prévention écrit</b> pour les travaux dangereux ou au-delà de 400 heures sur 12 mois (R.4512-7)."
+    "L'entreprise extérieure relève aussi du Code du travail : <b>inspection commune</b> préalable (R.4512-2) et <b>plan de prévention écrit</b>, arrêté avant le début des travaux, dès que l'opération atteint au moins 400 heures sur 12 mois, ou quelle que soit sa durée pour les travaux dangereux de l'arrêté du 19 mars 1993, dont le soudage oxyacétylénique sous permis de feu (R.4512-7)."
   ],
   schema: { title: "Le cycle du permis de feu", steps: [["Demande", "nature, zone, date"], ["Analyse", "combustibles, détection"], ["Délivrance", "écrit et signé"], ["Surveillance", "pendant et après"], ["Clôture", "contrôle, remise en service"]] },
   terrain: ["Une détection isolée pour des travaux doit être <b>remise en service</b> à la fin : c'est l'oubli le plus dangereux.", "La surveillance après travaux se fait sur place, pas depuis le PC."],
   retenir: ["Analyser, délivrer, surveiller, clôturer.", "GN 13 · inspection commune R.4512-2 · plan de prévention R.4512-7."],
   refs: "Arrêté du 25 juin 1980, art. GN 13 · Code du travail, art. R.4512-2 à R.4512-7 · arrêté du 19 mars 1993",
   qcm: [
-    ["Un plan de prévention écrit est obligatoire…", ["Toujours", "Pour les travaux dangereux ou au-delà de 400 h sur 12 mois", "Jamais", "Au-delà de 10 h"], 1, "Code du travail, art. R.4512-7."],
+    ["Un plan de prévention écrit est obligatoire…", ["Toujours", "Pour les travaux dangereux ou dès 400 h sur 12 mois", "Jamais", "Au-delà de 10 h"], 1, "Code du travail, art. R.4512-7."],
     ["Avant des travaux de soudure près d'un détecteur, on…", ["Laisse tout tel quel", "Analyse s'il faut isoler la zone, avec compensation", "Démonte le détecteur", "Coupe tout le SSI"], 1, "Isolement limité, tracé et compensé si nécessaire."],
     ["L'oubli le plus dangereux après des travaux ?", ["Ne pas signer", "Ne pas remettre la détection en service", "Ne pas ranger les outils", "Ne pas boire de café"], 1, "Une zone restée hors service ne détectera pas un feu."],
     ["L'inspection commune préalable est prévue à l'article…", ["R.4512-2", "R.4227-39", "MS 18", "GH 55"], 0, "Code du travail, art. R.4512-2."],
@@ -968,16 +984,16 @@ const CH2 = [
     "Sur une détection, l'ECS passe en <b>alarme feu</b> et localise la ZD. Le PC reçoit l'<b>alarme restreinte</b>. Si personne n'agit pendant la <b>temporisation</b> (5 minutes au maximum), l'<b>alarme générale</b> se déclenche. Un DM déclenche aussi le processus.",
     "Le CMSI commande les <b>DAS</b> : ils passent de la <b>position d'attente</b> à la <b>position de sécurité</b>. Un DAS à <b>rupture</b> bascule quand le courant est coupé (sécurité positive) ; un DAS à <b>émission</b> bascule quand il reçoit une impulsion. Le retour de position est contrôlé : un DAS qui ne bascule pas se signale.",
     "Après l'intervention : vérifier que la cause a disparu, <b>réarmer l'ECS</b>, puis le <b>CMSI</b>, remettre les <b>DAS en position d'attente</b>, contrôler le retour en veille, tracer.",
-    "Un SSI de catégorie A ou B est vérifié <b>tous les 3 ans par un organisme agréé</b> (MS 73), en plus de la maintenance par un professionnel."
+    "Un SSI est vérifié <b>au moins une fois par an</b> (technicien compétent ou organisme agréé). S'il est de catégorie A ou B, il a en plus une <b>vérification triennale par un organisme agréé</b> (MS 73). La maintenance s'ajoute à ces vérifications."
   ],
   schema: { title: "D'une détection à l'alarme générale", steps: [["Détection", "ECS en alarme, ZD affichée"], ["Alarme restreinte", "au PC"], ["Levée de doute", "pendant la temporisation"], ["Alarme générale", "évacuation"], ["Retour en veille", "ECS, CMSI, DAS"]] },
   terrain: ["L'<b>acquittement</b> arrête le signal sonore au PC ; il ne réarme rien. Ne pas confondre.", "Un DAS en défaut de position (porte qui ne se ferme pas) est une anomalie grave à faire réparer et à compenser."],
-  retenir: ["Alarme restreinte, temporisation 5 min max, alarme générale.", "Réarmer : ECS, puis CMSI, puis DAS.", "SSI A ou B : vérification triennale par organisme agréé (MS 73)."],
+  retenir: ["Alarme restreinte, temporisation 5 min max, alarme générale.", "Réarmer : ECS, puis CMSI, puis DAS.", "SSI : vérification annuelle, plus triennale par organisme agréé en catégorie A ou B (MS 73)."],
   refs: "Arrêté du 25 juin 1980, MS 53 à MS 69 et MS 73 · NF S 61-934, 61-936, 61-937",
   qcm: [
     ["L'acquittement d'une alarme sur l'ECS…", ["Réarme tout le SSI", "Arrête le signal sonore local sans réarmer", "Déclenche l'alarme générale", "Ouvre les portes"], 1, "Acquitter n'est pas réarmer."],
     ["La temporisation maximale avant l'alarme générale est de…", ["1 min", "3 min", "5 min", "10 min"], 2, "5 minutes au maximum."],
-    ["Un SSI de catégorie A est vérifié par un organisme agréé…", ["Tous les ans", "Tous les 3 ans", "Tous les 10 ans", "Jamais"], 1, "Tous les 3 ans (MS 73)."],
+    ["La vérification d'un SSI de catégorie A par un organisme agréé, en plus de la vérification annuelle, a lieu…", ["Tous les 6 mois", "Tous les 3 ans", "Tous les 10 ans", "Jamais"], 1, "Tous les 3 ans (MS 73), en plus de la vérification annuelle."],
     ["Un DAS à rupture passe en sécurité quand…", ["Il reçoit une impulsion", "Le courant est coupé", "On le pousse", "Il fait chaud"], 1, "Manque de tension = sécurité positive."],
     ["Un DAS qui ne passe pas en position de sécurité…", ["N'est pas grave", "Est signalé et doit être réparé et compensé", "Se répare seul", "Doit être démonté"], 1, "Le contrôle de position le signale : anomalie grave."]
   ] },
@@ -988,12 +1004,12 @@ const CH2 = [
     "Installation <b>sous eau</b> : les tuyaux sont pleins d'eau en permanence. Installation <b>sous air</b> : dans les locaux exposés au gel, les tuyaux contiennent de l'air sous pression et l'eau n'arrive qu'après l'ouverture d'une tête.",
     "Le <b>poste de contrôle</b> regroupe la vanne principale, les manomètres et l'alarme hydraulique qui sonne quand l'eau s'écoule. La vanne doit rester <b>ouverte</b>, et sa position surveillée.",
     "Une tête ouverte ne se referme pas seule. On ne coupe l'eau <b>que sur ordre des sapeurs-pompiers</b>, une fois le feu éteint.",
-    "Dans certains locaux (informatique, archives), l'extinction se fait par <b>gaz</b> (CO2, gaz inertes). Le gaz chasse l'oxygène : le local doit être <b>évacué avant l'émission</b>, d'où une temporisation et des signaux d'alarme spécifiques."
+    "Dans certains locaux (informatique, archives), l'extinction se fait par <b>gaz</b> (CO2, gaz inertes). Le gaz chasse l'oxygène (et le CO2 est en plus toxique) : le local doit être <b>évacué avant l'émission</b>, d'où une temporisation et des signaux d'alarme spécifiques."
   ],
   schema: { title: "Sprinkler : du feu à l'arrêt de l'eau", steps: [["Feu", "la chaleur monte"], ["Tête ouverte", "l'eau arrose"], ["Alarme", "écoulement détecté"], ["Pompiers", "ils décident de couper"]] },
   terrain: ["En ronde : vanne principale ouverte et cadenassée, manomètres dans la plage normale, rien de stocké sous les têtes.", "Local à extinction gaz : ne jamais entrer après une émission sans l'accord des secours."],
   retenir: ["Sous eau ou sous air.", "On ne coupe l'eau que sur ordre des pompiers.", "Gaz : évacuer avant l'émission."],
-  refs: "Arrêté du 25 juin 1980, art. MS 25 à MS 29 · règle APSAD R1",
+  refs: "Arrêté du 25 juin 1980, art. MS 25 à MS 30 · règle APSAD R1",
   qcm: [
     ["Une installation sous air sert surtout…", ["Dans les locaux exposés au gel", "Dans les bureaux chauffés", "Dans les cuisines", "Nulle part"], 0, "L'air évite le gel des tuyaux."],
     ["Qui décide de couper l'eau d'un sprinkler en feu ?", ["L'agent qui arrive", "Les sapeurs-pompiers", "Le client", "Le directeur commercial"], 1, "On ne coupe que sur ordre des pompiers."],
@@ -1005,7 +1021,7 @@ const CH2 = [
   obj: ["Connaître les vérifications obligatoires", "Préparer une visite de la commission de sécurité"],
   ess: [
     "Les installations d'un ERP sont <b>vérifiées périodiquement</b>, soit par un <b>technicien compétent</b>, soit par un <b>organisme agréé</b>, selon les installations et la catégorie. Les rapports sont joints au registre de sécurité.",
-    "Exemples : <b>éclairage de sécurité</b> chaque année (EC 15) ; <b>installations électriques</b> chaque année (EL 19) ; <b>extincteurs</b> chaque année ; <b>SSI de catégorie A ou B</b> tous les 3 ans par un organisme agréé (MS 73) ; désenfumage mécanique associé à un SSI A ou B tous les 3 ans (DF 10).",
+    "Exemples : <b>éclairage de sécurité</b> chaque année (EC 15) ; <b>installations électriques</b> chaque année (EL 19) ; <b>extincteurs</b> chaque année ; <b>SSI</b> chaque année, plus tous les 3 ans par un organisme agréé en catégorie A ou B (MS 73) ; <b>désenfumage</b> chaque année, plus tous les 3 ans par un organisme agréé s'il est mécanique avec un SSI A ou B (DF 10).",
     "La <b>commission de sécurité</b> visite l'ERP : avant l'ouverture (<b>visite de réception</b>), puis <b>périodiquement</b> selon le type et la catégorie, et parfois de façon <b>inopinée</b>. Elle donne un <b>avis</b> (favorable ou défavorable). C'est le <b>maire</b> qui décide (ouverture, poursuite ou fermeture).",
     "Le chef d'équipe <b>prépare</b> la visite : registre à jour, rapports de vérification, levée des observations précédentes, plans, consignes, matériel en ordre. Il accompagne la commission et note ses observations."
   ],
@@ -1044,17 +1060,17 @@ const CH2 = [
 { n: 34, p: 7, t: "Accidents du travail, droit de retrait, entreprises extérieures",
   obj: ["Savoir réagir à un accident du travail", "Connaître le droit d'alerte et de retrait", "Connaître les règles des entreprises extérieures"],
   ess: [
-    "Un <b>accident du travail</b> se gère en 3 temps : porter secours, informer, tracer. La victime informe l'employeur dans la journée ou au plus tard sous <b>24 heures</b> ; l'employeur déclare l'accident à la CPAM sous <b>48 heures</b> (Code de la sécurité sociale, art. R.441-2 et R.441-3).",
-    "Un salarié qui a un motif raisonnable de penser qu'une situation présente un <b>danger grave et imminent</b> pour sa vie ou sa santé alerte l'employeur et peut <b>se retirer</b> de cette situation (droit d'alerte et de retrait, art. L.4131-1). Il ne peut pas être sanctionné pour ça (art. L.4131-3).",
-    "Quand une <b>entreprise extérieure</b> intervient : <b>inspection commune</b> préalable (R.4512-2), <b>plan de prévention</b> écrit pour les travaux dangereux ou au-delà de 400 heures sur 12 mois (R.4512-7).",
+    "Un <b>accident du travail</b> se gère en 3 temps : porter secours, informer, tracer. La victime informe l'employeur dans la journée ou au plus tard sous <b>24 heures</b> ; l'employeur déclare l'accident à la CPAM sous <b>48 heures</b>, hors dimanches et jours fériés (Code de la sécurité sociale, art. R.441-2 et R.441-3).",
+    "Un salarié qui a un motif raisonnable de penser qu'une situation présente un <b>danger grave et imminent</b> pour sa vie ou sa santé alerte l'employeur et peut <b>se retirer</b> de cette situation (droit d'alerte et de retrait, art. L.4131-1). Il ne peut pas être sanctionné pour ça (art. L.4131-3). Le retrait ne doit pas créer pour autrui un nouveau danger grave et imminent (art. L.4132-1).",
+    "Quand une <b>entreprise extérieure</b> intervient : <b>inspection commune</b> préalable (R.4512-2), <b>plan de prévention</b> écrit pour les travaux dangereux (liste de l'arrêté du 19 mars 1993), quelle que soit leur durée, ou dès 400 heures sur 12 mois (R.4512-7).",
     "Pour les <b>livraisons</b> (chargement et déchargement par un transporteur), un <b>protocole de sécurité</b> écrit remplace le plan de prévention (art. R.4515-4 et suivants)."
   ],
-  schema: { title: "Accident du travail", steps: [["Secourir", "protéger, alerter, secourir"], ["Informer", "l'employeur sous 24 h"], ["Déclarer", "l'employeur à la CPAM sous 48 h"], ["Tracer", "rapport, main courante"]] },
+  schema: { title: "Accident du travail", steps: [["Secourir", "protéger, alerter, secourir"], ["Informer", "l'employeur sous 24 h"], ["Déclarer", "l'employeur à la CPAM sous 48 h (hors dimanches et fériés)"], ["Tracer", "rapport, main courante"]] },
   terrain: ["Le chef d'équipe note précisément les circonstances : heure, lieu, témoins, ce qui a été fait.", "Le protocole de sécurité concerne directement les quais de livraison d'un hypermarché ou d'un entrepôt."],
   retenir: ["AT : 24 h pour informer l'employeur, 48 h pour la déclaration.", "Danger grave et imminent : droit d'alerte et de retrait (L.4131-1).", "Livraisons : protocole de sécurité (R.4515-4)."],
-  refs: "Code du travail, art. L.4131-1, L.4131-3, R.4512-2, R.4512-7, R.4515-4 · Code de la sécurité sociale, art. R.441-2 et R.441-3",
+  refs: "Code du travail, art. L.4131-1, L.4131-3, L.4132-1, R.4512-2, R.4512-7, R.4515-4 · Code de la sécurité sociale, art. R.441-2 et R.441-3",
   qcm: [
-    ["L'employeur déclare un accident du travail à la CPAM sous…", ["24 h", "48 h", "8 jours", "1 mois"], 1, "48 heures (CSS, art. R.441-3)."],
+    ["L'employeur déclare un accident du travail à la CPAM sous…", ["24 h", "48 h", "8 jours", "1 mois"], 1, "48 heures, hors dimanches et jours fériés (CSS, art. R.441-3)."],
     ["Le droit de retrait s'exerce face à…", ["Une tâche ennuyeuse", "Un danger grave et imminent", "Un désaccord sur le planning", "Une baisse de salaire"], 1, "Danger grave et imminent pour la vie ou la santé."],
     ["Pour les livraisons par un transporteur, on établit…", ["Un plan de prévention", "Un protocole de sécurité", "Un permis de feu", "Rien"], 1, "Un protocole de sécurité (R.4515-4)."],
     ["Un salarié qui exerce légitimement son droit de retrait…", ["Est sanctionné", "Ne peut pas être sanctionné", "Perd son salaire automatiquement", "Est licencié"], 1, "Code du travail, art. L.4131-3."],
@@ -1072,7 +1088,7 @@ const CH2 = [
     "Il garde le <b>contact radio</b> avec ses agents, avec des messages courts et confirmés (« reçu »)."
   ],
   schema: { title: "Le PC en crise", steps: [["Recevoir", "SSI, radios, appels"], ["Décider", "alerte, évacuation"], ["Répartir", "levée de doute, évacuation, accueil"], ["Tracer", "chronologie heure par heure"], ["Préparer", "le point pour les secours"]] },
-  terrain: ["Un message radio : <b>qui appelle, qui est appelé, le message, « reçu »</b>.", "Le calme du chef d'équipe se transmet : ton posé, ordres courts, une seule chose à la fois."],
+  terrain: ["Un message radio : <b>on nomme l'appelé, puis l'appelant</b> (« PC de Agent 1 »), on passe le message, et l'on confirme par « reçu ».", "Le calme du chef d'équipe se transmet : ton posé, ordres courts, une seule chose à la fois."],
   retenir: ["Le chef d'équipe reste au PC et répartit les missions.", "Chaque action est tracée avec l'heure."],
   refs: "Arrêté du 2 mai 2005, annexe III, partie 4",
   qcm: [
@@ -1087,23 +1103,2329 @@ const CH2 = [
   ess: [
     "À l'arrivée des sapeurs-pompiers, le <b>commandant des opérations de secours</b> (COS) prend la direction de l'intervention. Le <b>directeur des opérations de secours</b> (DOS) est le maire ou le préfet. Le chef d'équipe se met à la disposition du COS.",
     "Il lui fait un <b>point de situation</b> court : <b>où</b> est le feu, <b>quoi</b> (nature, ampleur), <b>qui</b> est évacué et <b>qui manque</b>, <b>ce qui a été fait</b> (attaque, DAS, désenfumage, coupures), les <b>risques particuliers</b>.",
-    "Il apporte des <b>conseils techniques</b> : chemins d'accès, plans, emplacement des coupures (gaz, électricité), colonnes et raccords, sprinklers, locaux dangereux. Les coupures et la reprise d'activité se font sur décision du COS.",
+    "Il apporte des <b>conseils techniques</b> : chemins d'accès, plans, emplacement des coupures (gaz, électricité), colonnes et raccords, sprinklers, locaux dangereux. Les coupures se font en lien avec le COS. La reprise d'activité n'est possible qu'après son accord : il rend ensuite les lieux à l'exploitant.",
     "Après la crise : <b>remise en état</b> (réarmement du SSI, DAS en attente, extincteurs utilisés remplacés, mesures compensatoires), <b>rapport</b> à la hiérarchie, et <b>retour d'expérience</b> avec l'équipe : ce qui a marché, ce qui doit changer."
   ],
   schema: { title: "Le point de situation", steps: [["Où", "localisation exacte"], ["Quoi", "nature et ampleur"], ["Qui", "évacués, manquants"], ["Fait", "actions menées"], ["Risques", "particuliers"]] },
   terrain: ["Préparer à l'avance un dossier pour les secours : plans, clés, numéros d'astreinte, liste des locaux à risques.", "Un retour d'expérience se fait à froid, sans chercher de coupable, pour améliorer les consignes."],
   retenir: ["COS = sapeur-pompier qui commande ; DOS = maire ou préfet.", "Point de situation : où, quoi, qui, fait, risques.", "Après : remise en état, rapport, retour d'expérience."],
-  refs: "Arrêté du 2 mai 2005, annexe III, partie 4 · Code de la sécurité intérieure (organisation des secours)",
+  refs: "Arrêté du 2 mai 2005, annexe III, partie 4 · Code de la sécurité intérieure, art. L.742-1 et s. · CGCT, art. L.1424-4 et L.2212-2",
   qcm: [
     ["Que signifie COS ?", ["Chef d'opération sécurité", "Commandant des opérations de secours", "Comité d'organisation sécurité", "Coordinateur de site"], 1, "Le sapeur-pompier qui dirige l'intervention."],
     ["Le directeur des opérations de secours est…", ["Le chef d'équipe", "Le maire ou le préfet", "Le directeur du magasin", "Le premier pompier arrivé"], 1, "Le DOS est le maire ou le préfet."],
     ["Dans le point de situation, on donne en premier…", ["Le nom du directeur", "Où se trouve le feu", "Le chiffre d'affaires", "La météo"], 1, "La localisation d'abord."],
-    ["Qui décide de la reprise d'activité après un feu ?", ["Le chef d'équipe seul", "Le COS", "Les clients", "Le premier agent"], 1, "Sur décision des secours."],
+    ["Sans l'accord de qui l'activité ne peut-elle pas reprendre après un feu ?", ["Le chef d'équipe seul", "Le COS", "Les clients", "Le premier agent"], 1, "Le COS donne son accord puis rend les lieux à l'exploitant."],
     ["Un retour d'expérience sert à…", ["Trouver un coupable", "Améliorer les consignes et les pratiques", "Remplir un dossier", "Rien"], 1, "On tire les leçons, sans chercher de coupable."]
   ] }
 ];
 
 CH.push(...CH2);
+
+/* QCM réécrits (une ou plusieurs bonnes réponses) */
+const QFIX = {
+"1": [
+[
+"Que signifie le sigle SSIAP ?",
+[
+"Service de surveillance incendie et d'alarme publique",
+"Service de sécurité incendie et d'assistance à personnes",
+"Système de sécurité incendie et d'alerte des pompiers",
+"Service spécialisé d'intervention et d'aide aux personnes"
+],
+1,
+"SSIAP signifie Service de Sécurité Incendie et d'Assistance à Personnes (arrêté du 2 mai 2005)."
+],
+[
+"Selon l'arrêté du 2 mai 2005, quel niveau de qualification correspond au chef d'équipe de sécurité incendie ?",
+[
+"Le SSIAP 1",
+"Le SSIAP 3",
+"Le SSIAP 2",
+"Le chef d'agrès sapeur-pompier"
+],
+2,
+"Le SSIAP 2 est chef d'équipe : il encadre les agents SSIAP 1 et dirige le PC sécurité en cas de sinistre."
+],
+[
+"Dans quels bâtiments trouve-t-on un service de sécurité incendie composé d'agents SSIAP, lorsque le règlement l'impose ?",
+[
+"Les maisons individuelles",
+"Les établissements recevant du public (ERP)",
+"Les immeubles de grande hauteur (IGH)",
+"Les immeubles d'habitation de moins de 28 m"
+],
+[
+1,
+2
+],
+"Le service de sécurité incendie est imposé dans certains ERP et dans les IGH ; les habitations ordinaires ne sont pas concernées."
+],
+[
+"Face à un départ de feu dans un ERP, parmi ces missions, lesquelles relèvent de l'agent de sécurité incendie SSIAP 1 ?",
+[
+"Alerter les sapeurs-pompiers",
+"Évacuer le public",
+"Diriger l'extinction à la place des pompiers",
+"Faciliter l'intervention des secours"
+],
+[
+0,
+1,
+3
+],
+"L'agent SSIAP 1 prévient, alerte, évacue et facilite l'intervention ; il ne remplace jamais les sapeurs-pompiers."
+],
+[
+"Quel est le rôle du SSIAP 3 dans un service de sécurité incendie ?",
+[
+"Effectuer les rondes et lever les doutes",
+"Encadrer les agents et diriger le PC en crise",
+"Chef de service : organiser la sécurité, conseiller l'exploitant",
+"Commander les sapeurs-pompiers à leur arrivée"
+],
+2,
+"Le SSIAP 3 est chef de service de sécurité : il organise la sécurité et conseille l'exploitant. Encadrer les agents et diriger le PC est le rôle du SSIAP 2."
+]
+],
+"2": [
+[
+"Quelle est la durée de la formation initiale SSIAP 1, hors temps d'examen ?",
+[
+"35 heures",
+"70 heures",
+"98 heures",
+"67 heures"
+],
+3,
+"La formation SSIAP 1 dure 67 heures hors examen, en 5 parties (arrêté du 2 mai 2005)."
+],
+[
+"Parmi ces conditions, lesquelles sont exigées pour entrer en formation SSIAP 1 ?",
+[
+"Un secourisme valide (SST ou PSE1 à jour, ou PSC1 de moins de 2 ans)",
+"Une aptitude médicale",
+"Être titulaire du permis de conduire B",
+"Savoir rédiger une anomalie sur la main courante"
+],
+[
+0,
+1,
+3
+],
+"L'accès au SSIAP 1 exige un secourisme valide, une aptitude médicale et la capacité à rédiger une main courante (arrêté du 2 mai 2005, art. 4). Le permis B n'est pas demandé."
+],
+[
+"Concernant l'examen du SSIAP 1, lesquelles de ces affirmations sont exactes ?",
+[
+"Le QCM comporte 30 questions en 30 minutes",
+"Le QCM est réussi à partir de 10/20",
+"L'épreuve pratique est une ronde d'environ 15 minutes",
+"L'examen comprend un rapport écrit d'une heure"
+],
+[
+0,
+2
+],
+"L'examen SSIAP 1 associe un QCM de 30 questions en 30 minutes (12/20 minimum) et une ronde d'environ 15 minutes avec anomalies et sinistre à traiter."
+],
+[
+"Selon le référentiel INRS, quelle est la durée de validité du certificat SST, l'un des secourismes acceptés pour le SSIAP ?",
+[
+"12 mois",
+"24 mois",
+"36 mois",
+"Sans limite de durée"
+],
+1,
+"Le certificat SST est valable 24 mois ; il se renouvelle par un MAC de 7 heures."
+],
+[
+"Pour un agent SSIAP 1, quelles sont la périodicité et la durée du recyclage obligatoire ?",
+[
+"Tous les 3 ans, 21 heures",
+"Tous les 2 ans, 14 heures",
+"Tous les 3 ans, 14 heures",
+"Tous les 5 ans, 7 heures"
+],
+2,
+"Le recyclage SSIAP 1 a lieu tous les 3 ans et dure 14 heures (arrêté du 2 mai 2005, art. 7). Les 21 heures correspondent à la remise à niveau, exigée si le délai est dépassé ou en cas de moins de 1 607 h d'activité sur 3 ans."
+]
+],
+"3": [
+[
+"Parmi ces éléments, lesquels composent le triangle du feu ?",
+[
+"Le combustible",
+"La fumée",
+"Le comburant",
+"L'énergie d'activation"
+],
+[
+0,
+2,
+3
+],
+"Le triangle du feu réunit combustible, comburant et énergie d'activation. La fumée est un produit de la combustion, pas une condition."
+],
+[
+"Dans le triangle du feu, quel est le comburant le plus courant ?",
+[
+"L'azote de l'air",
+"L'oxygène de l'air",
+"Le bois",
+"Le dioxyde de carbone (CO2)"
+],
+1,
+"Le comburant est en général l'oxygène de l'air. L'azote ne participe pas à la combustion et le CO2 sert au contraire à étouffer."
+],
+[
+"Que se passe-t-il si l'on retire l'un des trois éléments du triangle du feu (combustible, comburant, énergie d'activation) ?",
+[
+"Le feu continue grâce aux deux autres",
+"La combustion ralentit puis reprend seule",
+"La combustion s'arrête",
+"Le feu se transforme en feu couvant durable"
+],
+2,
+"Sans l'un des trois éléments, la combustion ne peut pas se poursuivre : toute l'extinction repose sur ce principe."
+],
+[
+"Dans le triangle du feu, lesquelles de ces sources jouent le rôle d'énergie d'activation ?",
+[
+"Un court-circuit électrique",
+"Des cartons stockés en réserve",
+"Une étincelle de meulage",
+"L'oxygène de l'air ambiant"
+],
+[
+0,
+2
+],
+"Le court-circuit et l'étincelle sont des sources de chaleur qui allument le feu. Les cartons sont un combustible et l'oxygène un comburant."
+],
+[
+"Pourquoi fermer la porte d'un local où un feu s'est déclaré ?",
+[
+"Pour refroidir le foyer",
+"Pour limiter l'apport d'oxygène au feu",
+"Pour supprimer le combustible",
+"Pour bloquer la réaction chimique"
+],
+1,
+"Fermer la porte réduit l'arrivée d'air (comburant) qui alimente le feu, et retient la fumée dans le local."
+]
+],
+"4": [
+[
+"Lors d'un incendie, la chaleur qui traverse une poutre métallique et enflamme un matériau situé de l'autre côté se propage par…",
+[
+"Convection",
+"Conduction",
+"Rayonnement",
+"Projection"
+],
+1,
+"La conduction est la transmission de la chaleur à travers un matériau, comme une poutre métallique."
+],
+[
+"Parmi ces propositions, lesquelles sont des modes de propagation d'un incendie ?",
+[
+"La conduction",
+"L'induction",
+"La projection",
+"L'oxydation"
+],
+[
+0,
+2
+],
+"Les 4 modes de propagation sont la conduction, la convection, le rayonnement et la projection. L'induction et l'oxydation n'en font pas partie."
+],
+[
+"Lors d'un incendie, pourquoi la fumée est-elle le premier danger pour les personnes ?",
+[
+"Elle est toxique (monoxyde de carbone, gaz irritants)",
+"Elle est opaque et fait perdre l'orientation",
+"Elle s'accumule d'abord au ras du sol",
+"Elle est chaude"
+],
+[
+0,
+1,
+3
+],
+"La fumée tue plus que les flammes : toxique, chaude et opaque. Elle monte et s'accumule d'abord en hauteur, pas au sol."
+],
+[
+"Lors d'une évacuation dans un couloir enfumé, pourquoi faut-il se baisser ?",
+[
+"Parce que l'air respirable se trouve près du sol",
+"Parce que la fumée descend d'abord vers le sol",
+"Pour passer sous les flammes plus vite",
+"Pour être mieux repéré par les secours"
+],
+0,
+"La fumée monte et s'accumule en hauteur : l'air le plus respirable reste près du sol."
+],
+[
+"Les gaz chauds qui montent dans une cage d'escalier, ou passent par une porte coupe-feu calée ouverte, propagent l'incendie par…",
+[
+"Conduction",
+"Rayonnement",
+"Projection",
+"Convection"
+],
+3,
+"La convection est le déplacement des gaz chauds et des fumées ; une porte coupe-feu calée ouverte la laisse passer."
+]
+],
+"5": [
+[
+"Selon la norme NF EN 2, lesquels de ces feux sont de classe A ?",
+[
+"Un feu de papier",
+"Un feu d'essence",
+"Un feu de palettes en bois",
+"Un feu de butane"
+],
+[
+0,
+2
+],
+"La classe A regroupe les feux de solides (bois, papier, tissu). L'essence relève de la classe B et le butane de la classe C."
+],
+[
+"Selon la norme NF EN 2, à quelle classe appartient un feu d'huile de friteuse ?",
+[
+"Classe B",
+"Classe C",
+"Classe D",
+"Classe F"
+],
+3,
+"La classe F concerne les huiles et graisses de cuisson. On ne met jamais d'eau : on étouffe."
+],
+[
+"Selon la norme NF EN 2, à quelle classe appartient un feu d'essence ou de plastique qui fond ?",
+[
+"Classe A",
+"Classe B",
+"Classe C",
+"Classe D"
+],
+1,
+"La classe B regroupe les liquides et les solides liquéfiables (essence, plastiques)."
+],
+[
+"Face à une fuite de gaz enflammée, lesquelles de ces actions sont correctes ?",
+[
+"Couper l'arrivée de gaz",
+"Arroser la flamme à l'eau pour la refroidir",
+"Ne pas éteindre la flamme tant que la fuite n'est pas coupée",
+"Souffler la flamme à la poudre avant de couper le gaz"
+],
+[
+0,
+2
+],
+"On supprime le combustible en coupant le gaz. Éteindre une flamme de gaz qui fuit libère du gaz non brûlé, avec un risque d'explosion."
+],
+[
+"Par quel mode d'action principal l'eau éteint-elle un feu ?",
+[
+"Par étouffement",
+"Par refroidissement",
+"Par blocage de la réaction chimique",
+"Par suppression du combustible"
+],
+1,
+"L'eau éteint surtout en refroidissant. L'étouffement correspond à la mousse, au CO2 ou à la couverture ; le blocage de la réaction, à la poudre."
+]
+],
+"6": [
+[
+"Que signifie le sigle ERP dans le Code de la construction et de l'habitation ?",
+[
+"Établissement à risques particuliers",
+"Établissement recevant du public",
+"Établissement réglementé pour la prévention",
+"Espace de regroupement du public"
+],
+1,
+"ERP signifie établissement recevant du public : un bâtiment où des personnes extérieures sont admises (CCH, art. R.143-2)."
+],
+[
+"Parmi ces associations entre type d'ERP et activité, lesquelles sont exactes ?",
+[
+"Type M : magasins de vente",
+"Type J : salles de spectacle",
+"Type U : établissements de soins",
+"Type R : restaurants"
+],
+[
+0,
+2
+],
+"M = magasins, U = établissements de soins. Les salles de spectacle sont de type L, les restaurants de type N ; J désigne les structures pour personnes âgées ou handicapées et R l'enseignement."
+],
+[
+"Quel est l'effectif admis dans un ERP de 1re catégorie ?",
+[
+"De 301 à 700 personnes",
+"De 701 à 1 500 personnes",
+"Plus de 1 500 personnes",
+"300 personnes et moins"
+],
+2,
+"1re catégorie : plus de 1 500 personnes ; 2e : 701 à 1 500 ; 3e : 301 à 700 ; 4e : 300 et moins (CCH, art. R.143-19)."
+],
+[
+"Pour classer un ERP du 1er groupe dans une catégorie, quels éléments sont pris en compte ?",
+[
+"L'effectif du public",
+"La surface de plancher",
+"La hauteur du bâtiment",
+"L'effectif du personnel non installé dans des locaux indépendants"
+],
+[
+0,
+3
+],
+"La catégorie dépend de l'effectif : public et personnel, sauf le personnel installé dans des locaux indépendants avec leurs propres dégagements. La surface et la hauteur ne comptent pas."
+],
+[
+"Un magasin (ERP de type M) reçoit au maximum 150 personnes de public, toutes au rez-de-chaussée. Comment est-il classé ?",
+[
+"4e catégorie, 1er groupe",
+"5e catégorie, 2e groupe",
+"3e catégorie, 1er groupe",
+"5e catégorie, 1er groupe"
+],
+1,
+"Un ERP est de 5e catégorie quand l'effectif du public n'atteint pas le seuil de son type. Pour le type M, ce seuil est de 200 personnes de public sur l'ensemble des niveaux, ou 100 en sous-sol ou en étages. La 5e catégorie forme le 2e groupe."
+]
+],
+"7": [
+[
+"Parmi ces objectifs, lesquels sont les buts premiers du règlement de sécurité incendie dans les ERP ?",
+[
+"Permettre l'évacuation de toutes les personnes",
+"Protéger en priorité les marchandises",
+"Faciliter l'intervention des secours",
+"Garantir la continuité de l'activité"
+],
+[
+0,
+2
+],
+"Le règlement de sécurité vise à permettre l'évacuation rapide et en bon ordre de tous les occupants, et à faciliter l'intervention des secours (CCH, art. R.143-4) : la priorité est la vie humaine."
+],
+[
+"En sécurité incendie, que caractérise la réaction au feu d'un matériau ?",
+[
+"Sa participation à l'alimentation du feu",
+"La durée pendant laquelle il joue son rôle",
+"Sa température d'inflammation exacte",
+"La vitesse à laquelle on peut l'éteindre"
+],
+0,
+"La réaction au feu indique si un matériau alimente le feu (Euroclasses de A1, incombustible, à F). La durée de tenue relève de la résistance au feu."
+],
+[
+"Dans le classement de résistance au feu « EI 60 » d'une porte, que signifie le chiffre 60 ?",
+[
+"60 °C de température maximale",
+"60 minutes de résistance au feu",
+"60 m² de surface protégée",
+"60 personnes pouvant la franchir"
+],
+1,
+"Le chiffre indique la durée de résistance en minutes : EI 60 = 1 heure."
+],
+[
+"Dans un classement de résistance au feu (R, E, I), que signifient les lettres ?",
+[
+"R : réaction au feu",
+"E : étanchéité aux flammes et gaz chauds",
+"I : isolation thermique",
+"E : éclairage de sécurité intégré"
+],
+[
+1,
+2
+],
+"R désigne la stabilité (capacité portante), E l'étanchéité aux flammes et gaz chauds, I l'isolation thermique. R ne signifie pas réaction au feu."
+],
+[
+"Dans un ERP, comment doivent être tenus les locaux à risques (réserves, locaux techniques, locaux poubelles) ?",
+[
+"Ouverts pour favoriser la ventilation",
+"Isolés, fermés et dégagés",
+"Portes calées pendant l'ouverture au public",
+"Accessibles au public comme issue"
+],
+1,
+"Les locaux à risques sont isolés pour qu'un feu y reste enfermé : ils doivent rester fermés et dégagés."
+]
+],
+"8": [
+[
+"Selon l'arrêté du 25 juin 1980 (art. CO 1 à CO 5), lesquelles de ces affirmations sur la desserte des bâtiments sont exactes ?",
+[
+"La voie engins permet de circuler et de stationner aux véhicules de secours",
+"La voie engins peut servir de parking au personnel la nuit",
+"La voie échelles sert au passage du public évacué",
+"La voie échelles permet de mettre en station une échelle aérienne devant une façade"
+],
+[
+0,
+3
+],
+"La voie engins sert aux véhicules de secours pour circuler et stationner ; la voie échelles permet de déployer une échelle aérienne devant la façade. Aucune ne doit être encombrée."
+],
+[
+"En sécurité incendie, qu'appelle-t-on un hydrant ?",
+[
+"Un robinet d'incendie armé (RIA)",
+"Un extincteur sur roues",
+"Un poteau ou une bouche d'incendie",
+"Une réserve d'émulseur"
+],
+2,
+"Les hydrants sont les poteaux et bouches d'incendie qui fournissent l'eau aux sapeurs-pompiers."
+],
+[
+"Lors d'une ronde extérieure, lesquelles de ces situations sont des anomalies à faire corriger ?",
+[
+"Une benne posée devant un poteau d'incendie",
+"Des palettes stockées sur la voie engins",
+"Un poteau d'incendie dégagé et signalé",
+"Un raccord de colonne sèche masqué par un véhicule"
+],
+[
+0,
+1,
+3
+],
+"Hydrants, voies pompiers et raccords de colonnes sèches doivent rester dégagés et signalés. Un poteau dégagé et signalé est conforme."
+],
+[
+"Le jour d'un feu, que doit faire un agent de sécurité à l'arrivée des sapeurs-pompiers ?",
+[
+"Rester au PC et attendre leur appel",
+"Fermer les accès du site à tous les véhicules",
+"Les attendre à l'entrée prévue et les guider",
+"Quitter le site avec le public évacué"
+],
+2,
+"Un agent accueille les secours à l'entrée prévue et les guide jusqu'au sinistre : cela fait gagner un temps précieux."
+],
+[
+"Quelle réglementation encadre les hydrants (poteaux et bouches d'incendie) ?",
+[
+"L'arrêté du 25 juin 1980, art. MS 18",
+"La réglementation DECI (défense extérieure contre l'incendie)",
+"La norme NF EN 2",
+"Le Code du travail, art. R.4227"
+],
+1,
+"Les hydrants relèvent de la DECI. L'article MS 18 concerne les colonnes sèches et la norme NF EN 2 les classes de feux."
+]
+],
+"9": [
+[
+"Dans un ERP, quelle largeur correspond à 1 unité de passage (UP) ?",
+[
+"0,60 m",
+"0,90 m",
+"1,20 m",
+"1,40 m"
+],
+1,
+"1 UP = 0,90 m (arrêté du 25 juin 1980, art. CO 36)."
+],
+[
+"En ERP, parmi ces correspondances entre unités de passage (UP) et largeur, lesquelles sont exactes ?",
+[
+"2 UP = 1,40 m",
+"2 UP = 1,80 m",
+"3 UP = 2,00 m",
+"4 UP = 2,40 m"
+],
+[
+0,
+2
+],
+"2 UP valent 1,40 m, puis chaque UP ajoute 0,60 m : 3 UP = 2,00 m et 4 UP = 2,60 m (CO 36)."
+],
+[
+"Selon l'article CO 38, combien de dégagements faut-il au minimum pour un local accueillant 300 personnes ?",
+[
+"1 dégagement",
+"2 dégagements",
+"3 dégagements",
+"4 dégagements"
+],
+1,
+"De 101 à 500 personnes, 2 dégagements sont exigés (CO 38). Un seul suffit en dessous de 20 personnes."
+],
+[
+"Pendant l'ouverture au public d'un ERP, lesquelles de ces situations sont des anomalies graves à faire cesser immédiatement ?",
+[
+"Une issue de secours encombrée par des cartons",
+"Une porte de sortie munie d'une barre anti-panique",
+"Une sortie de secours verrouillée à clé",
+"Une sortie signalée par un pictogramme vert"
+],
+[
+0,
+2
+],
+"Les dégagements doivent rester libres et s'ouvrir facilement : issue encombrée ou verrouillée = anomalie grave. Barre anti-panique et signalisation sont normales."
+],
+[
+"En ERP, qu'appelle-t-on un dégagement ?",
+[
+"Uniquement une porte donnant sur l'extérieur",
+"Une zone de stockage temporaire près des sorties",
+"Tout passage permettant de sortir : couloir, escalier, porte",
+"Un local de mise à l'abri du public"
+],
+2,
+"Un dégagement est tout passage qui permet de sortir : couloir, escalier, porte, sortie."
+]
+],
+"10": [
+[
+"Parmi ces affirmations sur le principe du désenfumage, lesquelles sont exactes ?",
+[
+"La fumée est évacuée en partie haute",
+"Le désenfumage sert d'abord à refroidir le foyer",
+"L'air frais est amené en partie basse",
+"L'air frais entre en partie haute pour chasser la fumée"
+],
+[
+0,
+2
+],
+"La fumée monte : on l'évacue en partie haute et on amène l'air frais en partie basse, pour garder les sorties praticables."
+],
+[
+"Qu'est-ce qui caractérise le désenfumage mécanique, par rapport au désenfumage naturel ?",
+[
+"Des ouvrants en façade ou en toiture",
+"Des sprinklers qui rabattent la fumée",
+"Des ventilateurs qui extraient la fumée",
+"Des portes coupe-feu qui la confinent"
+],
+2,
+"Le désenfumage mécanique utilise des ventilateurs ; le désenfumage naturel utilise des ouvrants par lesquels la fumée sort seule."
+],
+[
+"En ERP, quelle est l'autonomie minimale d'un bloc autonome d'éclairage de sécurité (BAES) ?",
+[
+"15 minutes",
+"30 minutes",
+"1 heure",
+"3 heures"
+],
+2,
+"Un BAES doit fonctionner au moins 1 heure après la coupure du courant normal (arrêté du 25 juin 1980, art. EC 7 à EC 15)."
+],
+[
+"En ERP, quels sont les rôles de l'éclairage de sécurité lors d'une coupure du courant normal ?",
+[
+"Baliser les sorties et les changements de direction",
+"Éclairer les vitrines pour la clientèle",
+"Éclairer les grandes salles pour éviter la panique",
+"Permettre la poursuite normale de l'activité"
+],
+[
+0,
+2
+],
+"L'éclairage de sécurité a deux rôles : l'évacuation (balisage) et l'ambiance ou anti-panique. Il ne sert pas à poursuivre l'activité."
+],
+[
+"En ERP, à partir de quel effectif du public l'éclairage d'ambiance (anti-panique) est-il exigé dans un local ?",
+[
+"100 personnes en étage ou au rez-de-chaussée, 50 en sous-sol",
+"50 personnes en étage, 100 en sous-sol",
+"200 personnes en étage, 100 en sous-sol",
+"300 personnes, quel que soit le niveau"
+],
+0,
+"L'éclairage d'ambiance est exigé dès que l'effectif du public peut atteindre 100 personnes en étage ou au rez-de-chaussée, ou 50 en sous-sol."
+]
+],
+"11": [
+[
+"Parmi ces extincteurs, lesquels conviennent à un feu de classe B (liquides inflammables) ?",
+[
+"Extincteur à eau pulvérisée avec additif",
+"Extincteur à CO2",
+"Extincteur à poudre polyvalente ABC",
+"Extincteur à eau pulvérisée sans additif"
+],
+[
+0,
+1,
+2
+],
+"L'eau pulvérisée avec additif agit sur les feux A et B, le CO2 sur les feux B et près de l'électricité, la poudre polyvalente sur les feux A, B et C. L'eau sans additif ne convient pas aux feux de liquides."
+],
+[
+"Selon les articles MS 38 et MS 39 (ERP) et R.4227-29 du Code du travail, quelle est la dotation minimale en extincteurs à eau pulvérisée de 6 litres ?",
+[
+"1 pour 200 m², et au moins 1 par niveau",
+"1 pour 300 m², et au moins 1 par bâtiment",
+"1 pour 100 m², et au moins 2 par niveau",
+"1 pour 500 m², et au moins 1 par niveau"
+],
+0,
+"La règle commune ERP (MS 38, MS 39) et Code du travail (R.4227-29) : au moins 1 extincteur de 6 L pour 200 m², et au moins 1 par niveau."
+],
+[
+"Lors de l'utilisation d'un extincteur sur un feu naissant, quelles règles l'agent applique-t-il ?",
+[
+"Viser la base des flammes en balayant",
+"Garder une sortie dans son dos pour ne pas se laisser couper la retraite",
+"Viser le haut des flammes pour rabattre la fumée",
+"Tenir l'extincteur CO2 par son diffuseur pour mieux viser"
+],
+[
+0,
+1
+],
+"On attaque la base des flammes par balayage, dos à une sortie, sans jamais se laisser couper la retraite. Le CO2 refroidit fortement : on ne tient jamais le diffuseur."
+],
+[
+"Qu'est-ce qui caractérise un RIA (robinet d'incendie armé) ?",
+[
+"Un tuyau semi-rigide toujours sous eau, qui débite en continu",
+"Une canalisation vide, alimentée par l'engin des sapeurs-pompiers",
+"Une tête qui s'ouvre seule quand son ampoule éclate",
+"Un appareil portatif qui se vide en quelques secondes"
+],
+0,
+"Le RIA est un tuyau semi-rigide sous eau enroulé sur un dévidoir ; il donne de l'eau en continu, pour des feux plus importants qu'un extincteur."
+],
+[
+"Dans un ERP, à quelle fréquence les extincteurs doivent-ils être vérifiés ?",
+[
+"Chaque année, par une personne compétente",
+"Tous les 6 mois, par l'agent SSIAP 1 seul",
+"Tous les 3 ans, par les sapeurs-pompiers",
+"Uniquement tous les 10 ans, par le fabricant"
+],
+0,
+"Les extincteurs sont vérifiés chaque année par une personne ou une entreprise compétente. En ronde, l'agent contrôle que chaque extincteur est à sa place, visible, accessible, plombé et que son étiquette de vérification est à jour."
+]
+],
+"12": [
+[
+"Selon la norme NF C 18-510, que doit posséder un agent pour intervenir sur une installation électrique ?",
+[
+"Une habilitation électrique adaptée",
+"Le diplôme SSIAP 1 en cours de validité",
+"Une autorisation verbale du chef d'équipe",
+"Le certificat de sauveteur secouriste du travail"
+],
+0,
+"L'habilitation électrique (NF C 18-510) est obligatoire. Sans elle, l'agent ne touche à rien et utilise seulement la coupure d'urgence prévue par les consignes."
+],
+[
+"Selon la section EL du règlement de sécurité ERP, comment doivent être tenus les locaux de service électrique (TGBT, tableaux) ?",
+[
+"Fermés à clé",
+"Dégagés de tout stockage",
+"Signalés",
+"Ouverts en permanence pour les secours"
+],
+[
+0,
+1,
+2
+],
+"Les locaux de service électrique sont isolés, fermés à clé, dégagés et signalés. Les laisser ouverts est une anomalie."
+],
+[
+"Pendant un incendie dans un ERP, lesquelles de ces affirmations sur les ascenseurs sont exactes ?",
+[
+"Les ascenseurs ordinaires ne servent pas à l'évacuation du public",
+"Les ascenseurs prévus pour l'évacuation des personnes handicapées (AS 4, AS 5) sont utilisés sur ordre du service de sécurité ou des secours",
+"Le monte-charge sert d'évacuation de secours pour le public",
+"Toute personne à mobilité réduite peut prendre librement un ascenseur"
+],
+[
+0,
+1
+],
+"Pendant un feu, on n'évacue pas le public par les ascenseurs ordinaires ni par le monte-charge. Seuls les ascenseurs prévus pour évacuer les personnes handicapées (AS 4 et AS 5) sont utilisés, avec une commande à clé, sur ordre du service de sécurité ou des secours."
+],
+[
+"Une personne est bloquée dans une cabine d'ascenseur. Que fait l'agent qui n'est pas formé à la manœuvre de l'appareil ?",
+[
+"Il la rassure, reste en contact et prévient l'ascensoriste",
+"Il force les portes palières pour la libérer",
+"Il coupe l'alimentation électrique générale du bâtiment",
+"Il déplace la cabine depuis la machinerie"
+],
+0,
+"On rassure la personne, on reste en contact et on prévient l'ascensoriste : seule une personne formée et autorisée manœuvre l'appareil."
+],
+[
+"Pourquoi le SSI peut-il arrêter la ventilation et la climatisation (CTA) sur alarme feu ?",
+[
+"Pour éviter qu'elles propagent la fumée",
+"Pour réduire la consommation électrique",
+"Pour rendre l'alarme sonore plus audible",
+"Pour accélérer le réarmement de l'ECS"
+],
+0,
+"La ventilation et la climatisation peuvent transporter la fumée d'une zone à l'autre ; le SSI peut donc les arrêter sur alarme feu."
+]
+],
+"13": [
+[
+"Lors du déclenchement d'une installation d'extinction automatique à eau (sprinklers), quelles têtes s'ouvrent ?",
+[
+"Seules les têtes chauffées dont l'ampoule a éclaté",
+"Toutes les têtes du bâtiment en même temps",
+"Toutes les têtes du niveau concerné",
+"Les têtes ouvertes à distance depuis le PC sécurité"
+],
+0,
+"Chaque tête s'ouvre individuellement quand son ampoule éclate sous la chaleur : on n'inonde pas tout le bâtiment."
+],
+[
+"À quelle température éclate en général l'ampoule rouge d'une tête de sprinkler ?",
+[
+"Environ 30 °C",
+"Environ 68 °C",
+"Environ 141 °C",
+"Environ 300 °C"
+],
+1,
+"L'ampoule rouge, la plus courante, éclate vers 68 °C."
+],
+[
+"Parmi ces éléments, lesquels font partie d'une installation de sprinklers ?",
+[
+"Une source d'eau (réseau public, réserve ou pompes)",
+"Un poste de contrôle équipé de vannes",
+"Une alarme déclenchée par l'écoulement de l'eau",
+"Une commande d'ouverture de chaque tête au PC"
+],
+[
+0,
+1,
+2
+],
+"Le réseau est alimenté par une source d'eau, contrôlé depuis un poste de contrôle, et l'écoulement de l'eau déclenche une alarme. Les têtes s'ouvrent seules, sans commande manuelle."
+],
+[
+"Lors d'une ronde dans une zone protégée par sprinklers, lesquelles de ces situations sont des anomalies à signaler ?",
+[
+"Une vanne du poste de contrôle fermée sans raison",
+"Des palettes stockées au contact des têtes",
+"Un espace libre maintenu sous les têtes",
+"Des têtes intactes avec leurs ampoules pleines"
+],
+[
+0,
+1
+],
+"Une vanne fermée sans raison rend le système inopérant (anomalie grave). Un stockage trop proche des têtes empêche l'eau de se répartir."
+],
+[
+"Quel est le rôle d'un système d'extinction automatique à eau (sprinklers) ?",
+[
+"Éteindre ou contenir un feu dès son début, sans intervention humaine",
+"Évacuer les fumées vers l'extérieur par des exutoires",
+"Alimenter en eau les RIA et les colonnes humides",
+"Remplacer l'alarme générale du bâtiment"
+],
+0,
+"Les sprinklers éteignent ou contiennent un feu naissant automatiquement (arrêté du 25 juin 1980, MS 25 à MS 29)."
+]
+],
+"14": [
+[
+"Lesquelles de ces affirmations sur la colonne sèche sont exactes ?",
+[
+"Elle est vide en temps normal",
+"Les sapeurs-pompiers l'alimentent par le raccord en pied de colonne, côté voie des engins",
+"Elle est toujours pleine d'eau sous pression",
+"Le personnel du site l'utilise comme un RIA"
+],
+[
+0,
+1
+],
+"La colonne sèche est vide : les pompiers l'alimentent en branchant leur engin sur le raccord en bas, côté voie. C'est la colonne humide qui est en charge, et aucune colonne n'est un RIA."
+],
+[
+"Qui est autorisé à utiliser les colonnes sèches et humides d'un bâtiment ?",
+[
+"Les sapeurs-pompiers",
+"Les agents SSIAP du site",
+"Les employés formés aux extincteurs",
+"Toute personne témoin du feu"
+],
+0,
+"Les colonnes sèches et humides sont réservées aux sapeurs-pompiers."
+],
+[
+"En IGH (arrêté du 30 décembre 2011), quel type de colonne est exigé lorsque le plancher bas du dernier niveau est à plus de 50 m ?",
+[
+"Une colonne humide (en charge)",
+"Une colonne sèche",
+"Un RIA à chaque niveau, sans colonne",
+"Aucune colonne, les sprinklers suffisent"
+],
+0,
+"En IGH, la colonne sèche suffit jusqu'à 50 m (plancher bas du dernier niveau). Au-delà, la colonne doit être humide, c'est-à-dire en charge (GH 54 et GH 55)."
+],
+[
+"En ERP, selon l'article MS 18, quand des colonnes sèches sont-elles exigées ?",
+[
+"Locaux à risques importants dans des étages dont le plancher bas est à plus de 18 m au-dessus de la voie des engins",
+"Locaux à risques importants dans des étages dont le plancher bas est à plus de 8 m au-dessus de la voie des engins",
+"Tout ERP dont le plancher bas du dernier niveau dépasse 28 m au-dessus du sol",
+"Tout ERP de 1re catégorie, quelle que soit sa hauteur"
+],
+0,
+"L'article MS 18 exige des colonnes sèches lorsque des locaux à risques importants sont situés dans des étages dont le plancher bas est à plus de 18 m au-dessus de la voie des engins."
+],
+[
+"Lors d'une ronde, lesquelles de ces situations concernant une colonne sèche sont des anomalies ?",
+[
+"Un véhicule garé devant le raccord en pied de colonne",
+"Un coffret de prise d'étage encombré de cartons",
+"Une signalisation du raccord lisible et dégagée",
+"Un coffret de prise d'étage fermé et accessible"
+],
+[
+0,
+1
+],
+"Le raccord doit rester accessible en permanence et les coffrets des prises doivent être fermés et dégagés."
+]
+],
+"15": [
+[
+"Dans un système de sécurité incendie (SSI), quelles zones sont regroupées dans la zone de mise en sécurité (ZS) ?",
+[
+"ZA (alarme)",
+"ZC (compartimentage)",
+"ZF (désenfumage)",
+"ZD (détection)"
+],
+[
+0,
+1,
+2
+],
+"La ZS regroupe la ZA (alarme), la ZC (compartimentage) et la ZF (désenfumage, F comme fumée). La ZD relève du SDI, la détection."
+],
+[
+"Dans la chaîne d'un SSI, quels éléments transmettent l'information de départ de feu à l'ECS ?",
+[
+"Le DAI (détecteur automatique)",
+"Le DM (déclencheur manuel)",
+"L'UGA (unité de gestion d'alarme)",
+"Le DAS (dispositif actionné de sécurité)"
+],
+[
+0,
+1
+],
+"Le DAI ou le DM donne l'information, l'ECS la reçoit et localise la zone. L'UGA et les DAS sont en aval : ils alertent et exécutent sur ordre du CMSI."
+],
+[
+"Quel équipement d'alarme est associé à un SSI de catégorie A ?",
+[
+"Un équipement d'alarme de type 1",
+"Un équipement d'alarme de type 2a",
+"Un équipement d'alarme de type 3",
+"Un équipement d'alarme de type 4"
+],
+0,
+"Le SSI de catégorie A, le plus complet, est associé à un équipement d'alarme de type 1."
+],
+[
+"Dans un ERP, quelle est la durée maximale de la temporisation de l'alarme générale d'un SSI ?",
+[
+"1 minute",
+"5 minutes",
+"10 minutes",
+"15 minutes"
+],
+1,
+"En ERP, la temporisation de l'alarme générale ne peut pas dépasser 5 minutes, et elle n'est admise que si du personnel qualifié est présent pour faire la levée de doute."
+],
+[
+"Après une alarme feu dont la cause a disparu, dans quel ordre réarme-t-on le SSI ?",
+[
+"ECS, puis CMSI, puis DAS en position d'attente",
+"CMSI, puis ECS, puis DAS en position d'attente",
+"DAS en position d'attente, puis ECS, puis CMSI",
+"DAS en position d'attente, puis CMSI, puis ECS"
+],
+0,
+"On réarme d'abord l'ECS, puis le CMSI, puis on remet les DAS en position d'attente, et seulement quand la cause a disparu."
+]
+],
+"16": [
+[
+"Combien de missions l'arrêté du 2 mai 2005 (art. 2) fixe-t-il au service de sécurité incendie ?",
+[
+"3",
+"5",
+"8",
+"12"
+],
+2,
+"L'article 2 de l'arrêté du 2 mai 2005 fixe 8 missions, de la prévention des incendies à l'exploitation du PC sécurité."
+],
+[
+"Parmi ces tâches, lesquelles font partie des missions du service de sécurité incendie fixées par l'arrêté du 2 mai 2005 ?",
+[
+"La sensibilisation des employés",
+"L'alerte et l'accueil des secours",
+"L'exploitation du PC sécurité",
+"La fouille des personnes suspectes"
+],
+[
+0,
+1,
+2
+],
+"Sensibilisation des employés, alerte et accueil des secours et exploitation du PC font partie des 8 missions (art. 2). La fouille ne relève pas de la sécurité incendie."
+],
+[
+"Quelles informations l'agent inscrit-il pour chaque événement sur la main courante du PC sécurité ?",
+[
+"L'heure et les faits constatés",
+"Les actions menées et le nom de l'agent",
+"Uniquement les départs de feu confirmés",
+"Les horaires d'ouverture de l'établissement"
+],
+[
+0,
+1
+],
+"Chaque événement s'écrit avec l'heure, les faits, les actions et le nom de l'agent, au fil de l'eau, sans blanc ni rature masquée."
+],
+[
+"Selon l'article R.143-44 du Code de la construction et de l'habitation, qui est responsable du registre de sécurité d'un ERP ?",
+[
+"L'exploitant de l'établissement",
+"L'agent SSIAP 1 de service",
+"Le chef de centre des sapeurs-pompiers",
+"La commission de sécurité"
+],
+0,
+"Le registre de sécurité trace vérifications, travaux, exercices et personnel de sécurité ; l'exploitant en est responsable (CCH, art. R.143-44)."
+],
+[
+"Parmi les missions du service de sécurité incendie, en quoi consiste l'intervention précoce ?",
+[
+"Attaquer un feu naissant à l'extincteur ou au RIA, sans se mettre en danger",
+"Attendre l'arrivée des sapeurs-pompiers sans engager d'action",
+"Couper l'alarme générale dès que la levée de doute est faite",
+"Faire sortir le public sans jamais attaquer le feu"
+],
+0,
+"L'intervention précoce consiste à attaquer un feu qui commence avec un extincteur ou un RIA, sans prendre de risque (arrêté du 2 mai 2005, art. 2)."
+]
+],
+"17": [
+[
+"Lors d'une ronde de sécurité incendie, lesquels de ces éléments l'agent contrôle-t-il ?",
+[
+"Les issues de secours et les circulations",
+"L'éclairage de sécurité (BAES)",
+"Les portes coupe-feu",
+"Les prix affichés en rayon"
+],
+[
+0,
+1,
+2
+],
+"La ronde contrôle notamment les issues de secours, les extincteurs et RIA, l'éclairage de sécurité, les portes coupe-feu, les circulations et les locaux techniques."
+],
+[
+"Un intervenant d'une entreprise extérieure se présente à l'entrée du site mais n'apparaît pas sur la liste transmise. Que fait l'agent ?",
+[
+"Il ne le laisse pas entrer et prévient le chef d'équipe",
+"Il le laisse entrer s'il présente sa carte professionnelle",
+"Il le laisse entrer s'il est accompagné d'un collègue listé",
+"Il le laisse entrer et régularise la liste le lendemain"
+],
+0,
+"Une entreprise extérieure est identifiée à l'entrée grâce à la liste transmise : pas sur la liste, pas d'accès sans décision du responsable."
+],
+[
+"Quel article du règlement de sécurité ERP (arrêté du 25 juin 1980) interdit les travaux présentant un danger en présence du public ?",
+[
+"GN 13",
+"MS 18",
+"CO 43",
+"GN 8"
+],
+0,
+"L'article GN 13 interdit de faire, en présence du public, des travaux qui lui font courir un danger ou qui gênent son évacuation. C'est souvent le cas des travaux par point chaud."
+],
+[
+"Selon l'article R.4512-7 du Code du travail, dans quels cas le plan de prévention avec une entreprise extérieure doit-il être écrit ?",
+[
+"Pour des travaux dangereux",
+"Dès 400 heures de travaux sur 12 mois",
+"Pour toute intervention de moins d'une heure",
+"Seulement si l'entreprise extérieure le demande"
+],
+[
+0,
+1
+],
+"Le plan de prévention est écrit pour les travaux dangereux ou dès 400 h sur 12 mois (R.4512-7), après une inspection commune préalable (R.4512-2)."
+],
+[
+"Pourquoi la zone de travaux par point chaud (soudure, meulage, découpe) est-elle surveillée après la fin du chantier ?",
+[
+"Parce qu'un feu peut couver des heures après",
+"Parce que le permis de feu doit être rendu sur place",
+"Parce que les ouvriers doivent être recomptés",
+"Parce que la zone doit être nettoyée avant l'ouverture"
+],
+0,
+"Une braise peut reprendre longtemps après une soudure : la zone est surveillée le temps prévu par le permis de feu."
+]
+],
+"18": [
+[
+"Sur une alarme feu, quelle est la première action du PC sécurité ?",
+[
+"Lire la zone sur l'ECS et envoyer un agent en levée de doute",
+"Lancer l'évacuation générale sans vérifier",
+"Acquitter puis réarmer immédiatement le SSI",
+"Attendre une seconde alarme pour confirmer"
+],
+0,
+"Le PC lit la zone sur l'ECS et envoie un agent en levée de doute avec un extincteur et une radio ; l'agent rend compte : feu, fumée sans feu ou fausse alarme."
+],
+[
+"Quels numéros permettent de joindre les sapeurs-pompiers en France ?",
+[
+"Le 18",
+"Le 112",
+"Le 15",
+"Le 17"
+],
+[
+0,
+1
+],
+"Le 18 est le numéro des sapeurs-pompiers et le 112 le numéro d'urgence européen. Le 15 est le SAMU, le 17 la police."
+],
+[
+"Quelles informations un message d'alerte aux secours doit-il contenir ?",
+[
+"Qui appelle et un numéro de rappel",
+"L'adresse exacte, le bâtiment et le niveau",
+"Les victimes et les actions déjà faites",
+"Le coût estimé des dégâts matériels"
+],
+[
+0,
+1,
+2
+],
+"Le message suit l'ordre : qui appelle, où, quoi, les victimes, les actions déjà faites, un numéro de rappel."
+],
+[
+"Lors d'un appel aux secours, qui met fin à la communication ?",
+[
+"L'opérateur des secours",
+"L'appelant, une fois l'adresse donnée",
+"L'appelant, dès que l'opérateur a noté son nom",
+"Le chef d'équipe présent au PC"
+],
+0,
+"On ne raccroche jamais le premier : c'est l'opérateur qui met fin à l'appel."
+],
+[
+"En levée de doute, un agent arrive devant un local enfumé. Que fait-il ?",
+[
+"Il n'entre pas, garde une sortie derrière lui et rend compte au PC",
+"Il entre pour localiser le foyer avant de rendre compte",
+"Il ouvre toutes les portes pour évacuer la fumée",
+"Il revient au PC sans transmettre d'information"
+],
+0,
+"La sécurité de l'agent passe d'abord : on n'entre pas dans un local enfumé, on garde une sortie derrière soi et on rend compte."
+]
+],
+"19": [
+[
+"Lors d'une évacuation, quel est le rôle du serre-file ?",
+[
+"Fermer la marche et vérifier que personne ne reste",
+"Ouvrir la marche et montrer le chemin des sorties",
+"Rester au PC sécurité pour suivre l'évacuation",
+"Attendre les secours à l'entrée du site"
+],
+0,
+"Les guides montrent le chemin vers les sorties ; les serre-files ferment la marche et vérifient que personne ne reste."
+],
+[
+"Selon le Code du travail (R.4227-39), à quelle fréquence minimale organise-t-on des exercices d'évacuation dans un établissement de plus de 50 personnes ou manipulant des matières inflammables ?",
+[
+"Tous les mois",
+"Tous les 6 mois",
+"Tous les ans",
+"Tous les 3 ans"
+],
+1,
+"Le Code du travail impose des exercices d'évacuation au moins tous les 6 mois dans ces établissements (art. R.4227-34, R.4227-37 et R.4227-39)."
+],
+[
+"Une fois le public arrivé au point de rassemblement, lesquelles de ces actions sont correctes ?",
+[
+"Compter les personnes évacuées",
+"Ne laisser personne rentrer avant l'accord des secours",
+"Laisser rentrer le public dès que l'alarme s'arrête",
+"Autoriser un retour rapide pour chercher un objet"
+],
+[
+0,
+1
+],
+"Au point de rassemblement, on compte les personnes et on ne laisse revenir personne avant l'accord des secours ; on ne retourne jamais chercher un objet."
+],
+[
+"Face à une personne victime d'un malaise, dans quel ordre l'agent agit-il ?",
+[
+"Protéger, alerter, secourir",
+"Secourir, protéger, alerter",
+"Alerter, secourir, protéger",
+"Secourir, alerter, protéger"
+],
+0,
+"Assistance à personnes : protéger, alerter (15 ou 18), puis secourir selon sa formation SST ou PSE."
+],
+[
+"Lors d'une évacuation, que fait-on pour une personne qui ne peut pas descendre seule les escaliers ?",
+[
+"On l'aide à évacuer",
+"On la met à l'abri dans un espace d'attente sécurisé, s'il existe",
+"On la signale aux secours",
+"On la laisse attendre seule dans le hall d'accueil"
+],
+[
+0,
+1,
+2
+],
+"Ces personnes sont aidées ou mises à l'abri dans un espace d'attente sécurisé quand le bâtiment en dispose, et signalées aux secours."
+]
+],
+"20": [
+[
+"Selon le Code de la construction et de l'habitation, lesquels de ces bâtiments sont des IGH ? (hauteur du plancher bas du dernier niveau)",
+[
+"Un immeuble de bureaux à 30 m",
+"Un immeuble d'habitation à 55 m",
+"Un immeuble d'habitation à 40 m",
+"Un immeuble de bureaux à 25 m"
+],
+[
+0,
+1
+],
+"Est IGH un bâtiment dont le plancher bas du dernier niveau est à plus de 50 m pour l'habitation et plus de 28 m pour les autres usages."
+],
+[
+"À partir de quelle hauteur du plancher bas du dernier niveau un immeuble devient-il un ITGH (immeuble de très grande hauteur) ?",
+[
+"Plus de 50 m",
+"Plus de 100 m",
+"Plus de 200 m",
+"Plus de 500 m"
+],
+2,
+"Au-delà de 200 m, l'immeuble est un ITGH."
+],
+[
+"Dans un hôpital (type U) ou un EHPAD (type J), en quoi consiste le transfert horizontal ?",
+[
+"Déplacer les personnes sur le même étage vers une zone protégée voisine",
+"Descendre tous les patients par les escaliers protégés",
+"Laisser chaque patient dans sa chambre porte fermée",
+"Évacuer les patients par les ascenseurs vers le rez-de-chaussée"
+],
+0,
+"On déplace les personnes sur le même étage, derrière les portes coupe-feu, vers une zone protégée voisine ; chaque niveau avec des chambres a au moins 2 zones protégées."
+],
+[
+"En IGH, lesquelles de ces caractéristiques s'appliquent aux compartiments ?",
+[
+"Une longueur de 75 m au maximum",
+"Une surface de 2 500 m² au maximum",
+"Au moins 2 escaliers protégés, sauf dérogation",
+"Des portes pouvant rester calées ouvertes en journée"
+],
+[
+0,
+1,
+2
+],
+"Les compartiments font au plus 75 m de long et 2 500 m², avec au moins 2 escaliers protégés sauf dérogation. Une porte de compartiment calée ouverte casse le principe de sécurité."
+],
+[
+"Dans un établissement de soins de type U, quand pratique-t-on l'évacuation verticale ?",
+[
+"Uniquement en cas d'extrême nécessité",
+"Systématiquement, avant tout transfert horizontal",
+"Dès le déclenchement de l'alarme restreinte",
+"Jamais, elle est interdite par le règlement"
+],
+0,
+"L'évacuation verticale n'intervient qu'en cas d'extrême nécessité (art. U 8) ; on privilégie le transfert horizontal."
+]
+],
+"21": [
+[
+"Pour entrer en formation SSIAP 2, quelle expérience d'agent de sécurité incendie le candidat doit-il justifier ?",
+[
+"Au moins 1 607 heures sur les 24 derniers mois",
+"Au moins 1 607 heures sur les 36 derniers mois",
+"Au moins 607 heures sur les 12 derniers mois",
+"Au moins 3 000 heures sur les 36 derniers mois"
+],
+0,
+"L'arrêté du 2 mai 2005 exige au moins 1 607 h d'activité d'agent sur les 24 derniers mois. Le seuil de 1 607 h sur 36 mois concerne le maintien du diplôme (art. 7), pas l'entrée en formation."
+],
+[
+"Parmi ces conditions, lesquelles sont exigées pour entrer en formation SSIAP 2 (arrêté du 2 mai 2005) ?",
+[
+"Être titulaire du diplôme SSIAP 1",
+"Détenir un SST ou un PSE1 valide, ou un PSC1 de moins de 2 ans",
+"Fournir un certificat médical de moins de 3 mois",
+"Être titulaire du permis de conduire B"
+],
+[
+0,
+1,
+2
+],
+"Il faut le SSIAP 1 avec l'expérience exigée, un secourisme à jour (PSC1 de moins de 2 ans, SST ou PSE1 valide) et un certificat médical de moins de 3 mois (annexe VII). Le permis de conduire n'est pas demandé."
+],
+[
+"Concernant la formation et l'examen du SSIAP 2, quelles affirmations sont exactes ?",
+[
+"La formation dure 70 heures hors examen",
+"Le QCM compte 40 questions en 40 minutes",
+"L'épreuve pratique consiste à diriger le PC en crise",
+"L'oral et la pratique sont notés sur 20, minimum 12"
+],
+[
+0,
+1,
+2
+],
+"Formation de 70 h hors examen ; QCM de 40 questions en 40 minutes (12/20 minimum) ; épreuve pratique de direction du PC en situation de crise (annexes III et IX). L'oral et la pratique sont notés apte ou inapte, pas sur 20."
+],
+[
+"Laquelle de ces tâches fait partie des missions du chef d'équipe SSIAP 2 fixées par l'arrêté du 2 mai 2005 ?",
+[
+"Diriger le poste de sécurité lors des sinistres",
+"Commander les sapeurs-pompiers à leur arrivée",
+"Délivrer l'autorisation d'ouverture de l'ERP",
+"Présider la commission de sécurité du site"
+],
+0,
+"La direction du PC lors des sinistres est l'une des 7 missions du SSIAP 2 (arrêté du 2 mai 2005). À l'arrivée des secours, le chef d'équipe les accueille et les renseigne, il ne les commande pas."
+],
+[
+"Un chef d'équipe a obtenu son diplôme SSIAP 2 le 15 mars 2023. Au plus tard à quelle date doit-il avoir effectué son recyclage ?",
+[
+"Le 15 mars 2026",
+"Le 15 mars 2028",
+"Le 31 décembre 2026",
+"Le 15 mars 2024"
+],
+0,
+"Le recyclage a lieu tous les 3 ans, au plus tard à la date anniversaire du diplôme (art. 7, annexe V). Si cette date est dépassée, une remise à niveau est exigée."
+]
+],
+"22": [
+[
+"Avant d'affecter un agent à un poste pour la vacation, que doit vérifier le chef d'équipe SSIAP 2 ?",
+[
+"Que son diplôme SSIAP est à jour",
+"Que son secourisme est en cours de validité",
+"Qu'il est le plus ancien de l'équipe",
+"Qu'il a lui-même choisi ce poste"
+],
+[
+0,
+1
+],
+"Chaque poste doit être tenu par un agent qualifié et à jour : SSIAP recyclé et secourisme valide. L'ancienneté ou le choix de l'agent ne garantissent pas la qualification."
+],
+[
+"Parmi ces informations, lesquelles ont leur place dans le briefing de prise de poste d'une équipe SSIAP ?",
+[
+"Les travaux en cours sur le site",
+"Le matériel de sécurité hors service",
+"La répartition des postes et des rondes",
+"Le bilan des évaluations individuelles"
+],
+[
+0,
+1,
+2
+],
+"Le briefing tient en 5 minutes : ce qui s'est passé, ce qui est prévu (travaux), ce qui est hors service, qui fait quoi. Les évaluations individuelles se font en privé, pas devant l'équipe."
+],
+[
+"Le chef d'équipe SSIAP 2 encadre un agent SSIAP 1 expérimenté et autonome. Quel style de management est le plus adapté ?",
+[
+"Lui faire confiance et lui déléguer des missions",
+"Le guider pas à pas sur chaque tâche",
+"Le faire surveiller en permanence au PC",
+"Effectuer lui-même ses rondes à sa place"
+],
+0,
+"Le chef d'équipe adapte son style : il guide pas à pas un débutant, il fait confiance et délègue à un agent expérimenté."
+],
+[
+"Un agent de l'équipe SSIAP n'a pas effectué une ronde prévue. Comment le chef d'équipe doit-il le recadrer ?",
+[
+"En privé, en s'appuyant sur les faits",
+"En public, pour servir d'exemple",
+"Par une note affichée au PC",
+"Devant le client qui l'a signalé"
+],
+0,
+"Règle de management : féliciter en public, recadrer en privé, en restant sur des faits précis."
+],
+[
+"Un agent a noté en main courante qu'une porte coupe-feu ne se ferme plus. Que doit faire ensuite le chef d'équipe SSIAP 2 ?",
+[
+"Suivre l'anomalie jusqu'à sa résolution",
+"Considérer que la mention en main courante suffit",
+"Attendre la visite de la commission de sécurité",
+"Laisser l'agent la traiter sans rendre compte"
+],
+0,
+"Le contrôle du chef d'équipe porte sur les rondes, la main courante et le suivi des anomalies jusqu'à leur résolution : une anomalie seulement notée n'est pas traitée."
+]
+],
+"23": [
+[
+"Pour régler un conflit entre deux agents de son équipe, sur quoi le chef d'équipe SSIAP 2 doit-il d'abord s'appuyer ?",
+[
+"Les faits : ce qui a été dit et fait, et à quelle heure",
+"Son impression sur le caractère de chacun",
+"La version de l'agent le plus ancien",
+"Les rumeurs qui circulent dans l'équipe"
+],
+0,
+"On s'en tient aux faits (paroles, actes, heures), pas aux impressions ni aux rumeurs, et le chef d'équipe reste neutre."
+],
+[
+"Parmi ces pratiques, lesquelles font partie de la bonne méthode pour désamorcer un conflit dans une équipe SSIAP ?",
+[
+"Écouter chaque agent séparément et au calme",
+"Vérifier ensuite que la solution trouvée tient",
+"Confronter les agents devant le public",
+"Donner raison à l'agent le plus expérimenté"
+],
+[
+0,
+1
+],
+"Méthode : écouter chacun séparément, s'en tenir aux faits, trouver une solution conforme aux consignes, puis suivre. On ne règle jamais un conflit devant le public et on reste neutre."
+],
+[
+"Parmi ces situations entre agents, lesquelles dépassent le niveau du chef d'équipe et doivent être remontées par écrit à la hiérarchie ?",
+[
+"Une menace d'un agent envers un collègue",
+"Des faits de harcèlement",
+"Une insulte entre deux agents",
+"Un désaccord sur la répartition des rondes"
+],
+[
+0,
+1,
+2
+],
+"Faute grave, harcèlement, insulte et menace dépassent le chef d'équipe et remontent par écrit. Un désaccord d'organisation se règle à son niveau."
+],
+[
+"Lors de l'évaluation d'un agent SSIAP 1, quelle formulation est la plus utile ?",
+[
+"« Le 12, tu n'as pas fait la ronde de 22 h. »",
+"« Tu es négligent dans ton travail. »",
+"« Tu pourrais faire un peu mieux. »",
+"« Les autres agents se plaignent de toi. »"
+],
+0,
+"Une évaluation s'appuie sur des exemples concrets et datés observés sur le terrain ; un jugement général ne permet pas à l'agent de progresser."
+],
+[
+"Pourquoi un conflit non réglé dans une équipe SSIAP est-il un risque pour la sécurité du site ?",
+[
+"Les agents ne se transmettent plus les informations",
+"Il entraîne la fermeture du poste de sécurité",
+"Il oblige à prévenir la commission de sécurité",
+"Il suspend le diplôme des agents concernés"
+],
+0,
+"Des agents qui ne se parlent plus ne se transmettent plus les informations : consignes, anomalies et événements se perdent."
+]
+],
+"24": [
+[
+"Quelle formulation d'objectif convient à une séquence pédagogique animée par un chef d'équipe SSIAP 2 ?",
+[
+"« À la fin, vous saurez éteindre un feu de poubelle avec un extincteur à eau. »",
+"« Les extincteurs et leurs différents types. »",
+"« Présentation générale de la sécurité incendie. »",
+"« Que savez-vous des extincteurs ? »"
+],
+0,
+"Une séquence a un seul objectif, annoncé au début et formulé en action (« vous saurez + verbe d'action »). Un titre ou une question ne fixe pas ce que le stagiaire saura faire."
+],
+[
+"Selon la méthode de séquence pédagogique enseignée en formation SSIAP 2, dans quel ordre se déroulent les quatre temps d'une séquence ?",
+[
+"Introduction, développement, vérification, conclusion",
+"Introduction, vérification, développement, conclusion",
+"Développement, introduction, conclusion, vérification",
+"Conclusion, introduction, développement, vérification"
+],
+0,
+"Introduction (objectif, plan), développement (2 ou 3 points), vérification (questions, gestes refaits), puis conclusion (ce qu'il faut retenir)."
+],
+[
+"Lors d'une formation à la manipulation des extincteurs, lesquelles de ces façons de faire rendent le stagiaire acteur de son apprentissage ?",
+[
+"Faire manipuler l'extincteur par chaque stagiaire",
+"Faire refaire le geste au stagiaire après l'avoir corrigé",
+"Demander à un stagiaire d'expliquer le geste au groupe",
+"Lire la notice de l'extincteur sans interruption"
+],
+[
+0,
+1,
+2
+],
+"Avec une méthode active, le stagiaire agit : il manipule, refait le geste corrigé, explique à son tour. Une lecture continue de la notice le laisse passif."
+],
+[
+"À l'épreuve orale de l'examen SSIAP 2, de combien de temps de préparation dispose le candidat avant d'animer sa séquence ?",
+[
+"15 minutes",
+"5 minutes",
+"30 minutes",
+"1 heure"
+],
+0,
+"Le candidat tire au sort un thème de sécurité incendie, prépare 15 minutes, puis anime une séquence de 15 minutes (annexe IX)."
+],
+[
+"Pendant le temps de vérification d'une séquence pédagogique, que fait le formateur ?",
+[
+"Il pose des questions au groupe",
+"Il fait refaire le geste aux stagiaires",
+"Il présente le plan de la séquence",
+"Il annonce l'objectif pour la première fois"
+],
+[
+0,
+1
+],
+"La vérification sert à s'assurer que le message est compris : questions et gestes refaits. Le plan et l'objectif sont annoncés dès l'introduction."
+]
+],
+"25": [
+[
+"Parmi ces éléments, lesquels doivent figurer dans un rapport d'incident rédigé par le chef d'équipe SSIAP 2 ?",
+[
+"Les actions menées par l'équipe",
+"Les suites proposées",
+"Les heures précises des faits",
+"Son avis sur la personnalité des personnes en cause"
+],
+[
+0,
+1,
+2
+],
+"Un rapport répond à qui, quoi, où, quand, comment, avec les actions menées et les suites proposées. On écrit des faits, jamais des jugements."
+],
+[
+"Selon l'article 2 de l'arrêté du 2 mai 2005, à quel niveau revient la tenue des registres de sécurité ?",
+[
+"Le chef de service SSIAP 3",
+"Le chef d'équipe SSIAP 2",
+"L'agent SSIAP 1",
+"L'officier sapeur-pompier de garde"
+],
+0,
+"La tenue des registres est une mission du SSIAP 3 (art. 2). L'exploitant reste responsable du registre ; le SSIAP 2 l'alimente et veille à ce qu'il soit à jour."
+],
+[
+"Que doit contenir le registre de sécurité d'un ERP (CCH, art. R.143-44) ?",
+[
+"Les vérifications techniques et leurs observations",
+"Les travaux réalisés",
+"Les exercices effectués",
+"Les fiches de paie des agents de sécurité"
+],
+[
+0,
+1,
+2
+],
+"Le registre (R.143-44) contient le personnel de sécurité, les consignes, les vérifications techniques et leurs observations, les travaux et les exercices. Les éléments de paie n'y figurent pas."
+],
+[
+"Un agent s'est trompé d'heure en écrivant sur la main courante du PC. Comment doit-il corriger ?",
+[
+"Barrer d'un trait lisible puis écrire la correction",
+"Masquer au correcteur blanc puis réécrire",
+"Arracher la page et la recopier au propre",
+"Laisser l'erreur sans aucune mention"
+],
+0,
+"La main courante se tient au fil de l'eau, sans blanc ni rature masquée : l'erreur reste lisible et la correction est ajoutée."
+],
+[
+"Avant sa renumérotation au 1er juillet 2021, sous quel numéro figurait l'article du CCH relatif au registre de sécurité des ERP, aujourd'hui R.143-44 ?",
+[
+"R.123-51",
+"R.123-48",
+"R.4227-39",
+"R.4512-7"
+],
+0,
+"L'ancien article R.123-51 du CCH est devenu R.143-44. R.4227-39 et R.4512-7 sont des articles du Code du travail."
+]
+],
+"26": [
+[
+"Parmi ces consignes de sécurité, lesquelles sont des consignes particulières ?",
+[
+"La consigne du local de charge des batteries",
+"La consigne de la cuisine",
+"La consigne du poste de sécurité (PC)",
+"La conduite à tenir en cas d'incendie pour tout le site"
+],
+[
+0,
+1,
+2
+],
+"Une consigne particulière vise un local ou un poste (PC, local de charge, cuisine, réserve). La conduite à tenir en cas d'incendie pour tout l'établissement est une consigne générale."
+],
+[
+"Selon le Code du travail (art. R.4227-34 et R.4227-37), une consigne de sécurité incendie écrite et affichée est obligatoire dans un établissement où sont habituellement occupées ou réunies…",
+[
+"Plus de 50 personnes",
+"Plus de 20 personnes",
+"Plus de 200 personnes",
+"Plus de 1 500 personnes"
+],
+0,
+"Seuil de plus de 50 personnes habituellement occupées ou réunies ; la consigne est aussi obligatoire, quel que soit l'effectif, si l'on manipule des matières inflammables (R.4227-34)."
+],
+[
+"Selon l'article R.4227-38 du Code du travail, que doit indiquer la consigne de sécurité incendie ?",
+[
+"Le matériel d'extinction et de secours",
+"Les personnes chargées de diriger l'évacuation",
+"Les personnes chargées d'appeler les secours",
+"Le plan de prévention des entreprises extérieures"
+],
+[
+0,
+1,
+2
+],
+"La consigne indique le matériel, les personnes chargées de l'évacuation et de l'alerte, et l'appel des secours (R.4227-38). Le plan de prévention relève de R.4512-7."
+],
+[
+"En ronde, le chef d'équipe SSIAP 2 trouve une porte coupe-feu calée ouverte par un employé de la réserve. Quelle attitude est la plus efficace ?",
+[
+"Retirer la cale en expliquant que la porte retient la fumée",
+"Laisser la porte calée pour ne pas gêner le travail",
+"Menacer l'employé d'une sanction immédiate",
+"Attendre la visite de la commission de sécurité"
+],
+0,
+"Le chef d'équipe corrige l'écart et explique le pourquoi, ce qui convainc mieux que l'ordre seul. Il trace l'écart, et le signale par écrit à la hiérarchie s'il se répète."
+],
+[
+"Selon le Code du travail (art. R.4227-39), à quelle fréquence minimale ont lieu les exercices prévus par la consigne de sécurité incendie ?",
+[
+"Tous les 6 mois",
+"Tous les mois",
+"Tous les ans",
+"Tous les 3 ans"
+],
+0,
+"Les exercices ont lieu au moins tous les 6 mois et sont consignés (R.4227-39)."
+]
+],
+"27": [
+[
+"Une zone de détection incendie du SSI doit être mise hors service pour des travaux. Quelle condition doit être respectée ?",
+[
+"Mise hors service limitée dans le temps, tracée et compensée",
+"Mise hors service jusqu'à la prochaine maintenance annuelle",
+"Aucune trace si les travaux durent moins d'une journée",
+"Mise hors service de tout le SSI par précaution"
+],
+0,
+"Une zone de détection hors service l'est sur une durée limitée, avec une trace écrite et une mesure compensatoire jusqu'à sa remise en service."
+],
+[
+"La détection d'une zone est en dérangement en attendant le mainteneur. Parmi ces actions, lesquelles sont des mesures compensatoires adaptées ?",
+[
+"Renforcer les rondes dans la zone",
+"Poster un agent dans la zone",
+"Fermer la zone au public",
+"Couper l'alarme générale du site"
+],
+[
+0,
+1,
+2
+],
+"Rondes renforcées, agent posté, extincteurs supplémentaires ou fermeture de la zone au public compensent l'équipement hors service. Couper l'alarme générale affaiblit encore la sécurité."
+],
+[
+"Face à un incident technique (porte coupe-feu défectueuse, coupure électrique…), quelle est la première étape du réflexe du chef d'équipe SSIAP 2 ?",
+[
+"Constater : quoi, où, depuis quand",
+"Tenter de réparer soi-même l'équipement",
+"Tracer l'incident en main courante",
+"Appeler directement les sapeurs-pompiers"
+],
+0,
+"Le réflexe suit l'ordre constater, sécuriser, prévenir, compenser, tracer : on constate avant d'agir, et la trace vient en fin de séquence."
+],
+[
+"Le SSI passe en dérangement en pleine journée. Qui le chef d'équipe SSIAP 2 doit-il prévenir ?",
+[
+"Le mainteneur du SSI",
+"Sa hiérarchie",
+"Les clients présents dans le magasin",
+"La commission de sécurité"
+],
+[
+0,
+1
+],
+"Le mainteneur intervient pour réparer, la hiérarchie est informée pour décider. Le chef d'équipe connaît les numéros d'astreinte des mainteneurs."
+],
+[
+"Pourquoi l'incident technique et la mesure compensatoire doivent-ils être tracés en main courante ?",
+[
+"Pour garder la preuve et suivre la réparation",
+"Pour déclencher l'intervention du mainteneur",
+"Pour informer directement les sapeurs-pompiers",
+"Pour remplacer le registre de sécurité"
+],
+0,
+"La trace écrite prouve ce qui a été fait et permet le suivi jusqu'à la réparation. Elle ne remplace ni l'appel au mainteneur ni le registre de sécurité."
+]
+],
+"28": [
+[
+"Dans quels cas un plan de prévention écrit est-il obligatoire avant l'intervention d'une entreprise extérieure (Code du travail, art. R.4512-7) ?",
+[
+"Opération d'au moins 400 heures sur 12 mois",
+"Travaux dangereux de l'arrêté du 19 mars 1993",
+"Soudage oxyacétylénique sous permis de feu",
+"Toute intervention de plus de 10 heures"
+],
+[
+0,
+1,
+2
+],
+"Le plan de prévention écrit est exigé dès 400 h sur 12 mois, ou quelle que soit la durée pour les travaux dangereux de l'arrêté du 19 mars 1993, dont le soudage oxyacétylénique sous permis de feu (R.4512-7)."
+],
+[
+"Une entreprise doit souder à proximité d'un détecteur de fumée. Que fait le chef d'équipe SSIAP 2 avant de délivrer le permis de feu ?",
+[
+"Il analyse s'il faut isoler la zone, avec compensation",
+"Il fait démonter le détecteur pendant les travaux",
+"Il met l'ensemble du SSI hors service",
+"Il fait couvrir le détecteur sans prévenir le PC"
+],
+0,
+"Le chef d'équipe analyse la zone et la détection : un isolement limité à la zone, tracé et compensé, évite la fausse alarme sans priver le site de détection."
+],
+[
+"Après des travaux par point chaud, quel est l'oubli le plus dangereux lors de la clôture du permis de feu ?",
+[
+"Ne pas remettre en service la détection isolée",
+"Ne pas faire ranger les outils de l'entreprise",
+"Ne pas archiver le permis le jour même",
+"Ne pas noter le soudeur sur le planning"
+],
+0,
+"Une détection restée isolée ne signalera pas un feu couvant : sa remise en service fait partie de la clôture, après la surveillance sur place et le contrôle final."
+],
+[
+"Quel article du Code du travail prévoit l'inspection commune préalable avant l'intervention d'une entreprise extérieure ?",
+[
+"R.4512-2",
+"R.4512-7",
+"R.4227-39",
+"R.4227-37"
+],
+0,
+"L'inspection commune préalable est prévue par l'article R.4512-2 ; R.4512-7 fixe les cas de plan de prévention écrit."
+],
+[
+"Parmi ces mentions, lesquelles doivent figurer sur un permis de feu délivré en ERP ?",
+[
+"La zone et la nature des travaux",
+"Les mesures de prévention",
+"La durée de validité et la surveillance après travaux",
+"La signature d'un officier sapeur-pompier"
+],
+[
+0,
+1,
+2
+],
+"Le permis, écrit et signé par l'entreprise et l'établissement, précise date, zone, nature des travaux, mesures de prévention, durée de validité et surveillance après travaux. Les sapeurs-pompiers ne le signent pas."
+]
+],
+"29": [
+[
+"Dans un système de détection incendie (SDI), quel détecteur automatique est le plus courant et le plus adapté aux bureaux, couloirs et réserves ?",
+[
+"Le détecteur optique de fumée",
+"Le détecteur thermostatique",
+"Le détecteur de flamme infrarouge",
+"Le détecteur linéaire à faisceau"
+],
+0,
+"Le détecteur optique de fumée, le plus répandu, détecte la fumée qui pénètre dans sa chambre : il convient aux bureaux, couloirs et réserves."
+],
+[
+"Dans quels locaux un détecteur thermique est-il préférable à un détecteur optique de fumée ?",
+[
+"Une cuisine de restaurant",
+"Un parking couvert",
+"Un bureau administratif",
+"Un couloir de circulation"
+],
+[
+0,
+1
+],
+"Dans les cuisines et les parkings, fumées et vapeurs sont normales : on détecte la chaleur. Bureaux et couloirs relèvent du détecteur optique de fumée."
+],
+[
+"À quel phénomène un détecteur thermovélocimétrique réagit-il ?",
+[
+"À une montée rapide de la température",
+"À la fumée entrant dans sa chambre optique",
+"Au rayonnement infrarouge d'une flamme",
+"À la coupure d'un faisceau émetteur-récepteur"
+],
+0,
+"Le détecteur thermovélocimétrique mesure la vitesse d'élévation de la température ; la fumée relève du détecteur optique, le rayonnement du détecteur de flamme."
+],
+[
+"Parmi ces associations entre un type de détecteur et son usage, lesquelles sont correctes ?",
+[
+"Détecteur linéaire à faisceau : grand entrepôt ou hall",
+"Multicapteur : croiser fumée et chaleur pour limiter les fausses alarmes",
+"Détecteur de flamme : cuisine où des flammes sont normales",
+"Détecteur optique : parking couvert exposé aux gaz d'échappement"
+],
+[
+0,
+1
+],
+"Le détecteur linéaire couvre les grands volumes et le multicapteur combine fumée et chaleur pour réduire les fausses alarmes ; en cuisine et en parking, on choisit un détecteur thermique."
+],
+[
+"Un même détecteur automatique d'une réserve provoque des fausses alarmes répétées. Quelle est la bonne conduite pour le chef d'équipe SSIAP 2 ?",
+[
+"Tracer les déclenchements et signaler le détecteur",
+"Coiffer le détecteur jusqu'à la prochaine maintenance",
+"Mettre la zone de détection hors service",
+"Remplacer lui-même le détecteur par un thermique"
+],
+0,
+"Une fausse alarme répétée se trace et se signale : le détecteur peut être sale, mal choisi ou mal placé. On ne masque jamais un détecteur hors procédure de travaux."
+]
+],
+"30": [
+[
+"Sur l'ECS d'un SSI de catégorie A, quel est l'effet de l'acquittement d'une alarme feu ?",
+[
+"Il arrête le signal sonore au PC sans rien réarmer",
+"Il réarme l'ECS puis le CMSI",
+"Il déclenche aussitôt l'alarme générale",
+"Il remet les DAS en position d'attente"
+],
+0,
+"L'acquittement fait seulement taire le signal sonore au PC ; il ne réarme ni l'ECS, ni le CMSI, ni les DAS."
+],
+[
+"Dans un SSI de catégorie A, quelle est la durée maximale de la temporisation entre l'alarme restreinte au PC et le déclenchement de l'alarme générale ?",
+[
+"1 minute",
+"3 minutes",
+"5 minutes",
+"10 minutes"
+],
+2,
+"La temporisation, qui laisse le temps de la levée de doute, ne peut pas dépasser 5 minutes ; sans action, l'alarme générale se déclenche."
+],
+[
+"En ERP, quelles vérifications s'appliquent à un SSI de catégorie A selon l'arrêté du 25 juin 1980 ?",
+[
+"Une vérification au moins annuelle par un technicien compétent ou un organisme agréé",
+"Une vérification triennale par un organisme agréé",
+"Une vérification décennale qui remplace la vérification annuelle",
+"Une vérification semestrielle par la commission de sécurité"
+],
+[
+0,
+1
+],
+"Tout SSI est vérifié au moins une fois par an ; en catégorie A ou B, s'y ajoute une vérification tous les 3 ans par un organisme agréé (MS 73)."
+],
+[
+"Dans un SSI, à quel moment un dispositif actionné de sécurité (DAS) à rupture passe-t-il en position de sécurité ?",
+[
+"Quand son alimentation électrique est coupée",
+"Quand il reçoit une impulsion électrique",
+"Uniquement après le réarmement du CMSI",
+"Quand l'alarme est acquittée sur l'ECS"
+],
+0,
+"Le DAS à rupture bascule sur manque de tension (sécurité positive) ; c'est le DAS à émission qui bascule sur réception d'une impulsion. L'acquittement ne fait que taire le signal sonore."
+],
+[
+"Après une alarme feu sur un SSI de catégorie A, la cause étant traitée, quelles actions sont correctes pour revenir en veille ?",
+[
+"Vérifier que la cause de l'alarme a disparu",
+"Réarmer l'ECS avant de réarmer le CMSI",
+"Remettre les DAS en attente avant de réarmer l'ECS",
+"Tracer l'événement et contrôler le retour en veille"
+],
+[
+0,
+1,
+3
+],
+"On vérifie la disparition de la cause, on réarme l'ECS, puis le CMSI, puis on remet les DAS en attente, et on trace. Remettre les DAS avant l'ECS inverse l'ordre."
+]
+],
+"31": [
+[
+"Dans quel cas utilise-t-on une installation sprinkler sous air plutôt que sous eau ?",
+[
+"Dans les locaux exposés au gel",
+"Dans les bureaux chauffés",
+"Dans les surfaces de vente chauffées",
+"Dans les cuisines collectives"
+],
+0,
+"Dans une installation sous air, les tuyaux contiennent de l'air sous pression et l'eau n'arrive qu'après l'ouverture d'une tête : on évite ainsi le gel des canalisations."
+],
+[
+"Une installation sprinkler s'est déclenchée et le feu semble éteint. Qui décide de fermer la vanne et de couper l'eau ?",
+[
+"Les sapeurs-pompiers",
+"Le chef d'équipe SSIAP 2",
+"Le directeur de l'établissement",
+"Le technicien de maintenance"
+],
+0,
+"L'eau d'un sprinkler n'est coupée que sur ordre des sapeurs-pompiers, une fois le feu éteint."
+],
+[
+"Lors d'une ronde sur une installation sprinkler (poste de contrôle et locaux protégés), quels constats sont normaux ?",
+[
+"La vanne principale est ouverte et cadenassée",
+"Les manomètres sont dans la plage normale",
+"Des palettes sont stockées juste sous les têtes",
+"La vanne principale est à moitié ouverte"
+],
+[
+0,
+1
+],
+"La vanne principale doit rester ouverte, cadenassée et surveillée, et les manomètres dans la plage normale ; rien ne doit être stocké sous les têtes."
+],
+[
+"Concernant une extinction automatique par gaz (CO2 ou gaz inerte) dans un local informatique ou d'archives, quelles affirmations sont exactes ?",
+[
+"Le local doit être évacué avant l'émission du gaz",
+"Une temporisation et des signaux d'alarme spécifiques précèdent l'émission",
+"Un agent peut entrer dès la fin de l'émission, sans attendre",
+"Le CO2 est sans danger aux concentrations d'extinction"
+],
+[
+0,
+1
+],
+"Le gaz chasse l'oxygène et le CO2 est en plus toxique : on évacue avant l'émission, d'où une temporisation et des signaux dédiés. On n'entre jamais après émission sans l'accord des secours."
+],
+[
+"Que fait une tête de sprinkler dont l'ampoule a éclaté sous l'effet de la chaleur ?",
+[
+"Elle arrose tant que l'eau n'est pas coupée",
+"Elle se referme quand la température redescend",
+"Elle s'arrête seule au bout d'une minute",
+"Elle fait ouvrir toutes les têtes de l'installation"
+],
+0,
+"Une tête ouverte ne se referme pas seule, et seules les têtes chauffées s'ouvrent : l'eau coule jusqu'à la fermeture de la vanne sur ordre des pompiers."
+]
+],
+"32": [
+[
+"En ERP, après un avis défavorable de la commission de sécurité, qui décide de la fermeture de l'établissement ?",
+[
+"Le maire",
+"La commission de sécurité",
+"Le chef du service de sécurité",
+"L'exploitant"
+],
+0,
+"La commission de sécurité ne rend qu'un avis (favorable ou défavorable) ; c'est le maire qui décide de l'ouverture, de la poursuite ou de la fermeture."
+],
+[
+"Selon le règlement de sécurité ERP, quelles affirmations sur la périodicité des vérifications sont exactes ?",
+[
+"L'éclairage de sécurité est vérifié chaque année",
+"Les installations électriques sont vérifiées chaque année",
+"Les extincteurs sont vérifiés chaque année",
+"Le SSI de catégorie A n'est vérifié que tous les 3 ans"
+],
+[
+0,
+1,
+2
+],
+"Éclairage de sécurité (EC 15), installations électriques (EL 19) et extincteurs sont vérifiés chaque année. Le SSI de catégorie A est lui aussi vérifié chaque année, et s'y ajoute une vérification triennale par un organisme agréé (MS 73)."
+],
+[
+"Comment s'appelle la visite de la commission de sécurité effectuée avant l'ouverture d'un ERP au public ?",
+[
+"La visite de réception",
+"La visite inopinée",
+"La visite périodique",
+"La contre-visite"
+],
+0,
+"Avant l'ouverture, la commission effectue la visite de réception ; viennent ensuite les visites périodiques et, parfois, des visites inopinées."
+],
+[
+"En ERP, quelles vérifications s'appliquent à un désenfumage mécanique asservi à un SSI de catégorie A ?",
+[
+"Une vérification chaque année",
+"Une vérification tous les 3 ans par un organisme agréé",
+"Une vérification uniquement à la visite de réception",
+"Une vérification tous les 10 ans seulement"
+],
+[
+0,
+1
+],
+"Le désenfumage est vérifié chaque année et, s'il est mécanique avec un SSI de catégorie A ou B, en plus tous les 3 ans par un organisme agréé (DF 10)."
+],
+[
+"Pour préparer une visite de la commission de sécurité, dans quel document le chef d'équipe SSIAP 2 vérifie-t-il que les rapports de vérification sont joints et à jour ?",
+[
+"Le registre de sécurité",
+"Le document unique (DUERP)",
+"La main courante du PC",
+"Le plan de prévention"
+],
+0,
+"Les rapports de vérification sont joints au registre de sécurité, premier document examiné par la commission avec le suivi des observations."
+]
+],
+"33": [
+[
+"Selon l'article L.4121-2 du Code du travail, quel est le premier des 9 principes généraux de prévention ?",
+[
+"Éviter les risques",
+"Évaluer les risques",
+"Fournir des EPI",
+"Former les salariés"
+],
+0,
+"La liste de l'article L.4121-2 commence par éviter les risques, puis évaluer ceux qui ne peuvent pas être évités."
+],
+[
+"Selon le Code du travail, à quelle fréquence minimale le DUERP est-il mis à jour dans une entreprise d'au moins 11 salariés ?",
+[
+"Au moins chaque année",
+"Au moins tous les 3 ans",
+"Au moins tous les 5 ans",
+"Seulement à la création"
+],
+0,
+"Le document unique (art. R.4121-1 et s.) est mis à jour au moins chaque année dans les entreprises d'au moins 11 salariés, et à chaque changement important."
+],
+[
+"Parmi ces propositions, lesquelles figurent dans les principes généraux de prévention de l'article L.4121-2 du Code du travail ?",
+[
+"Combattre les risques à la source",
+"Adapter le travail à l'homme",
+"Privilégier les protections individuelles sur les collectives",
+"Remplacer ce qui est dangereux par ce qui l'est moins"
+],
+[
+0,
+1,
+3
+],
+"L'article L.4121-2 prévoit de combattre les risques à la source, d'adapter le travail à l'homme et de remplacer le dangereux ; il donne la priorité aux protections collectives, pas individuelles."
+],
+[
+"Quel article du Code du travail pose l'obligation de sécurité de l'employeur envers ses salariés ?",
+[
+"L.4121-1",
+"L.4121-2",
+"R.4121-1",
+"L.4131-1"
+],
+0,
+"L'obligation de sécurité figure à l'article L.4121-1 ; L.4121-2 liste les principes de prévention, R.4121-1 traite du DUERP et L.4131-1 du droit de retrait."
+],
+[
+"Un chef d'équipe SSIAP 2 organise un service de nuit où un agent effectue seul ses rondes. Quelles mesures de prévention sont adaptées ?",
+[
+"Équiper l'agent d'un dispositif d'alerte du travailleur isolé",
+"Prévoir des contacts réguliers avec l'agent",
+"Remplacer les contacts par un compte rendu en fin de service",
+"Demander à l'agent de couper sa radio pendant ses rondes"
+],
+[
+0,
+1
+],
+"Un travailleur isolé doit pouvoir donner l'alerte à tout moment : dispositif d'alerte et contacts réguliers. Un simple compte rendu en fin de service ne protège pas pendant la nuit."
+]
+],
+"34": [
+[
+"Selon le Code de la sécurité sociale, dans quel délai l'employeur déclare-t-il un accident du travail à la CPAM ?",
+[
+"48 heures, hors dimanches et jours fériés",
+"24 heures, dimanches et jours fériés compris",
+"8 jours calendaires",
+"15 jours après la reprise"
+],
+0,
+"L'employeur déclare l'accident du travail à la CPAM sous 48 heures, non compris les dimanches et jours fériés (CSS, art. R.441-3)."
+],
+[
+"Concernant le droit d'alerte et de retrait d'un salarié, quelles affirmations sont exactes selon le Code du travail ?",
+[
+"Il suppose un motif raisonnable de penser à un danger grave et imminent",
+"Le salarié doit obtenir l'accord écrit de l'employeur avant de se retirer",
+"Le salarié qui l'exerce légitimement ne peut pas être sanctionné",
+"Le retrait est permis même s'il crée un danger grave et imminent pour autrui"
+],
+[
+0,
+2
+],
+"Le retrait suppose un motif raisonnable de penser à un danger grave et imminent (L.4131-1), sans accord préalable, et n'entraîne aucune sanction (L.4131-3) ; il ne doit pas créer de nouveau danger pour autrui (L.4132-1)."
+],
+[
+"Quand une entreprise extérieure intervient sur le site d'une entreprise utilisatrice, quelles règles du Code du travail sont exactes ?",
+[
+"Une inspection commune préalable est réalisée",
+"Un plan de prévention écrit est requis pour les travaux dangereux listés, quelle que soit leur durée",
+"Un plan de prévention écrit est requis dès 400 heures de travaux sur 12 mois",
+"Un plan de prévention est toujours exigé pour une simple livraison"
+],
+[
+0,
+1,
+2
+],
+"Inspection commune préalable (R.4512-2) ; plan de prévention écrit pour les travaux dangereux de l'arrêté du 19 mars 1993 ou dès 400 heures sur 12 mois (R.4512-7). Une livraison relève du protocole de sécurité."
+],
+[
+"Pour le chargement et le déchargement d'un camion par un transporteur sur les quais d'un hypermarché, quel document écrit est exigé par le Code du travail ?",
+[
+"Un protocole de sécurité",
+"Un plan de prévention",
+"Un permis de feu",
+"Un registre de sécurité"
+],
+0,
+"Pour les opérations de chargement et de déchargement, un protocole de sécurité écrit remplace le plan de prévention (art. R.4515-4 et s.)."
+],
+[
+"Selon le Code de la sécurité sociale, dans quel délai la victime d'un accident du travail doit-elle en informer son employeur ?",
+[
+"Dans la journée, ou au plus tard sous 24 heures",
+"Au plus tard sous 48 heures",
+"Dans les 8 jours suivant l'accident",
+"Seulement à sa reprise du travail"
+],
+0,
+"La victime informe l'employeur dans la journée où l'accident s'est produit ou au plus tard dans les 24 heures (CSS, art. R.441-2)."
+]
+],
+"35": [
+[
+"Pendant un sinistre, où se tient le chef d'équipe SSIAP 2 pour diriger l'intervention ?",
+[
+"Au PC, pour garder la vue d'ensemble",
+"Sur le lieu du feu, pour diriger l'attaque",
+"À l'entrée, pour accueillir les secours",
+"Au point de rassemblement, pour compter"
+],
+0,
+"Le chef d'équipe reste au PC, où arrivent les informations (SSI, radios, téléphone) ; s'il part sur le terrain, plus personne ne voit l'ensemble."
+],
+[
+"En situation de crise, quelles missions le chef d'équipe SSIAP 2 répartit-il entre ses agents ?",
+[
+"Un agent en levée de doute",
+"Des agents à l'évacuation, avec les guides et serre-files",
+"Un agent désigné à l'accueil des secours",
+"Tous les agents à l'attaque, le PC restant vide"
+],
+[
+0,
+1,
+2
+],
+"Il répartit levée de doute, évacuation (avec guides et serre-files du personnel) et accueil des secours, et garde si possible un agent au PC ; le PC ne reste jamais vide."
+],
+[
+"Pourquoi le chef d'équipe SSIAP 2 fait-il noter l'heure de chaque action pendant un sinistre ?",
+[
+"Pour établir la chronologie de l'intervention",
+"Pour calculer les heures supplémentaires",
+"Pour préparer le planning de la semaine",
+"Pour justifier la temporisation à l'installateur"
+],
+0,
+"Chaque action tracée avec l'heure constitue la chronologie de l'intervention, utile aux secours et au retour d'expérience."
+],
+[
+"En sécurité incendie, quelle structure doit suivre un message radio entre le PC et un agent ?",
+[
+"Nommer l'appelé puis l'appelant, passer le message, puis confirmer « reçu »",
+"Le message d'abord, puis l'identité de l'appelant",
+"Le message seul, sans nommer les correspondants",
+"Nommer l'appelant puis passer le message, sans confirmation"
+],
+0,
+"On nomme d'abord la station appelée, puis on s'identifie (par exemple « PC de Agent 1 »), on passe un message court, et la réception est confirmée par « reçu »."
+],
+[
+"Avant l'arrivée des sapeurs-pompiers, quels éléments le chef d'équipe SSIAP 2 prépare-t-il à leur intention ?",
+[
+"Les plans de l'établissement",
+"Les clés et badges d'accès",
+"L'état du SSI et des DAS",
+"Le planning des agents de la semaine"
+],
+[
+0,
+1,
+2
+],
+"On prépare la localisation exacte, les plans, les clés et badges, l'état du SSI et des DAS, les personnes manquantes et les risques particuliers : tout ce qui fait gagner du temps aux secours."
+]
+],
+"36": [
+[
+"Lors d'une intervention des sapeurs-pompiers, que signifie le sigle COS ?",
+[
+"Commandant des opérations de secours",
+"Chef des opérations de sécurité",
+"Coordinateur des opérations sur site",
+"Commandant de l'organisation sanitaire"
+],
+0,
+"Le COS est le sapeur-pompier qui commande l'intervention dès l'arrivée des secours."
+],
+[
+"Lors d'un sinistre, qui exerce la fonction de directeur des opérations de secours (DOS) ?",
+[
+"Le maire ou le préfet",
+"Le commandant des opérations de secours",
+"Le directeur de l'établissement",
+"Le chef du service de sécurité"
+],
+0,
+"Le DOS est une autorité de police, le maire ou le préfet (CSI, art. L.742-1 et s.) ; le COS est le sapeur-pompier qui commande sur le terrain."
+],
+[
+"Une fois le COS arrivé sur un sinistre en ERP, quels rôles reviennent au chef d'équipe SSIAP 2 ?",
+[
+"Se mettre à la disposition du COS",
+"Indiquer les coupures, colonnes, sprinklers et locaux dangereux",
+"Faire les coupures de gaz et d'électricité sans consulter le COS",
+"Autoriser lui-même la reprise d'activité une fois le feu éteint"
+],
+[
+0,
+1
+],
+"Le chef d'équipe se met à disposition du COS et lui apporte des conseils techniques ; les coupures se font en lien avec le COS, et la reprise d'activité nécessite son accord."
+],
+[
+"Dans le point de situation fait au COS, quelle information le chef d'équipe SSIAP 2 donne-t-il en premier ?",
+[
+"La localisation exacte du feu",
+"Le nombre d'agents en service",
+"Le nom de l'exploitant",
+"Les consignes de sécurité du site"
+],
+0,
+"Le point de situation suit l'ordre : où (localisation), quoi (nature et ampleur), qui (évacués, manquants), ce qui a été fait, risques particuliers."
+],
+[
+"Après un sinistre, quelles actions relèvent de la remise en état et du retour d'expérience ?",
+[
+"Réarmer le SSI et remettre les DAS en attente",
+"Remplacer les extincteurs utilisés",
+"Faire un retour d'expérience à froid, sans chercher de coupable",
+"Reprendre l'activité dès le feu éteint, sans attendre le COS"
+],
+[
+0,
+1,
+2
+],
+"Après la crise : réarmement du SSI, DAS en attente, extincteurs remplacés, rapport et retour d'expérience à froid. La reprise d'activité n'intervient qu'après l'accord du COS."
+]
+]
+};
+CH.forEach(c => { if (QFIX[c.n]) c.qcm = QFIX[c.n]; });
 
 
 const LF = "https://www.legifrance.gouv.fr/";
@@ -1138,19 +3460,28 @@ $("#texts").innerHTML = TEXTS.map(([k, t, d, a, l, nl]) => `<div class="txt"><sp
 
 /* ---- QCM : composant ---- */
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-const shufQ = q => { const o = shuffle([0, 1, 2, 3]); return [q[0], o.map(i => q[1][i]), o.indexOf(q[2]), q[3]]; };
+const ansOf = q => Array.isArray(q[2]) ? q[2] : [q[2]];
+const shufQ = q => { const o = shuffle([0, 1, 2, 3]); return [q[0], o.map(i => q[1][i]), ansOf(q).map(a => o.indexOf(a)).sort(), q[3]]; };
 function bindQuestion(root, q, onAnswer) {
-  root.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => {
-    const k = +b.dataset.k, ok = k === q[2];
-    root.querySelectorAll(".opt").forEach(x => {
-      x.disabled = true; const n = +x.dataset.k;
-      if (n === q[2]) x.classList.add("good"); else if (n === k) x.classList.add("bad");
-    });
-    root.querySelector(".fbz").innerHTML = `<div class="fb ${ok ? "" : "bad"}"><b>${ok ? "Bonne réponse." : "Pas tout à fait."}</b>${q[3]}</div>`;
-    onAnswer && onAnswer(ok);
+  const good = q[2], opts = root.querySelectorAll(".opt"), v = root.querySelector(".vbtn");
+  opts.forEach(o => o.addEventListener("click", () => {
+    o.classList.toggle("sel"); o.setAttribute("aria-pressed", o.classList.contains("sel"));
+    v.disabled = !root.querySelector(".opt.sel");
   }));
+  v.addEventListener("click", () => {
+    const picked = [...opts].filter(o => o.classList.contains("sel")).map(o => +o.dataset.k);
+    const ok = picked.length === good.length && picked.every(k => good.includes(k));
+    opts.forEach(o => {
+      o.disabled = true; const k = +o.dataset.k, isG = good.includes(k), isP = picked.includes(k);
+      if (isG && isP) o.classList.add("good"); else if (isG) o.classList.add("good", "miss"); else if (isP) o.classList.add("bad");
+    });
+    v.parentNode.remove();
+    const nb = (good.length > 1 ? `${good.length} bonnes réponses. ` : "") + (good.some(k => !picked.includes(k)) && !ok ? "En pointillés : les bonnes réponses non cochées. " : "");
+    root.querySelector(".fbz").innerHTML = `<div class="fb ${ok ? "" : "bad"}"><b>${ok ? "Bonne réponse." : picked.some(k => good.includes(k)) ? "Incomplet ou en partie faux." : "Pas tout à fait."}</b>${nb}${q[3]}</div>`;
+    onAnswer && onAnswer(ok);
+  });
 }
-const optsHTML = (q, id) => `<div class="opts">${q[1].map((t, k) => `<button class="opt" id="${id}-${k}" data-k="${k}">${t}</button>`).join("")}</div><div class="fbz"></div>`;
+const optsHTML = (q, id) => `<p class="hint">Une ou plusieurs bonnes réponses</p><div class="opts">${q[1].map((t, k) => `<button class="opt" id="${id}-${k}" data-k="${k}" aria-pressed="false">${t}</button>`).join("")}</div><div class="vbar"><button class="btn primary vbtn" disabled>Valider</button></div><div class="fbz"></div>`;
 
 /* ---- page chapitre ---- */
 function renderChapter(n) {
