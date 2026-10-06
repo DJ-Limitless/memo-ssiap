@@ -508,6 +508,21 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
 .vid-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .vid-yt { display: inline-block; margin-top: 6px; font-size: 13.5px; font-weight: 700; color: var(--fire); }
 .vid-note { font-size: 12.5px; color: var(--muted); margin: 2px 0 0; }
+.vid.hold .vid-play { visibility: hidden; }
+#vplayer { position: absolute; z-index: 55; }
+#vplayer[hidden] { display: none !important; }
+#vplayer .vp-bar { display: none; }
+.vp-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-top: 6px; }
+.vp-foot a { font-size: 13.5px; font-weight: 700; color: var(--fire); }
+.vp-foot .vp-x { font: inherit; font-size: 13.5px; font-weight: 700; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; min-height: 36px; cursor: pointer; }
+#vplayer.mini { position: fixed; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); width: min(340px, calc(100vw - 24px)); background: var(--surface); border: 2px solid var(--ink); border-radius: 14px; padding: 6px; box-shadow: 0 12px 40px rgba(0, 0, 0, .35); }
+#vplayer.mini .vp-bar { display: flex; align-items: center; gap: 6px; padding: 0 0 6px; }
+#vplayer.mini .vp-foot { display: none; }
+#vplayer.mini .vid-frame { border-radius: 9px; }
+.vp-t { flex: 1; min-width: 0; font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vp-bar button { flex: none; font: inherit; font-size: 13px; font-weight: 800; border-radius: 999px; min-height: 34px; padding: 4px 10px; cursor: pointer; }
+.vp-back { color: #fff; background: var(--fire); border: 2px solid var(--fire); }
+.vp-bar .vp-x { width: 34px; padding: 0; color: var(--ink); background: var(--bg); border: 1px solid var(--line); }
 
 /* ---- QCM : cases à cocher ---- */
 .hint { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); margin: -6px 0 10px; }
@@ -6577,12 +6592,54 @@ function vidBlock(key, h) {
     <p class="vid-note">Vidéos d'organismes officiels, lues depuis YouTube seulement quand vous appuyez sur lecture. En cas d'écart, la fiche et les textes cités font foi.</p>
   </section>`;
 }
-document.addEventListener("click", ev => {
-  const b = ev.target.closest(".vid-play"); if (!b) return;
-  const box = b.closest(".vid"), y = box.dataset.y, t = box.dataset.t;
-  box.classList.add("on");
-  box.innerHTML = `<div class="vid-frame"><iframe src="https://www.youtube-nocookie.com/embed/${y}?autoplay=1&rel=0&hl=fr" title="${t}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div><a class="vid-yt" href="https://www.youtube.com/watch?v=${y}" target="_blank" rel="noopener">${t} · ouvrir sur YouTube ↗</a>`;
-});
+/* lecteur unique : dans la page de la vidéo, puis en mini-lecteur flottant quand on navigue ailleurs */
+const VP = (() => {
+  const el = document.createElement("div"); el.id = "vplayer"; el.hidden = true;
+  el.setAttribute("role", "region"); el.setAttribute("aria-label", "Lecteur vidéo");
+  el.innerHTML = `<div class="vp-bar"><span class="vp-t"></span><button type="button" class="vp-back">↩ Revenir</button><button type="button" class="vp-x" aria-label="Fermer la vidéo">✕</button></div><div class="vid-frame"></div><div class="vp-foot"><a class="vp-yt" target="_blank" rel="noopener">Ouvrir sur YouTube ↗</a><button type="button" class="vp-x">Fermer la vidéo ✕</button></div>`;
+  document.body.appendChild(el);
+  let cur = null, raf = 0;
+  const slots = () => cur ? [...document.querySelectorAll('.vid[data-y="' + cur.y + '"]')].filter(s => !s.closest("[hidden]")) : [];
+  const visible = () => slots().find(s => s.offsetParent !== null && !s.closest("details:not([open])")) || null;
+  const restore = s => { s.classList.remove("hold"); s.style.height = ""; };
+  const place = () => {
+    raf = 0; if (!cur) return;
+    const s = (location.hash || "#accueil") === cur.hash ? visible() : null;
+    document.querySelectorAll(".vid.hold").forEach(x => { if (x !== s) restore(x); });
+    if (s) {
+      s.classList.add("hold"); el.classList.add("dock"); el.classList.remove("mini");
+      const r = s.getBoundingClientRect();
+      el.style.top = (r.top + scrollY) + "px"; el.style.left = (r.left + scrollX) + "px"; el.style.width = r.width + "px";
+      const h = el.offsetHeight + "px"; if (s.style.height !== h) s.style.height = h;
+    } else {
+      el.classList.add("mini"); el.classList.remove("dock"); el.style.top = el.style.left = el.style.width = "";
+    }
+  };
+  const tick = () => { if (cur && !raf) raf = requestAnimationFrame(place); };
+  setInterval(tick, 300);
+  addEventListener("resize", tick); addEventListener("hashchange", () => setTimeout(tick, 60)); document.addEventListener("toggle", tick, true);
+  const close = () => { el.querySelector(".vid-frame").innerHTML = ""; el.hidden = true; document.querySelectorAll(".vid.hold").forEach(restore); cur = null; };
+  const play = box => {
+    document.querySelectorAll(".vid.hold").forEach(restore);
+    const y = box.dataset.y, t = box.dataset.t;
+    cur = { y, t, hash: location.hash || "#accueil" };
+    el.querySelector(".vp-t").textContent = t; el.querySelector(".vp-yt").href = "https://www.youtube.com/watch?v=" + y;
+    el.querySelector(".vid-frame").innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${y}?autoplay=1&rel=0&hl=fr" title="${esc(t)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+    el.hidden = false; place();
+  };
+  const back = () => {
+    if (!cur) return;
+    const find = () => {
+      const s = slots()[0];
+      if (s) { let d = s.closest("details"); while (d) { d.open = true; d = d.parentElement.closest("details"); } s.scrollIntoView({ block: "center" }); }
+      tick();
+    };
+    if ((location.hash || "#accueil") !== cur.hash) { location.hash = cur.hash; setTimeout(find, 150); } else find();
+  };
+  el.addEventListener("click", ev => { if (ev.target.closest(".vp-x")) close(); else if (ev.target.closest(".vp-back")) back(); });
+  document.addEventListener("click", ev => { const b = ev.target.closest(".vid-play"); if (b) play(b.closest(".vid")); });
+  return { play, close, back, state: () => cur && { ...cur, mode: el.classList.contains("mini") ? "mini" : "dock" } };
+})();
 const _renderChapter3 = renderChapter;
 renderChapter = function (n) {
   const ok = _renderChapter3(n);
