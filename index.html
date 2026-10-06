@@ -617,6 +617,99 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
 #mascot.hop .mm-svg { animation: mmHop .9s ease-in-out; }
 @keyframes mmHop { 0% { transform: translateY(0) scaleY(1); } 12% { transform: translateY(0) scaleY(.85); } 50% { transform: translateY(-46px) scaleY(1.05) rotate(-8deg); } 88% { transform: translateY(0) scaleY(.9); } 100% { transform: translateY(0) scaleY(1); } }
 
+
+/* ---- v21 : Vimo vivant ---- */
+#mascot { --tilt: 0deg; --lx: 0px; --ly: 0px; }
+#mascot .mm-btn { rotate: var(--tilt); translate: 0 0; transition: transform .25s, rotate .45s cubic-bezier(.3, 1.7, .5, 1), translate .7s ease-in-out; }
+#mascot .mm-eyes { animation: none; transition: transform .07s; }
+#mascot .mm-pupils { transform: translate(var(--lx), var(--ly)); transition: transform .2s ease-out; }
+#mascot.blink .mm-eyes { transform: scaleY(.08); }
+.mm-lid { fill: none; stroke-width: 1.8; stroke-linecap: round; opacity: 0; transform: translateY(-2px); transition: opacity .15s, transform .15s; }
+.mm-o { fill: #4A0B08; opacity: 0; transform-box: fill-box; transform-origin: center; transition: opacity .1s; }
+.mm-mouth { transition: opacity .1s; }
+/* bâillement */
+#mascot.yawn .mm-mouth { opacity: 0; }
+#mascot.yawn .mm-o { opacity: 1; animation: mmYawnO 2.3s ease-in-out; }
+@keyframes mmYawnO { 0% { transform: scale(.6); } 40%, 70% { transform: scale(1.5, 1.9); } 100% { transform: scale(.6); } }
+#mascot.yawn .mm-eyes { transform: scaleY(.35); transition: transform .4s; }
+#mascot.yawn .mm-body { animation: mmStretch 2.3s ease-in-out; }
+/* sommeil */
+#mascot.sleep .mm-eyes { transform: scaleY(.08); }
+#mascot.sleep .mm-body { animation: mmBreath 3.8s ease-in-out infinite; }
+@keyframes mmBreath { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.035, .975); } }
+#mascot.sleep .mm-btn { rotate: -6deg; }
+.mm-fx { position: absolute; inset: 0; pointer-events: none; }
+.mm-zzz, .mm-notes, .mm-stars { position: absolute; display: none; }
+.mm-zzz { right: -4px; top: -6px; }
+.mm-notes { right: -8px; top: 6px; }
+.mm-stars { left: 50%; top: 2px; width: 0; }
+.mm-zzz span, .mm-notes span, .mm-stars span { position: absolute; font-weight: 800; color: var(--muted); opacity: 0; }
+.mm-notes span { color: var(--fire); font-size: 15px; }
+.mm-stars span { color: #F2B705; font-size: 13px; }
+#mascot.sleep .mm-zzz { display: block; }
+.mm-zzz span { font-family: var(--font-display); animation: mmZ 2.4s ease-in infinite; }
+.mm-zzz span:nth-child(1) { font-size: 11px; animation-delay: 0s; } .mm-zzz span:nth-child(2) { font-size: 14px; animation-delay: .8s; } .mm-zzz span:nth-child(3) { font-size: 18px; animation-delay: 1.6s; }
+@keyframes mmZ { 0% { transform: translate(0, 0); opacity: 0; } 20% { opacity: .9; } 100% { transform: translate(14px, -30px); opacity: 0; } }
+/* réveil en sursaut */
+#mascot.startle .mm-svg { animation: mmStartle .8s ease-out; }
+@keyframes mmStartle { 0% { transform: translateY(0) scale(1); } 25% { transform: translateY(-18px) scale(1.06, .95); } 55% { transform: translateY(0) scale(.95, 1.05); } 100% { transform: none; } }
+#mascot.startle .mm-mouth, #mascot.dizzy .mm-mouth, #mascot.sneeze .mm-mouth { opacity: 0; }
+#mascot.startle .mm-o, #mascot.dizzy .mm-o, #mascot.sneeze .mm-o { opacity: 1; }
+#mascot.startle .mm-lid, #mascot.dizzy .mm-lid { opacity: 1; transform: translateY(-4px); }
+#mascot.startle .mm-eyes { transform: scale(1.12); }
+/* étirement */
+#mascot.stretch .mm-body { animation: mmStretch 1.7s ease-in-out; }
+@keyframes mmStretch { 0%, 100% { transform: scale(1, 1); } 35% { transform: scale(.93, 1.13); } 65% { transform: scale(1.05, .95); } }
+#mascot.stretch .mm-arm-l, #mascot.yawn .mm-arm-l { animation: mmArmUpL 1.7s ease-in-out; }
+#mascot.stretch .mm-arm-r, #mascot.yawn .mm-arm-r { animation: mmArmUpR 1.7s ease-in-out; }
+@keyframes mmArmUpL { 0%, 100% { transform: rotate(0); } 35%, 65% { transform: rotate(120deg); } }
+@keyframes mmArmUpR { 0%, 100% { transform: rotate(0); } 35%, 65% { transform: rotate(-120deg); } }
+/* il se gratte la tête */
+#mascot.scratch .mm-arm-r { animation: mmScratch 1.9s ease-in-out; }
+@keyframes mmScratch { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-150deg); } 30% { transform: rotate(-135deg); } 40% { transform: rotate(-150deg); } 50% { transform: rotate(-135deg); } 60% { transform: rotate(-150deg); } 80% { transform: rotate(-140deg); } }
+#mascot.scratch .mm-pupils { transform: translate(1.6px, -2.2px); }
+#mascot.scratch .mm-body { animation: mmTiltHead 1.9s ease-in-out; }
+@keyframes mmTiltHead { 0%, 100% { transform: rotate(0); } 30%, 70% { transform: rotate(5deg); } }
+/* éternuement */
+#mascot.sneeze .mm-body { animation: mmSneeze 1.5s ease-in-out; }
+@keyframes mmSneeze { 0% { transform: rotate(0); } 25% { transform: rotate(-5deg) scale(1, 1.04); } 45% { transform: rotate(-8deg) scale(1, 1.07); } 52% { transform: rotate(9deg) scale(1.05, .93); } 70% { transform: rotate(-2deg); } 100% { transform: none; } }
+#mascot.sneeze .mm-eyes { transform: scaleY(.25); }
+/* petite danse */
+#mascot.dance .mm-body { animation: mmDance .65s ease-in-out 4; }
+@keyframes mmDance { 0%, 100% { transform: rotate(0) translateY(0); } 25% { transform: rotate(-8deg) translateY(-4px); } 50% { transform: rotate(0) translateY(0); } 75% { transform: rotate(8deg) translateY(-4px); } }
+#mascot.dance .mm-arm-l { animation: mmArmUpL .65s ease-in-out 4; }
+#mascot.dance .mm-arm-r { animation: mmArmUpR .65s ease-in-out 4; animation-delay: .32s; }
+#mascot.dance .mm-notes, #mascot.hum .mm-notes { display: block; }
+/* il fredonne */
+#mascot.hum .mm-body { animation: mmSway 1.4s ease-in-out 2; }
+@keyframes mmSway { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-4deg); } }
+#mascot.hum .mm-eyes { transform: scaleY(.45); }
+.mm-notes span { animation: mmNote 1.8s ease-out infinite; }
+.mm-notes span:nth-child(2) { animation-delay: .6s; } .mm-notes span:nth-child(3) { animation-delay: 1.2s; }
+@keyframes mmNote { 0% { transform: translate(0, 0) rotate(0); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate(16px, -32px) rotate(20deg); opacity: 0; } }
+/* coucou */
+#mascot.hello .mm-arm-r { animation: mmWave .4s ease-in-out 4; }
+/* coup d'œil depuis le bord */
+#mascot.peek-r .mm-btn { translate: 30px 0; }
+#mascot.peek-l .mm-btn { translate: -30px 0; }
+/* tapes et tournis */
+#mascot.squish .mm-svg { animation: mmSquish .28s ease-out; }
+@keyframes mmSquish { 0% { transform: scale(1); } 40% { transform: scale(1.14, .84); } 100% { transform: scale(1); } }
+#mascot.dizzy .mm-pupils { animation: mmDizzy .45s linear infinite; }
+@keyframes mmDizzy { 0% { transform: translate(2px, 0); } 25% { transform: translate(0, 2px); } 50% { transform: translate(-2px, 0); } 75% { transform: translate(0, -2px); } 100% { transform: translate(2px, 0); } }
+#mascot.dizzy .mm-body { animation: mmTilt .7s ease-in-out 4; }
+#mascot.dizzy .mm-stars { display: block; }
+.mm-stars span { animation: mmOrbit 1.1s linear infinite; }
+.mm-stars span:nth-child(2) { animation-delay: -.37s; } .mm-stars span:nth-child(3) { animation-delay: -.74s; }
+@keyframes mmOrbit { 0% { transform: translate(-22px, 0) scale(.8); opacity: 1; } 25% { transform: translate(0, -6px) scale(1); } 50% { transform: translate(22px, 0) scale(.8); } 75% { transform: translate(0, 6px) scale(.6); opacity: .6; } 100% { transform: translate(-22px, 0) scale(.8); opacity: 1; } }
+
+
+/* ---- v20 : lien discret vers les mises à jour ---- */
+.land-upd { margin: 22px 0 0; font-size: 14px; }
+.land-upd a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--muted); }
+.land-upd a:hover { color: var(--fire); border-color: var(--fire); }
+.log-back { display: inline-block; margin-top: 18px; font-weight: 700; color: var(--fire); }
+
 /* ---- QCM : cases à cocher ---- */
 .hint { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); margin: -6px 0 10px; }
 .opt { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; }
@@ -678,7 +771,6 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
       <a href="#qcm-2">Examen blanc SSIAP 2</a>
     </details>
     <a href="#apropos"><span>À propos</span><i>›</i></a>
-    <a href="#journal"><span>Mises à jour</span><i>›</i></a>
   </div>
   <p class="menu-foot">Révisions SSIAP 1 et 2 · ne remplace pas la formation officielle.</p>
 </nav>
@@ -738,6 +830,7 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
       <b>À savoir</b>
       <p>Mémo SSIAP aide à réviser et à travailler au quotidien. Il ne remplace ni la formation officielle, ni les consignes de votre établissement. Chaque information renvoie à son texte officiel : en cas de doute, c'est le texte qui fait foi.</p>
     </div>
+    <p class="land-upd"><a href="#journal">Mises à jour récentes · octobre 2026</a></p>
   </div>
 </section>
 
@@ -835,26 +928,17 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
 
   <section class="page" id="journal">
     <div class="wrap">
-      <div class="sec-head"><h2>Mises à jour</h2><p>Le site avance chaque semaine.</p></div>
+      <div class="sec-head"><h2>Mises à jour récentes</h2><p>Les dernières nouveautés du site.</p></div>
       <div class="log">
-        <div><time>06/10/2026</time><span>Nouveau : Vimo, le petit guide du site. Il se promène librement sur l'écran, change souvent de forme (extincteur, détecteur, trousse de secours) selon la rubrique, vous accueille, vous propose où aller, réagit à vos réponses et s'efface pendant les examens blancs. On peut le cacher depuis le menu. Le mini-lecteur vidéo est aussi plus discret.</span></div>
-        <div><time>06/10/2026</time><span>Nouveau : des vidéos d'organismes officiels (INRS, Croix-Rouge, pompiers…) dans les chapitres, les fiches de secourisme et les débriefings des cas pratiques. Chaque vidéo a été vérifiée (chaîne officielle, sujet), et elle ne se charge que si vous appuyez sur lecture.</span></div>
-        <div><time>06/10/2026</time><span>Nouveau : un schéma pour chaque fiche de secourisme (examen de la victime, saignement, étouffement, malaise, brûlures, douleur, plaies, PLS, RCP et DAE), et dans le glossaire les sigles cités dans une définition renvoient directement à leur propre fiche.</span></div>
-        <div><time>06/10/2026</time><span>Nouveau : bouton « Signaler une erreur » en bas de chaque chapitre (le mail s'ouvre avec le chapitre déjà indiqué), et une adresse de contact : contact.limitlessprojets@gmail.com.</span></div>
-        <div><time>06/10/2026</time><span>Nouveau : rubrique Secourisme SST (plan d'intervention, alerte, 8 fiches par situation avec les chiffres clés, quiz de 20 questions), d'après le référentiel INRS en vigueur et relue par un correcteur indépendant.</span></div>
-        <div><time>06/10/2026</time><span>Nouveau : 10 questions par chapitre (360 au total, examens blancs moins répétitifs), 6 cas pratiques SSIAP 1 (ronde, levée de doute, évacuation, arrêt cardiaque, permis de feu, feu sur le quai), sigles cliquables dans les chapitres et liens directs vers les textes officiels (Légifrance, Code du travail). Tout relu par des correcteurs indépendants.</span></div>
-        <div><time>06/10/2026</time><span>Double vérification complète : glossaire (374 sigles, 3 relectures avec recherche des références), logique des 14 cas pratiques, largeur des unités de passage corrigée (à partir de 3 UP : 0,60 m par UP, CO 36) et secourisme mis à jour (PSC et PSE : arrêtés du 15 juin 2024).</span></div>
-        <div><time>05/10/2026</time><span>Nouveau : le glossaire (374 sigles, recherche instantanée) et 14 cas pratiques SSIAP 2 de PC en crise, relus par des correcteurs indépendants. Menu : rubrique SSIAP 2 avec le bloc, les cas pratiques et l'examen blanc.</span></div>
-        <div><time>05/10/2026</time><span>Nouvelle page d'accueil et menu à trois traits : chaque rubrique a maintenant sa propre page.</span></div>
-        <div><time>05/10/2026</time><span>Examens blancs façon examen : chronomètre, correction à la fin, réussite par thème et revue des questions. Et une illustration dans chacun des 36 chapitres.</span></div>
-        <div><time>05/10/2026</time><span>QCM refaits : 180 questions reformulées pour être précises même hors du chapitre, dont 72 à 2 ou 3 bonnes réponses, comme à l'examen. On coche, puis on valide.</span></div>
-        <div><time>05/10/2026</time><span>Relecture complète des 36 chapitres et des 180 questions : références d'articles précisées (CO 38, MS 73, DF 10, R.4227-34, R.4512-7, R.441-3, art. 2 et 7 de l'arrêté du 2 mai 2005…) et deux questions reformulées pour lever toute ambiguïté.</span></div>
-        <div><time>05/10/2026</time><span>Le bloc SSIAP 2 passe à 16 chapitres (21 à 36) : management, formation, rapports, consignes, incidents techniques, permis de feu, SSI de catégorie A, extinction automatique, vérifications, Code du travail, PC en crise et accueil des secours.</span></div>
-        <div><time>05/10/2026</time><span>Deux examens blancs séparés de 40 questions : un SSIAP 1, un SSIAP 2.</span></div>
-        <div><time>05/10/2026</time><span>Les 25 chapitres du parcours sont en ligne, chacun avec son schéma et son QCM de 5 questions. Le QCM général puise dans les 125 questions.</span></div>
-        <div><time>05/10/2026</time><span>Nouveau parcours en 6 parties et nouvelle rubrique « Les textes ».</span></div>
-        <div><time>05/10/2026</time><span>Ouverture du site.</span></div>
+        <div><time>10/2026</time><span>Des vidéos d'organismes officiels (INRS, Croix-Rouge, sapeurs-pompiers…) dans les chapitres, les fiches de secourisme et les cas pratiques.</span></div>
+        <div><time>10/2026</time><span>Nouvelle rubrique Secourisme SST : un schéma par situation, les chiffres clés et un quiz.</span></div>
+        <div><time>10/2026</time><span>Vimo, le petit guide du site, vous accompagne pendant vos révisions.</span></div>
+        <div><time>10/2026</time><span>Un bouton « Signaler une erreur » dans chaque chapitre.</span></div>
+        <div><time>10/2026</time><span>14 cas pratiques SSIAP 1 et SSIAP 2, avec débriefing.</span></div>
+        <div><time>10/2026</time><span>Un glossaire de 374 sigles, reliés entre eux.</span></div>
+        <div><time>10/2026</time><span>Des examens blancs chronométrés, avec vos résultats par thème.</span></div>
       </div>
+      <a class="log-back" href="#accueil">← Retour à l'accueil</a>
     </div>
   </section>
 </div>
@@ -6871,8 +6955,8 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
 (function () {
   const wrap = document.getElementById("mascot"); if (!wrap) return;
   const btn = wrap.querySelector(".mm-btn"), reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const FORMS = { ext: btn.innerHTML, det: '<svg class="mm-svg" viewBox="0 0 84 100" aria-hidden="true"><ellipse class="mm-shadow" cx="42" cy="95" rx="20" ry="3.5"/><g class="mm-body"><g class="mm-arm-l"><path d="M22 58 Q13 62 12 70" style="stroke:#6B7782"/><circle cx="12" cy="71" r="3.6" style="fill:#E9EDF1;stroke:#6B7782"/></g><g class="mm-arm-r"><path d="M62 58 Q71 62 72 70" style="stroke:#6B7782"/><circle cx="72" cy="71" r="3.6" style="fill:#E9EDF1;stroke:#6B7782"/></g><rect x="24" y="24" width="36" height="9" rx="3" fill="#C9D1D8" stroke="#6B7782" stroke-width="2"/><path d="M18 52 Q18 32 42 32 Q66 32 66 52 L66 66 Q66 84 42 86 Q18 84 18 66 Z" fill="#F4F6F8" stroke="#6B7782" stroke-width="2"/><path d="M26 76 H58 M28 80 H56" stroke="#B8C1CA" stroke-width="2" stroke-linecap="round"/><circle class="mm-led" cx="57" cy="40" r="2.8" fill="#E5322B"/><g class="mm-eyes"><ellipse class="mm-white" cx="35" cy="51" rx="6" ry="7" style="stroke:#6B7782"/><ellipse class="mm-white" cx="49" cy="51" rx="6" ry="7" style="stroke:#6B7782"/><g class="mm-pupils"><circle cx="36" cy="52" r="3.1"/><circle cx="50" cy="52" r="3.1"/><circle class="mm-glint" cx="37" cy="50.5" r="1"/><circle class="mm-glint" cx="51" cy="50.5" r="1"/></g></g><circle class="mm-cheek" cx="30" cy="62" r="2.6"/><circle class="mm-cheek" cx="54" cy="62" r="2.6"/><path class="mm-mouth" d="M36 62 Q42 68 48 62"/><ellipse class="mm-foot" cx="34" cy="90" rx="6" ry="3"/><ellipse class="mm-foot" cx="50" cy="90" rx="6" ry="3"/></g></svg>', kit: '<svg class="mm-svg" viewBox="0 0 84 100" aria-hidden="true"><ellipse class="mm-shadow" cx="42" cy="95" rx="20" ry="3.5"/><g class="mm-body"><g class="mm-arm-l"><path d="M22 56 Q13 60 12 68" style="stroke:#0A5A31"/><circle cx="12" cy="69" r="3.6" style="fill:#13894C;stroke:#0A5A31"/></g><g class="mm-arm-r"><path d="M62 56 Q71 60 72 68" style="stroke:#0A5A31"/><circle cx="72" cy="69" r="3.6" style="fill:#13894C;stroke:#0A5A31"/></g><path d="M33 30 V24 Q33 20 37 20 H47 Q51 20 51 24 V30" fill="none" stroke="#0A5A31" stroke-width="4" stroke-linecap="round"/><rect x="18" y="29" width="48" height="58" rx="9" fill="#13894C" stroke="#0A5A31" stroke-width="2"/><rect x="23" y="34" width="5" height="34" rx="2.5" fill="#fff" opacity=".25"/><rect x="39.5" y="68" width="5" height="16" rx="1" fill="#fff"/><rect x="34" y="73.5" width="16" height="5" rx="1" fill="#fff"/><g class="mm-eyes"><ellipse class="mm-white" cx="35" cy="47" rx="6" ry="7" style="stroke:#0A5A31"/><ellipse class="mm-white" cx="49" cy="47" rx="6" ry="7" style="stroke:#0A5A31"/><g class="mm-pupils"><circle cx="36" cy="48" r="3.1"/><circle cx="50" cy="48" r="3.1"/><circle class="mm-glint" cx="37" cy="46.5" r="1"/><circle class="mm-glint" cx="51" cy="46.5" r="1"/></g></g><circle class="mm-cheek" cx="30" cy="58" r="2.6"/><circle class="mm-cheek" cx="54" cy="58" r="2.6"/><path class="mm-mouth" d="M36 58 Q42 64 48 58"/><ellipse class="mm-foot" cx="34" cy="90" rx="6" ry="3"/><ellipse class="mm-foot" cx="50" cy="90" rx="6" ry="3"/></g></svg>' };
-  const LINE = { ext: "Retour en extincteur, prêt à servir !", det: "Pouf ! Version détecteur : je repère tout.", kit: "Tadaa ! Version secouriste, trousse en main." };
+  const FORMS = {"ext": "<svg class=\"mm-svg\" viewBox=\"0 0 84 100\" aria-hidden=\"true\"><ellipse class=\"mm-shadow\" cx=\"42\" cy=\"95\" rx=\"20\" ry=\"3.5\"/><g class=\"mm-body\"><path d=\"M51 19 C70 19 73 42 63 56\" fill=\"none\" stroke=\"#20272E\" stroke-width=\"4.5\" stroke-linecap=\"round\"/><rect x=\"58\" y=\"54\" width=\"9\" height=\"8\" rx=\"2\" fill=\"#20272E\" transform=\"rotate(-20 62 58)\"/><path d=\"M36 11 L58 6\" stroke=\"#3B444D\" stroke-width=\"4\" stroke-linecap=\"round\"/><rect x=\"32\" y=\"11\" width=\"18\" height=\"15\" rx=\"3\" fill=\"#9AA5AF\" stroke=\"#5D6873\" stroke-width=\"2\"/><circle cx=\"54\" cy=\"15\" r=\"3\" fill=\"#F2B705\" stroke=\"#8A6800\" stroke-width=\"1.4\"/><g class=\"mm-arm-l\"><path d=\"M24 54 Q15 58 14 66\" style=\"stroke:#8E1712\"/><circle cx=\"14\" cy=\"67\" r=\"3.6\" style=\"fill:#D32A22;stroke:#8E1712\"/></g><g class=\"mm-arm-r\"><path d=\"M60 54 Q69 58 70 66\" style=\"stroke:#8E1712\"/><circle cx=\"70\" cy=\"67\" r=\"3.6\" style=\"fill:#D32A22;stroke:#8E1712\"/></g><rect x=\"23\" y=\"24\" width=\"38\" height=\"64\" rx=\"15\" fill=\"#D32A22\" stroke=\"#8E1712\" stroke-width=\"2\"/><rect x=\"28\" y=\"31\" width=\"5\" height=\"40\" rx=\"2.5\" fill=\"#fff\" opacity=\".28\"/><rect x=\"23\" y=\"70\" width=\"38\" height=\"9\" fill=\"#fff\" opacity=\".92\"/><g class=\"mm-eyes\"><ellipse class=\"mm-white\" cx=\"35\" cy=\"47\" rx=\"6\" ry=\"7\" style=\"stroke:#8E1712\"/><ellipse class=\"mm-white\" cx=\"49\" cy=\"47\" rx=\"6\" ry=\"7\" style=\"stroke:#8E1712\"/><g class=\"mm-pupils\"><circle cx=\"36\" cy=\"48\" r=\"3.1\"/><circle cx=\"50\" cy=\"48\" r=\"3.1\"/><circle class=\"mm-glint\" cx=\"37\" cy=\"46.5\" r=\"1\"/><circle class=\"mm-glint\" cx=\"51\" cy=\"46.5\" r=\"1\"/></g></g><path class=\"mm-lid\" d=\"M28 46 Q35 39 42 46 M42 46 Q49 39 56 46\" style=\"stroke:#8E1712\"/><circle class=\"mm-cheek\" cx=\"30\" cy=\"58\" r=\"2.6\"/><circle class=\"mm-cheek\" cx=\"54\" cy=\"58\" r=\"2.6\"/><path class=\"mm-mouth\" d=\"M36 58 Q42 64 48 58\"/><ellipse class=\"mm-o\" cx=\"42\" cy=\"60\" rx=\"3\" ry=\"3.8\"/><ellipse class=\"mm-foot\" cx=\"34\" cy=\"90\" rx=\"6\" ry=\"3\"/><ellipse class=\"mm-foot\" cx=\"50\" cy=\"90\" rx=\"6\" ry=\"3\"/></g></svg>", "det": "<svg class=\"mm-svg\" viewBox=\"0 0 84 100\" aria-hidden=\"true\"><ellipse class=\"mm-shadow\" cx=\"42\" cy=\"95\" rx=\"20\" ry=\"3.5\"/><g class=\"mm-body\"><g class=\"mm-arm-l\"><path d=\"M20 58 Q11 62 10 70\" style=\"stroke:#6B7782\"/><circle cx=\"10\" cy=\"71\" r=\"3.6\" style=\"fill:#E9EDF1;stroke:#6B7782\"/></g><g class=\"mm-arm-r\"><path d=\"M64 58 Q73 62 74 70\" style=\"stroke:#6B7782\"/><circle cx=\"74\" cy=\"71\" r=\"3.6\" style=\"fill:#E9EDF1;stroke:#6B7782\"/></g><rect x=\"24\" y=\"24\" width=\"36\" height=\"9\" rx=\"3\" fill=\"#C9D1D8\" stroke=\"#6B7782\" stroke-width=\"2\"/><path d=\"M18 52 Q18 32 42 32 Q66 32 66 52 L66 66 Q66 84 42 86 Q18 84 18 66 Z\" fill=\"#F4F6F8\" stroke=\"#6B7782\" stroke-width=\"2\"/><path d=\"M26 76 H58 M28 80 H56\" stroke=\"#B8C1CA\" stroke-width=\"2\" stroke-linecap=\"round\"/><circle class=\"mm-led\" cx=\"57\" cy=\"40\" r=\"2.8\" fill=\"#E5322B\"/><g class=\"mm-eyes\"><ellipse class=\"mm-white\" cx=\"35\" cy=\"51\" rx=\"6\" ry=\"7\" style=\"stroke:#6B7782\"/><ellipse class=\"mm-white\" cx=\"49\" cy=\"51\" rx=\"6\" ry=\"7\" style=\"stroke:#6B7782\"/><g class=\"mm-pupils\"><circle cx=\"36\" cy=\"52\" r=\"3.1\"/><circle cx=\"50\" cy=\"52\" r=\"3.1\"/><circle class=\"mm-glint\" cx=\"37\" cy=\"50.5\" r=\"1\"/><circle class=\"mm-glint\" cx=\"51\" cy=\"50.5\" r=\"1\"/></g></g><path class=\"mm-lid\" d=\"M28 50 Q35 43 42 50 M42 50 Q49 43 56 50\" style=\"stroke:#6B7782\"/><circle class=\"mm-cheek\" cx=\"30\" cy=\"62\" r=\"2.6\"/><circle class=\"mm-cheek\" cx=\"54\" cy=\"62\" r=\"2.6\"/><path class=\"mm-mouth\" d=\"M36 62 Q42 68 48 62\"/><ellipse class=\"mm-o\" cx=\"42\" cy=\"64\" rx=\"3\" ry=\"3.8\"/><ellipse class=\"mm-foot\" cx=\"34\" cy=\"90\" rx=\"6\" ry=\"3\"/><ellipse class=\"mm-foot\" cx=\"50\" cy=\"90\" rx=\"6\" ry=\"3\"/></g></svg>", "kit": "<svg class=\"mm-svg\" viewBox=\"0 0 84 100\" aria-hidden=\"true\"><ellipse class=\"mm-shadow\" cx=\"42\" cy=\"95\" rx=\"20\" ry=\"3.5\"/><g class=\"mm-body\"><g class=\"mm-arm-l\"><path d=\"M20 56 Q11 60 10 68\" style=\"stroke:#0A5A31\"/><circle cx=\"10\" cy=\"69\" r=\"3.6\" style=\"fill:#13894C;stroke:#0A5A31\"/></g><g class=\"mm-arm-r\"><path d=\"M64 56 Q73 60 74 68\" style=\"stroke:#0A5A31\"/><circle cx=\"74\" cy=\"69\" r=\"3.6\" style=\"fill:#13894C;stroke:#0A5A31\"/></g><path d=\"M33 30 V24 Q33 20 37 20 H47 Q51 20 51 24 V30\" fill=\"none\" stroke=\"#0A5A31\" stroke-width=\"4\" stroke-linecap=\"round\"/><rect x=\"18\" y=\"29\" width=\"48\" height=\"58\" rx=\"9\" fill=\"#13894C\" stroke=\"#0A5A31\" stroke-width=\"2\"/><rect x=\"23\" y=\"34\" width=\"5\" height=\"34\" rx=\"2.5\" fill=\"#fff\" opacity=\".25\"/><rect x=\"39.5\" y=\"68\" width=\"5\" height=\"16\" rx=\"1\" fill=\"#fff\"/><rect x=\"34\" y=\"73.5\" width=\"16\" height=\"5\" rx=\"1\" fill=\"#fff\"/><g class=\"mm-eyes\"><ellipse class=\"mm-white\" cx=\"35\" cy=\"47\" rx=\"6\" ry=\"7\" style=\"stroke:#0A5A31\"/><ellipse class=\"mm-white\" cx=\"49\" cy=\"47\" rx=\"6\" ry=\"7\" style=\"stroke:#0A5A31\"/><g class=\"mm-pupils\"><circle cx=\"36\" cy=\"48\" r=\"3.1\"/><circle cx=\"50\" cy=\"48\" r=\"3.1\"/><circle class=\"mm-glint\" cx=\"37\" cy=\"46.5\" r=\"1\"/><circle class=\"mm-glint\" cx=\"51\" cy=\"46.5\" r=\"1\"/></g></g><path class=\"mm-lid\" d=\"M28 46 Q35 39 42 46 M42 46 Q49 39 56 46\" style=\"stroke:#0A5A31\"/><circle class=\"mm-cheek\" cx=\"30\" cy=\"58\" r=\"2.6\"/><circle class=\"mm-cheek\" cx=\"54\" cy=\"58\" r=\"2.6\"/><path class=\"mm-mouth\" d=\"M36 58 Q42 64 48 58\"/><ellipse class=\"mm-o\" cx=\"42\" cy=\"60\" rx=\"3\" ry=\"3.8\"/><ellipse class=\"mm-foot\" cx=\"34\" cy=\"90\" rx=\"6\" ry=\"3\"/><ellipse class=\"mm-foot\" cx=\"50\" cy=\"90\" rx=\"6\" ry=\"3\"/></g></svg>", "dm": "<svg class=\"mm-svg\" viewBox=\"0 0 84 100\" aria-hidden=\"true\"><ellipse class=\"mm-shadow\" cx=\"42\" cy=\"95\" rx=\"20\" ry=\"3.5\"/><g class=\"mm-body\"><g class=\"mm-arm-l\"><path d=\"M20 52 Q11 56 10 64\" style=\"stroke:#8E1712\"/><circle cx=\"10\" cy=\"65\" r=\"3.6\" style=\"fill:#D32A22;stroke:#8E1712\"/></g><g class=\"mm-arm-r\"><path d=\"M64 52 Q73 56 74 64\" style=\"stroke:#8E1712\"/><circle cx=\"74\" cy=\"65\" r=\"3.6\" style=\"fill:#D32A22;stroke:#8E1712\"/></g><rect x=\"18\" y=\"26\" width=\"48\" height=\"60\" rx=\"7\" fill=\"#D32A22\" stroke=\"#8E1712\" stroke-width=\"2\"/><circle cx=\"23\" cy=\"31\" r=\"1.4\" fill=\"#8E1712\"/><circle cx=\"61\" cy=\"31\" r=\"1.4\" fill=\"#8E1712\"/><circle cx=\"23\" cy=\"81\" r=\"1.4\" fill=\"#8E1712\"/><circle cx=\"61\" cy=\"81\" r=\"1.4\" fill=\"#8E1712\"/><rect x=\"26\" y=\"60\" width=\"32\" height=\"20\" rx=\"3\" fill=\"#F7F7F7\" stroke=\"#8E1712\" stroke-width=\"1.6\"/><path d=\"M30 76 L38 64\" stroke=\"#C9D1D8\" stroke-width=\"1.5\"/><circle cx=\"46\" cy=\"70\" r=\"5\" fill=\"none\" stroke=\"#D32A22\" stroke-width=\"2\"/><circle cx=\"46\" cy=\"70\" r=\"1.6\" fill=\"#D32A22\"/><g class=\"mm-eyes\"><ellipse class=\"mm-white\" cx=\"35\" cy=\"41\" rx=\"6\" ry=\"7\" style=\"stroke:#8E1712\"/><ellipse class=\"mm-white\" cx=\"49\" cy=\"41\" rx=\"6\" ry=\"7\" style=\"stroke:#8E1712\"/><g class=\"mm-pupils\"><circle cx=\"36\" cy=\"42\" r=\"3.1\"/><circle cx=\"50\" cy=\"42\" r=\"3.1\"/><circle class=\"mm-glint\" cx=\"37\" cy=\"40.5\" r=\"1\"/><circle class=\"mm-glint\" cx=\"51\" cy=\"40.5\" r=\"1\"/></g></g><path class=\"mm-lid\" d=\"M28 40 Q35 33 42 40 M42 40 Q49 33 56 40\" style=\"stroke:#8E1712\"/><circle class=\"mm-cheek\" cx=\"30\" cy=\"52\" r=\"2.6\"/><circle class=\"mm-cheek\" cx=\"54\" cy=\"52\" r=\"2.6\"/><path class=\"mm-mouth\" d=\"M36 52 Q42 58 48 52\"/><ellipse class=\"mm-o\" cx=\"42\" cy=\"54\" rx=\"3\" ry=\"3.8\"/><ellipse class=\"mm-foot\" cx=\"34\" cy=\"90\" rx=\"6\" ry=\"3\"/><ellipse class=\"mm-foot\" cx=\"50\" cy=\"90\" rx=\"6\" ry=\"3\"/></g></svg>", "dae": "<svg class=\"mm-svg\" viewBox=\"0 0 84 100\" aria-hidden=\"true\"><ellipse class=\"mm-shadow\" cx=\"42\" cy=\"95\" rx=\"20\" ry=\"3.5\"/><g class=\"mm-body\"><g class=\"mm-arm-l\"><path d=\"M20 54 Q11 58 10 66\" style=\"stroke:#075C30\"/><circle cx=\"10\" cy=\"67\" r=\"3.6\" style=\"fill:#0F7A43;stroke:#075C30\"/></g><g class=\"mm-arm-r\"><path d=\"M64 54 Q73 58 74 66\" style=\"stroke:#075C30\"/><circle cx=\"74\" cy=\"67\" r=\"3.6\" style=\"fill:#0F7A43;stroke:#075C30\"/></g><rect x=\"18\" y=\"27\" width=\"48\" height=\"60\" rx=\"10\" fill=\"#0F7A43\" stroke=\"#075C30\" stroke-width=\"2\"/><circle class=\"mm-led\" cx=\"58\" cy=\"34\" r=\"2.4\" fill=\"#7CF29A\"/><path d=\"M42 84 C28 75 27 66 33 63 C37 61 40 63 42 66 C44 63 47 61 51 63 C57 66 56 75 42 84 Z\" fill=\"#fff\"/><path d=\"M43 64 L38 73 H43 L40 81 L47 71 H42 L45 64 Z\" fill=\"#0F7A43\"/><g class=\"mm-eyes\"><ellipse class=\"mm-white\" cx=\"35\" cy=\"44\" rx=\"6\" ry=\"7\" style=\"stroke:#075C30\"/><ellipse class=\"mm-white\" cx=\"49\" cy=\"44\" rx=\"6\" ry=\"7\" style=\"stroke:#075C30\"/><g class=\"mm-pupils\"><circle cx=\"36\" cy=\"45\" r=\"3.1\"/><circle cx=\"50\" cy=\"45\" r=\"3.1\"/><circle class=\"mm-glint\" cx=\"37\" cy=\"43.5\" r=\"1\"/><circle class=\"mm-glint\" cx=\"51\" cy=\"43.5\" r=\"1\"/></g></g><path class=\"mm-lid\" d=\"M28 43 Q35 36 42 43 M42 43 Q49 36 56 43\" style=\"stroke:#075C30\"/><circle class=\"mm-cheek\" cx=\"30\" cy=\"55\" r=\"2.6\"/><circle class=\"mm-cheek\" cx=\"54\" cy=\"55\" r=\"2.6\"/><path class=\"mm-mouth\" d=\"M36 55 Q42 61 48 55\"/><ellipse class=\"mm-o\" cx=\"42\" cy=\"57\" rx=\"3\" ry=\"3.8\"/><ellipse class=\"mm-foot\" cx=\"34\" cy=\"90\" rx=\"6\" ry=\"3\"/><ellipse class=\"mm-foot\" cx=\"50\" cy=\"90\" rx=\"6\" ry=\"3\"/></g></svg>", "hyd": "<svg class=\"mm-svg\" viewBox=\"0 0 84 100\" aria-hidden=\"true\"><ellipse class=\"mm-shadow\" cx=\"42\" cy=\"95\" rx=\"20\" ry=\"3.5\"/><g class=\"mm-body\"><g class=\"mm-arm-l\"><path d=\"M26 56 Q17 60 16 68\" style=\"stroke:#8E1712\"/><circle cx=\"16\" cy=\"69\" r=\"3.6\" style=\"fill:#D32A22;stroke:#8E1712\"/></g><g class=\"mm-arm-r\"><path d=\"M58 56 Q67 60 68 68\" style=\"stroke:#8E1712\"/><circle cx=\"68\" cy=\"69\" r=\"3.6\" style=\"fill:#D32A22;stroke:#8E1712\"/></g><rect x=\"37\" y=\"15\" width=\"10\" height=\"7\" rx=\"1.5\" fill=\"#8E1712\"/><path d=\"M24 36 Q42 16 60 36 Z\" fill=\"#D32A22\" stroke=\"#8E1712\" stroke-width=\"2\" stroke-linejoin=\"round\"/><rect x=\"26\" y=\"34\" width=\"32\" height=\"54\" rx=\"4\" fill=\"#D32A22\" stroke=\"#8E1712\" stroke-width=\"2\"/><rect x=\"26\" y=\"38\" width=\"32\" height=\"4\" fill=\"#8E1712\" opacity=\".6\"/><rect x=\"26\" y=\"80\" width=\"32\" height=\"4\" fill=\"#8E1712\" opacity=\".6\"/><rect x=\"30\" y=\"44\" width=\"4\" height=\"32\" rx=\"2\" fill=\"#fff\" opacity=\".25\"/><circle cx=\"42\" cy=\"73\" r=\"4\" fill=\"#B71F19\" stroke=\"#8E1712\" stroke-width=\"1.5\"/><g class=\"mm-eyes\"><ellipse class=\"mm-white\" cx=\"35\" cy=\"51\" rx=\"6\" ry=\"7\" style=\"stroke:#8E1712\"/><ellipse class=\"mm-white\" cx=\"49\" cy=\"51\" rx=\"6\" ry=\"7\" style=\"stroke:#8E1712\"/><g class=\"mm-pupils\"><circle cx=\"36\" cy=\"52\" r=\"3.1\"/><circle cx=\"50\" cy=\"52\" r=\"3.1\"/><circle class=\"mm-glint\" cx=\"37\" cy=\"50.5\" r=\"1\"/><circle class=\"mm-glint\" cx=\"51\" cy=\"50.5\" r=\"1\"/></g></g><path class=\"mm-lid\" d=\"M28 50 Q35 43 42 50 M42 50 Q49 43 56 50\" style=\"stroke:#8E1712\"/><circle class=\"mm-cheek\" cx=\"30\" cy=\"62\" r=\"2.6\"/><circle class=\"mm-cheek\" cx=\"54\" cy=\"62\" r=\"2.6\"/><path class=\"mm-mouth\" d=\"M36 62 Q42 68 48 62\"/><ellipse class=\"mm-o\" cx=\"42\" cy=\"64\" rx=\"3\" ry=\"3.8\"/><ellipse class=\"mm-foot\" cx=\"34\" cy=\"90\" rx=\"6\" ry=\"3\"/><ellipse class=\"mm-foot\" cx=\"50\" cy=\"90\" rx=\"6\" ry=\"3\"/></g></svg>", "baes": "<svg class=\"mm-svg\" viewBox=\"0 0 84 100\" aria-hidden=\"true\"><ellipse class=\"mm-shadow\" cx=\"42\" cy=\"95\" rx=\"20\" ry=\"3.5\"/><g class=\"mm-body\"><g class=\"mm-arm-l\"><path d=\"M14 52 Q5 56 4 64\" style=\"stroke:#6B7782\"/><circle cx=\"4\" cy=\"65\" r=\"3.6\" style=\"fill:#E9EDF1;stroke:#6B7782\"/></g><g class=\"mm-arm-r\"><path d=\"M70 52 Q79 56 80 64\" style=\"stroke:#6B7782\"/><circle cx=\"80\" cy=\"65\" r=\"3.6\" style=\"fill:#E9EDF1;stroke:#6B7782\"/></g><path d=\"M32 80 V87 M52 80 V87\" stroke=\"#6B7782\" stroke-width=\"3\" stroke-linecap=\"round\"/><rect x=\"12\" y=\"32\" width=\"60\" height=\"48\" rx=\"6\" fill=\"#F8FAF9\" stroke=\"#6B7782\" stroke-width=\"2\"/><rect x=\"22\" y=\"67\" width=\"40\" height=\"9\" rx=\"2\" fill=\"#0F7A43\"/><path d=\"M27 71.5 H44 M40 68.5 L44 71.5 L40 74.5\" stroke=\"#fff\" stroke-width=\"1.8\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"49\" y=\"69\" width=\"8\" height=\"5\" rx=\"1\" fill=\"none\" stroke=\"#fff\" stroke-width=\"1.4\"/><g class=\"mm-eyes\"><ellipse class=\"mm-white\" cx=\"35\" cy=\"47\" rx=\"6\" ry=\"7\" style=\"stroke:#6B7782\"/><ellipse class=\"mm-white\" cx=\"49\" cy=\"47\" rx=\"6\" ry=\"7\" style=\"stroke:#6B7782\"/><g class=\"mm-pupils\"><circle cx=\"36\" cy=\"48\" r=\"3.1\"/><circle cx=\"50\" cy=\"48\" r=\"3.1\"/><circle class=\"mm-glint\" cx=\"37\" cy=\"46.5\" r=\"1\"/><circle class=\"mm-glint\" cx=\"51\" cy=\"46.5\" r=\"1\"/></g></g><path class=\"mm-lid\" d=\"M28 46 Q35 39 42 46 M42 46 Q49 39 56 46\" style=\"stroke:#6B7782\"/><circle class=\"mm-cheek\" cx=\"30\" cy=\"58\" r=\"2.6\"/><circle class=\"mm-cheek\" cx=\"54\" cy=\"58\" r=\"2.6\"/><path class=\"mm-mouth\" d=\"M36 58 Q42 64 48 58\"/><ellipse class=\"mm-o\" cx=\"42\" cy=\"60\" rx=\"3\" ry=\"3.8\"/><ellipse class=\"mm-foot\" cx=\"34\" cy=\"90\" rx=\"6\" ry=\"3\"/><ellipse class=\"mm-foot\" cx=\"50\" cy=\"90\" rx=\"6\" ry=\"3\"/></g></svg>"}; btn.innerHTML = FORMS.ext;
+  const LINE = { ext: "Retour en extincteur, prêt à servir !", det: "Version détecteur : je repère la moindre fumée.", kit: "Version secouriste, trousse en main.", dm: "Déclencheur manuel ! Mais on n'appuie sur moi qu'en cas de feu, hein.", dae: "Mode défibrillateur : je parle, tu suis mes instructions.", hyd: "Poteau incendie ! Les pompiers comptent sur moi.", baes: "Bloc de secours : je m'allume quand tout s'éteint." };
   let form = "ext", busy = false, saidForm = {};
   const pick = a => a[Math.floor(Math.random() * a.length)];
   const cloud = () => {
@@ -6892,14 +6976,15 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   }
   window.__memoMorph = morph;
   window.__memo = { cloud, busy: () => busy, setBusy: v => { busy = v; }, setForm: f => { btn.innerHTML = FORMS[f]; form = f; }, forms: () => Object.keys(FORMS), form: () => form };
-  const formFor = h => /^sst/.test(h) ? "kit" : (h === "glossaire" || /^ch-(15|29|30)$/.test(h) || h === "cas-4") ? "det" : "ext";
+  const MAP = { "ch-08": "hyd", "ch-14": "hyd", "ch-36": "hyd", "ch-09": "baes", "ch-10": "baes", "ch-19": "baes", "ch-11": "ext", "ch-15": "dm", "ch-18": "dm", "ch-29": "det", "ch-30": "dm", "glossaire": "det", "cas1-4": "dae", "cas-4": "det" };
+  const formFor = h => MAP[h] || (/^sst/.test(h) ? pick(["kit", "dae"]) : "ext");
   addEventListener("hashchange", () => {
     const h = (location.hash || "#accueil").slice(1), f = formFor(h);
     if (f !== form) setTimeout(() => { morph(f); if (!saidForm[f]) { saidForm[f] = 1; setTimeout(() => { const t = wrap.querySelector(".mm-txt"), b = wrap.querySelector(".mm-bub"); if (b && b.hidden) { t.textContent = LINE[f]; wrap.querySelector(".mm-chips").innerHTML = ""; b.hidden = false; setTimeout(() => { b.hidden = true; }, 4000); } }, 1100); } }, 350);
   });
   /* de temps en temps, une pirouette ou un déguisement passager */
   setInterval(() => {
-    if (document.hidden || busy || wrap.classList.contains("quiet") || wrap.classList.contains("away")) return;
+    if (document.hidden || busy || wrap.classList.contains("quiet") || wrap.classList.contains("away") || wrap.classList.contains("sleep") || wrap.classList.contains("act")) return;
     const r = Math.random();
     if (r < .14) morph(null, "spin");
     else if (r < .34) { const base = form, other = pick(Object.keys(FORMS).filter(k => k !== form)); morph(other, "poof"); setTimeout(() => { if (form === other) morph(base, pick(["spin", "poof"])); }, 9000 + Math.random() * 8000); }
@@ -6952,7 +7037,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
     setTimeout(() => { set(nx, ny, 0); if (morphTo) M.setForm(morphTo); M.cloud(); }, 420);
     setTimeout(() => { wrap.classList.remove("m-poof"); M.setBusy(false); moving = false; placeBub(); }, 1000);
   }
-  const free = () => !wrap.classList.contains("off") && !wrap.classList.contains("quiet") && !wrap.classList.contains("away") && bub.hidden && !moving && !M.busy() && !document.hidden;
+  const free = () => !wrap.classList.contains("off") && !wrap.classList.contains("quiet") && !wrap.classList.contains("away") && !wrap.classList.contains("sleep") && !wrap.classList.contains("act") && bub.hidden && !moving && !M.busy() && !document.hidden;
   set(...home(), 0);
   addEventListener("resize", () => set(x, y, 0));
   setInterval(() => { if (!moving && !M.busy() && blocked(x, y)) { const h = home(); moving = true; set(h[0], h[1], 500); setTimeout(() => { moving = false; placeBub(); }, 550); } }, 400);
@@ -6968,6 +7053,99 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   })();
   /* s'il est au milieu de l'écran quand il parle avec des choix, il reste immobile ; un clic sur un lien le fait revenir près du bord */
   addEventListener("hashchange", () => { if (Math.random() < .5 && free()) walk(...spot()); });
+})();
+
+/* ---- Vimo vivant ---- */
+(function () {
+  const wrap = document.getElementById("mascot"); if (!wrap) return;
+  const btn = wrap.querySelector(".mm-btn"), bub = wrap.querySelector(".mm-bub"), txt = wrap.querySelector(".mm-txt"), chips = wrap.querySelector(".mm-chips");
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const has = c => wrap.classList.contains(c), pick = a => a[Math.floor(Math.random() * a.length)];
+  const moving = () => has("roam") || has("hop") || has("m-poof") || has("m-spin");
+  const fx = document.createElement("div"); fx.className = "mm-fx"; fx.innerHTML = '<div class="mm-zzz"><span>z</span><span>z</span><span>Z</span></div><div class="mm-notes"><span>♪</span><span>♫</span><span>♪</span></div><div class="mm-stars"><span>✦</span><span>✧</span><span>✦</span></div>';
+  wrap.appendChild(fx);
+  let lastAct = Date.now(), lookT = 0;
+  const look = (lx, ly) => { wrap.style.setProperty("--lx", lx.toFixed(2) + "px"); wrap.style.setProperty("--ly", ly.toFixed(2) + "px"); };
+  const lookAt = (px, py, hold) => {
+    const r = btn.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height * .42;
+    const dx = px - cx, dy = py - cy, d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 110);
+    let lx = dx / d * 2.4 * k; const ly = dy / d * 2.1 * k; if (has("face-l")) lx = -lx;
+    look(lx, ly); clearTimeout(lookT); lookT = setTimeout(() => look(0, 0), hold || 2600);
+  };
+  function quip(t, dur) {
+    if (!bub.hidden || has("off") || has("quiet") || has("away")) return;
+    txt.textContent = t; chips.innerHTML = ""; bub.hidden = false;
+    setTimeout(() => { if (txt.textContent === t) bub.hidden = true; }, dur || 3500);
+  }
+  /* réveil */
+  function wake(e) {
+    lastAct = Date.now();
+    if (!has("sleep")) return;
+    wrap.classList.remove("sleep"); wrap.classList.add("startle", "act");
+    setTimeout(() => wrap.classList.remove("startle", "act"), 900);
+    if (Math.random() < .6) setTimeout(() => quip(pick(["Hein ? Je ne dormais pas !", "Oh ! Tu es là !", "Je veillais… les yeux fermés.", "Présent ! Tout est sous contrôle."])), 350);
+  }
+  /* le regard suit le doigt ou la souris */
+  let raf = 0, pe = null;
+  addEventListener("pointermove", e => { pe = e; if (!raf) raf = requestAnimationFrame(() => { raf = 0; if (!has("sleep")) lookAt(pe.clientX, pe.clientY, 1800); }); lastAct = Date.now(); }, { passive: true });
+  addEventListener("pointerdown", e => { wake(e); lookAt(e.clientX, e.clientY); }, { passive: true });
+  addEventListener("keydown", wake); addEventListener("hashchange", wake);
+  /* il penche quand on fait défiler la page, comme s'il gardait l'équilibre */
+  let lastY = scrollY, tiltT = 0;
+  addEventListener("scroll", () => {
+    const dy = scrollY - lastY; lastY = scrollY; if (has("sleep") && Math.abs(dy) > 30) wake(); else lastAct = Date.now();
+    wrap.style.setProperty("--tilt", Math.max(-11, Math.min(11, -dy * .45)) + "deg"); look(0, dy > 0 ? -1.9 : 1.9);
+    clearTimeout(tiltT); tiltT = setTimeout(() => { wrap.style.setProperty("--tilt", "0deg"); look(0, 0); }, 160);
+  }, { passive: true });
+  /* clignements irréguliers, parfois doubles */
+  (function blink() {
+    setTimeout(blink, 1600 + Math.random() * 4400);
+    if (has("sleep") || has("yawn")) return;
+    wrap.classList.add("blink"); setTimeout(() => wrap.classList.remove("blink"), 120);
+    if (Math.random() < .22) setTimeout(() => { wrap.classList.add("blink"); setTimeout(() => wrap.classList.remove("blink"), 110); }, 240);
+  })();
+  /* petites actions de la vie */
+  const act = (cls, ms, fn) => {
+    if (has("act") || moving() || has("sleep") || has("off") || has("quiet")) return false;
+    wrap.classList.add("act", cls); fn && fn();
+    setTimeout(() => wrap.classList.remove("act", cls), ms); return true;
+  };
+  const edge = () => { const r = btn.getBoundingClientRect(), W = document.documentElement.clientWidth; return r.left < 50 ? "l" : r.right > W - 50 ? "r" : null; };
+  const ACTS = {
+    lookAround: () => act("looking", 2600, () => { look(-2.4, 0); setTimeout(() => look(2.4, 0), 700); setTimeout(() => look(0, -2), 1400); setTimeout(() => look(0, 0), 2100); }),
+    stretch: () => act("stretch", 1700),
+    scratch: () => act("scratch", 1900, () => { if (Math.random() < .35) quip(pick(["Hmm… voyons voir.", "Qu'est-ce que je voulais dire, déjà ?", "Ça me gratte, ce détecteur."])); }),
+    sneeze: () => act("sneeze", 1500, () => setTimeout(() => { window.__memo && window.__memo.cloud(); if (Math.random() < .5) quip(pick(["Atchoum ! Trop de fumée par ici…", "Atchoum ! Pardon."]), 2500); }, 750)),
+    dance: () => act("dance", 2600),
+    hum: () => act("hum", 2800),
+    yawn: () => act("yawn", 2300),
+    wave: () => act("hello", 1600),
+    peek: () => { const e = edge(); if (!e) return false; return act("peek-" + e, 4200, () => { setTimeout(() => look(e === "r" ? (has("face-l") ? 2.4 : -2.4) : (has("face-l") ? -2.4 : 2.4), 0), 700); setTimeout(() => look(0, 0), 3400); }); }
+  };
+  const W8 = [["lookAround", 4], ["stretch", 2], ["scratch", 2], ["sneeze", 1], ["dance", 1], ["hum", 2], ["yawn", 1], ["wave", 1], ["peek", 3]];
+  const choose = () => { const t = W8.reduce((s, x) => s + x[1], 0); let r = Math.random() * t; for (const [k, w] of W8) { if ((r -= w) < 0) return k; } return "lookAround"; };
+  (function loop() {
+    setTimeout(loop, 4200 + Math.random() * 5200);
+    if (document.hidden || !bub.hidden || has("away")) return;
+    let k = choose(); if (!ACTS[k]()) ACTS.lookAround();
+  })();
+  /* s'endort si personne ne bouge, bâille d'abord */
+  setInterval(() => {
+    if (has("sleep") || has("off") || has("quiet") || !bub.hidden || moving() || has("act")) return;
+    if (Date.now() - lastAct > 32000) { ACTS.yawn(); setTimeout(() => { if (Date.now() - lastAct > 32000 && bub.hidden) wrap.classList.add("sleep"); }, 2400); }
+  }, 3000);
+  /* quand on le tapote : il s'écrase, rit, et trop de tapes lui donnent le tournis */
+  let taps = [];
+  btn.addEventListener("pointerdown", () => {
+    const n = Date.now(); taps = taps.filter(t => n - t < 1600); taps.push(n);
+    wrap.classList.add("squish"); setTimeout(() => wrap.classList.remove("squish"), 280);
+    if (taps.length >= 4) {
+      taps = []; wrap.classList.add("dizzy", "act"); setTimeout(() => wrap.classList.remove("dizzy", "act"), 2800);
+      setTimeout(() => { txt.textContent = pick(["Ouh là, j'ai la tête qui tourne !", "Doucement, je ne suis pas un bouton !", "Stop, stop… je vois des étoiles."]); chips.innerHTML = ""; bub.hidden = false; setTimeout(() => { bub.hidden = true; }, 3200); }, 80);
+    }
+  });
+  /* il se réjouit avec toi : petite danse après 3 bonnes réponses ou un bon examen */
+  new MutationObserver(() => { if (has("joy") && Math.random() < .5) setTimeout(() => ACTS.dance(), 1900); }).observe(wrap, { attributes: true, attributeFilter: ["class"] });
 })();
 
 /* ---- menu à trois traits ---- */
