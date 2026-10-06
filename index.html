@@ -1064,6 +1064,18 @@ body[data-univ="ads"] .bolt-btn.on { background: #fff; border-color: #111; color
 @media (prefers-reduced-motion: reduce) { .bolt-btn.strike, .bolt-btn.strike svg, .bolt-btn.strike .bolt-zap, .top.lit::before { animation: none; } }
 
 
+/* ---- v32 : un seul tour pour le Flash info ---- */
+.fl-track { animation-iteration-count: 1 !important; animation-fill-mode: forwards; }
+.flash.done .fl-track { animation: none !important; transform: translateX(0); }
+@media (hover: none) { .flash:hover .fl-track { animation-play-state: running; } }
+/* ---- v32 : mode sobre ---- */
+body.sobre .fl-track { animation: none !important; transform: none; }
+body.sobre .fl-dot, body.sobre .bolt-btn.strike, body.sobre .bolt-btn.strike svg, body.sobre .bolt-btn.strike .bolt-zap, body.sobre .top.lit::before, body.sobre .srch-hit { animation: none !important; }
+body.sobre #mascot, body.sobre #mascot * { animation: none !important; }
+body.sobre .wl { transition: none; }
+.sobre-tog[aria-pressed="true"] { border-color: var(--ink); }
+
+
 /* ---- v20 : lien discret vers les mises à jour ---- */
 .land-upd { margin: 22px 0 0; font-size: 14px; }
 .land-upd a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--muted); }
@@ -1399,7 +1411,7 @@ body[data-univ="ads"] .bolt-btn.on { background: #fff; border-color: #111; color
   <section class="page" id="journal">
     <div class="wrap">
       <div class="sec-head"><h2>Historique du site</h2><p>Mis à jour grâce à vous 💪 Chaque erreur signalée est vérifiée sur le texte officiel, corrigée, puis affichée ici.</p></div>
-      <div class="hx-stats"><div><b>8</b><span>corrections grâce à un agent du métier</span></div><div><b>16</b><span>mises à jour en octobre 2026</span></div></div>
+      <div class="hx-stats"><div><b>8</b><span>corrections grâce à un agent du métier</span></div><div><b>17</b><span>mises à jour en octobre 2026</span></div></div>
       <h3 class="x-h">Corrigé grâce à vous</h3>
       <p class="hx-lead">Octobre 2026 · relecture complète par un agent du métier. Merci à lui !</p>
       <div class="hx-list">
@@ -1415,6 +1427,7 @@ body[data-univ="ads"] .bolt-btn.on { background: #fff; border-color: #111; color
       <p class="hx-cta">Vous aussi, vous repérez une erreur ? Le bouton « Signaler une erreur » est en bas de chaque chapitre. Une question sans réponse sûre ? Elle va dans les <a href="#doutes">points à vérifier</a>.</p>
       <h3 class="x-h">Toutes les nouveautés</h3>
       <div class="log">
+        <div><time>10/2026</time><span>Nouveau réglage « Mode sobre » dans le menu : il coupe le défilement du Flash info, l'éclair et les déplacements de Vimo, pour réviser au calme.</span></div>
         <div><time>10/2026</time><span>Vidéos instantanées : un éclair apparaît en haut de chaque page avec vidéo. Un appui, et le lecteur se prépare pendant que vous lisez : la vidéo démarre presque tout de suite.</span></div>
         <div><time>10/2026</time><span>Une barre de recherche sur tout le site, une bannière Flash info, la lettre Mémo World, des textes officiels classés par type (21 textes, dont 11 pour la sécurité privée) et une couleur par univers : le feu pour le SSIAP, le noir et blanc pour l'ADS. Vimo relaie le Flash info et a beaucoup plus de choses à dire.</span></div>
         <div><time>10/2026</time><span>Veille réglementaire : la note sur le secourisme est corrigée. L'arrêté du 7 juillet 2026 concerne les premiers secours de sécurité civile (GQS, PSC, PSE), pas le SST.</span></div>
@@ -7999,6 +8012,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   const mood = m => { wrap.classList.remove("joy", "oops", "think", "wave"); void wrap.offsetWidth; if (m && !reduce) wrap.classList.add(m); clearTimeout(mood.t); mood.t = setTimeout(() => wrap.classList.remove(m), 1800); };
   function say(t, o = {}) {
     if (wrap.classList.contains("off")) return;
+    if (window.__fxUntil && Date.now() < window.__fxUntil && !o.force) { setTimeout(() => say(t, o), window.__fxUntil - Date.now() + 250); return; }
     const prio = o.prio || 1, now = Date.now();
     if (examOn() && !o.force) return;
     if (!bub.hidden && now - lastSay < 4500 && prio < lastPrio) return;
@@ -8702,7 +8716,7 @@ const DOUTES = [{"id": "d1", "u": "SSIAP", "ch": [11], "t": "Extincteurs : la r�
   function intro(force) {
     const letters = [...document.querySelectorAll(".wordmark .wl")];
     if (letters.length !== 9) return;
-    if ((location.hash && location.hash !== "#accueil") || wrap.classList.contains("off") || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if ((location.hash && location.hash !== "#accueil") || wrap.classList.contains("off") || document.body.classList.contains("sobre") || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const i = typeof force === "number" ? force : pickLetter(), L = letters[i], r = L.getBoundingClientRect();
     if (r.bottom < 70 || r.top > innerHeight) return;
     const st = (() => { try { return JSON.parse(store.get("ms-vimo-letters") || "{}"); } catch (e) { return {}; } })();
@@ -9061,7 +9075,8 @@ function vidPreOn() { try { return localStorage.getItem("ms-vid-pre") === "1"; }
   window.__boltPaint = paint;
   const pageHasVid = () => [...document.querySelectorAll(".vid[data-y]")].some(v => !v.closest("[hidden]") && !v.closest(".vid-warm"));
   function strike() {
-    if (reduce) return;
+    if (reduce || document.body.classList.contains("sobre")) return;
+    window.__fxUntil = Date.now() + 1400;
     bolt.classList.remove("strike"); document.querySelector(".top").classList.remove("lit");
     void bolt.offsetWidth;
     bolt.classList.add("strike"); document.querySelector(".top").classList.add("lit");
@@ -9074,7 +9089,7 @@ function vidPreOn() { try { return localStorage.getItem("ms-vid-pre") === "1"; }
       bolt.hidden = !has; document.body.classList.toggle("has-vid", has);
       if (!has) { close(); last = ""; return; }
       const key = location.hash || "#accueil";
-      if (!was || key !== last) strike();
+      if ((!was || key !== last) && !window.__boltStruck) { window.__boltStruck = 1; strike(); }
       last = key; paint();
     }, 350);
   }
@@ -9091,6 +9106,35 @@ function vidPreOn() { try { return localStorage.getItem("ms-vid-pre") === "1"; }
   document.addEventListener("click", e => { if (!pop.hidden && !e.target.closest("#bolt-pop, #bolt")) close(); });
   addEventListener("keydown", e => { if (e.key === "Escape" && !pop.hidden) { close(); bolt.focus(); } });
   addEventListener("hashchange", close);
+  paint();
+})();
+
+/* ---- v32 : dosage des effets et mode sobre ---- */
+(function () {
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const sobre = () => document.body.classList.contains("sobre");
+  if (store.get("ms-sobre") === "1") document.body.classList.add("sobre");
+  /* Vimo attend la fin d'un effet (éclair) avant de bouger ; en mode sobre, il ne se déplace plus de lui-même */
+  const lvl = window.__vimoLevel;
+  if (lvl) window.__vimoLevel = () => sobre() ? 0 : lvl();
+  const pt = window.__vimoPoint;
+  if (pt) window.__vimoPoint = (el, say, force) => (sobre() || (window.__fxUntil && Date.now() < window.__fxUntil)) ? false : pt(el, say, force);
+  /* Flash info : un seul tour, puis il s'arrête ; il repart quand on le survole ou le touche */
+  const fl = document.getElementById("flash"), tr = document.getElementById("fl-track");
+  if (fl && tr && !fl.classList.contains("rm")) {
+    tr.addEventListener("animationend", () => fl.classList.add("done"));
+    const again = () => { if (!fl.classList.contains("done") || sobre()) return; fl.classList.remove("done"); tr.style.animation = "none"; void tr.offsetWidth; tr.style.animation = ""; };
+    fl.querySelector(".fl-vp").addEventListener("pointerenter", again);
+    fl.querySelector(".fl-vp").addEventListener("touchstart", again, { passive: true });
+  }
+  /* le réglage, dans le menu */
+  const tog = document.createElement("button"); tog.type = "button"; tog.className = "mm-tog sobre-tog";
+  const paint = () => { const o = sobre(); tog.textContent = o ? "Mode sobre activé · réactiver les effets" : "Mode sobre : couper les animations"; tog.setAttribute("aria-pressed", o); };
+  tog.addEventListener("click", () => {
+    const o = !sobre(); document.body.classList.toggle("sobre", o); store.set("ms-sobre", o ? "1" : "0"); paint();
+    if (window.__vimoSay) window.__vimoSay(o ? "Mode sobre : je reste à ma place et je ne parle que si tu m'appelles." : "Les effets sont de retour !", { prio: 3, mood: o ? "" : "joy", dur: 4500 });
+  });
+  const foot = document.querySelector(".menu-foot"); if (foot) foot.before(tog);
   paint();
 })();
 
