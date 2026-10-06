@@ -524,6 +524,72 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
 .vp-back { color: #fff; background: var(--fire); border: 2px solid var(--fire); }
 .vp-bar .vp-x { width: 34px; padding: 0; color: var(--ink); background: var(--bg); border: 1px solid var(--line); }
 
+
+/* ---- v17 : mini-lecteur plus petit ---- */
+#vplayer.mini { width: min(250px, calc(100vw - 110px)); padding: 5px; border-radius: 12px; right: 10px; }
+#vplayer.mini .vp-bar { padding-bottom: 5px; gap: 5px; }
+#vplayer.mini .vp-t { font-size: 11.5px; }
+#vplayer.mini .vp-back { font-size: 12px; min-height: 30px; padding: 2px 9px; }
+#vplayer.mini .vp-bar .vp-x { width: 30px; min-height: 30px; }
+/* ---- v17 : mascotte Mémo ---- */
+#mascot { --mm-up: 0px; --mm-x: 0px; --mm-look: 0px; position: fixed; right: 8px; bottom: calc(6px + var(--mm-up) + env(safe-area-inset-bottom, 0px)); z-index: 54; display: flex; flex-direction: column; align-items: flex-end; pointer-events: none; transition: bottom .35s ease, opacity .3s; }
+#mascot.off { display: none; }
+#mascot.away { opacity: 0; visibility: hidden; }
+#mascot.quiet .mm-btn { opacity: .35; }
+#mascot.quiet .mm-bub { display: none; }
+.mm-btn { pointer-events: auto; width: 62px; height: 74px; padding: 0; border: 0; background: none; cursor: pointer; transform: translateX(var(--mm-x)); transition: transform 1.3s ease-in-out; -webkit-tap-highlight-color: transparent; }
+.mm-svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 3px 6px rgba(0,0,0,.18)); }
+.mm-shadow { fill: rgba(0,0,0,.18); }
+.mm-tank { fill: #D32A22; stroke: #8E1712; stroke-width: 2; }
+.mm-shine { fill: #fff; opacity: .28; }
+.mm-band { fill: #fff; opacity: .92; }
+.mm-valve { fill: #9AA5AF; stroke: #5D6873; stroke-width: 2; }
+.mm-lever { stroke: #3B444D; stroke-width: 4; stroke-linecap: round; fill: none; }
+.mm-pin { fill: #F2B705; stroke: #8A6800; stroke-width: 1.4; }
+.mm-hose { fill: none; stroke: #20272E; stroke-width: 4.5; stroke-linecap: round; }
+.mm-nozzle { fill: #20272E; }
+.mm-arm-l path, .mm-arm-r path { fill: none; stroke: #8E1712; stroke-width: 4; stroke-linecap: round; }
+.mm-arm-l circle, .mm-arm-r circle { fill: #D32A22; stroke: #8E1712; stroke-width: 1.6; }
+.mm-white { fill: #fff; stroke: #8E1712; stroke-width: 1.2; }
+.mm-pupils circle { fill: #16202B; }
+.mm-pupils .mm-glint { fill: #fff; }
+.mm-pupils { transform: translateX(var(--mm-look)); transition: transform .4s; }
+.mm-cheek { fill: #FF8A80; opacity: .7; }
+.mm-mouth { fill: none; stroke: #4A0B08; stroke-width: 2.2; stroke-linecap: round; }
+.mm-foot { fill: #20272E; }
+.mm-body, .mm-eyes, .mm-arm-r, .mm-arm-l { transform-box: fill-box; }
+.mm-body { transform-origin: 50% 100%; animation: mmBob 3.2s ease-in-out infinite; }
+.mm-eyes { transform-origin: center; animation: mmBlink 4.6s infinite; }
+.mm-arm-r { transform-origin: 0% 0%; }
+.mm-arm-l { transform-origin: 100% 0%; }
+@keyframes mmBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2.5px); } }
+@keyframes mmBlink { 0%, 93%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+#mascot.wave .mm-arm-r { animation: mmWave .45s ease-in-out 3; }
+@keyframes mmWave { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-55deg); } }
+#mascot.joy .mm-body { animation: mmJump .5s ease-out 2; }
+#mascot.joy .mm-arm-l { animation: mmWaveL .5s ease-in-out 2; }
+#mascot.joy .mm-arm-r { animation: mmWave .5s ease-in-out 2; }
+@keyframes mmWaveL { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(55deg); } }
+@keyframes mmJump { 0%, 100% { transform: translateY(0) scaleY(1); } 15% { transform: translateY(0) scaleY(.9); } 50% { transform: translateY(-14px) scaleY(1.04); } }
+#mascot.oops .mm-body { animation: mmTilt .6s ease-in-out 2; }
+@keyframes mmTilt { 0%, 100% { transform: rotate(0); } 30% { transform: rotate(-7deg); } 70% { transform: rotate(6deg); } }
+#mascot.oops .mm-mouth { d: path("M37 61 Q42 57 47 61"); }
+#mascot.think .mm-pupils { transform: translate(1.5px, -2px); }
+#mascot.walk .mm-body { animation: mmStep .32s ease-in-out 4; }
+@keyframes mmStep { 0%, 100% { transform: rotate(0) translateY(0); } 25% { transform: rotate(-4deg) translateY(-2px); } 75% { transform: rotate(4deg) translateY(-2px); } }
+.mm-bub { pointer-events: auto; position: relative; max-width: min(270px, calc(100vw - 30px)); margin: 0 6px 8px 0; background: var(--surface); color: var(--ink); border: 2px solid var(--ink); border-radius: 14px 14px 4px 14px; padding: 10px 30px 10px 12px; box-shadow: 0 8px 26px rgba(0,0,0,.2); animation: mmPop .22s ease-out; }
+.mm-bub[hidden] { display: none; }
+@keyframes mmPop { from { transform: translateY(6px) scale(.96); opacity: 0; } to { transform: none; opacity: 1; } }
+.mm-txt { margin: 0; font-size: 14.5px; line-height: 1.4; }
+.mm-close { position: absolute; top: 4px; right: 4px; width: 26px; height: 26px; border: 0; background: none; color: var(--muted); font-size: 14px; cursor: pointer; border-radius: 6px; }
+.mm-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.mm-chips:empty { display: none; }
+.mm-chip { font: inherit; font-size: 13px; font-weight: 700; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; min-height: 34px; cursor: pointer; }
+.mm-chip:hover, .mm-chip:focus-visible { border-color: var(--fire); color: var(--fire); }
+.mm-chip[data-go="hide"] { color: var(--muted); font-weight: 600; }
+.mm-tog { font: inherit; font-size: 13.5px; font-weight: 700; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; text-align: left; cursor: pointer; margin-top: 8px; }
+@media (prefers-reduced-motion: reduce) { .mm-body, .mm-eyes { animation: none !important; } .mm-btn { transition: none; } }
+
 /* ---- QCM : cases à cocher ---- */
 .hint { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); margin: -6px 0 10px; }
 .opt { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; }
@@ -744,6 +810,7 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
     <div class="wrap">
       <div class="sec-head"><h2>Mises à jour</h2><p>Le site avance chaque semaine.</p></div>
       <div class="log">
+        <div><time>06/10/2026</time><span>Nouveau : Mémo, le petit guide du site. Il vous accueille, vous propose où aller, réagit à vos réponses et s'efface pendant les examens blancs. On peut le cacher depuis le menu. Le mini-lecteur vidéo est aussi plus discret.</span></div>
         <div><time>06/10/2026</time><span>Nouveau : des vidéos d'organismes officiels (INRS, Croix-Rouge, pompiers…) dans les chapitres, les fiches de secourisme et les débriefings des cas pratiques. Chaque vidéo a été vérifiée (chaîne officielle, sujet), et elle ne se charge que si vous appuyez sur lecture.</span></div>
         <div><time>06/10/2026</time><span>Nouveau : un schéma pour chaque fiche de secourisme (examen de la victime, saignement, étouffement, malaise, brûlures, douleur, plaies, PLS, RCP et DAE), et dans le glossaire les sigles cités dans une définition renvoient directement à leur propre fiche.</span></div>
         <div><time>06/10/2026</time><span>Nouveau : bouton « Signaler une erreur » en bas de chaque chapitre (le mail s'ouvre avec le chapitre déjà indiqué), et une adresse de contact : contact.limitlessprojets@gmail.com.</span></div>
@@ -6655,6 +6722,122 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   const plan = $("#sst-box .sst-fig"); if (plan) plan.insertAdjacentHTML("afterend", vidBlock("sst-plan", "h4"));
   const fh = $("#sst-fiches"); if (fh) fh.insertAdjacentHTML("beforebegin", vidBlock("sst-alerte", "h4"));
   document.querySelectorAll("#sst-box .sst-f .sst-fb").forEach((fb, k) => { const f = fb.querySelector(".sst-fig"), h = vidBlock("sst-f" + k, "h4"); if (h) (f ? f.insertAdjacentHTML("afterend", h) : fb.insertAdjacentHTML("afterbegin", h)); });
+})();
+
+/* ---- mascotte Mémo ---- */
+(function () {
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const wrap = document.createElement("div"); wrap.id = "mascot";
+  wrap.innerHTML = `<div class="mm-bub" role="status" aria-live="polite" hidden><button type="button" class="mm-close" aria-label="Fermer la bulle">✕</button><p class="mm-txt"></p><div class="mm-chips"></div></div>
+    <button type="button" class="mm-btn" aria-label="Mémo, le guide du site : que veux-tu faire ?"><svg class="mm-svg" viewBox="0 0 84 100" aria-hidden="true">  <ellipse class="mm-shadow" cx="42" cy="95" rx="20" ry="3.5"/>  <g class="mm-body">    <path class="mm-hose" d="M51 19 C70 19 73 42 63 56"/>    <rect class="mm-nozzle" x="58" y="54" width="9" height="8" rx="2" transform="rotate(-20 62 58)"/>    <path class="mm-lever" d="M36 11 L58 6"/>    <rect class="mm-valve" x="32" y="11" width="18" height="15" rx="3"/>    <circle class="mm-pin" cx="54" cy="15" r="3"/>    <g class="mm-arm-l"><path d="M24 54 Q15 58 14 66"/><circle cx="14" cy="67" r="3.6"/></g>    <g class="mm-arm-r"><path d="M60 54 Q69 58 70 66"/><circle cx="70" cy="67" r="3.6"/></g>    <rect class="mm-tank" x="23" y="24" width="38" height="64" rx="15"/>    <rect class="mm-shine" x="28" y="31" width="5" height="40" rx="2.5"/>    <rect class="mm-band" x="23" y="70" width="38" height="9"/>    <g class="mm-eyes">      <ellipse class="mm-white" cx="35" cy="47" rx="6" ry="7"/><ellipse class="mm-white" cx="49" cy="47" rx="6" ry="7"/>      <g class="mm-pupils"><circle cx="36" cy="48" r="3.1"/><circle cx="50" cy="48" r="3.1"/><circle class="mm-glint" cx="37" cy="46.5" r="1"/><circle class="mm-glint" cx="51" cy="46.5" r="1"/></g>    </g>    <circle class="mm-cheek" cx="30" cy="58" r="2.6"/><circle class="mm-cheek" cx="54" cy="58" r="2.6"/>    <path class="mm-mouth" d="M36 58 Q42 64 48 58"/>    <ellipse class="mm-foot" cx="34" cy="90" rx="6" ry="3"/><ellipse class="mm-foot" cx="50" cy="90" rx="6" ry="3"/>  </g></svg></button>`;
+  document.body.appendChild(wrap);
+  const bub = wrap.querySelector(".mm-bub"), txt = wrap.querySelector(".mm-txt"), chipsEl = wrap.querySelector(".mm-chips"), btn = wrap.querySelector(".mm-btn");
+  let hideT = 0, lastSay = 0, lastPrio = 0, lastAct = Date.now(), streak = 0;
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const examOn = () => typeof pool !== "undefined" && pool.length > 0 && typeof done !== "undefined" && !done && /^#qcm/.test(location.hash || "");
+  const mood = m => { wrap.classList.remove("joy", "oops", "think", "wave"); void wrap.offsetWidth; if (m && !reduce) wrap.classList.add(m); clearTimeout(mood.t); mood.t = setTimeout(() => wrap.classList.remove(m), 1800); };
+  function say(t, o = {}) {
+    if (wrap.classList.contains("off")) return;
+    const prio = o.prio || 1, now = Date.now();
+    if (examOn() && !o.force) return;
+    if (!bub.hidden && now - lastSay < 4500 && prio < lastPrio) return;
+    lastSay = now; lastPrio = prio;
+    txt.textContent = t;
+    chipsEl.innerHTML = (o.chips || []).map(c => `<button type="button" class="mm-chip" data-go="${c[1]}">${c[0]}</button>`).join("");
+    bub.hidden = false; mood(o.mood);
+    clearTimeout(hideT); hideT = setTimeout(() => { bub.hidden = true; lastPrio = 0; }, o.dur || (o.chips ? 14000 : 6000));
+  }
+  const MENU = [["Réviser un chapitre", "#parcours"], ["Un examen blanc", "#qcm"], ["Un cas pratique", "#cas"], ["Chercher un sigle", "#glossaire"], ["Les gestes SST", "#sst"]];
+  const ask = () => say(pick(["Qu'est-ce que tu veux faire ?", "On travaille quoi aujourd'hui ?", "Je t'emmène où ?"]), { chips: MENU.concat([["Me cacher", "hide"]]), prio: 3, mood: "wave" });
+  chipsEl.addEventListener("click", ev => {
+    const c = ev.target.closest(".mm-chip"); if (!c) return;
+    const g = c.dataset.go; bub.hidden = true; lastPrio = 0;
+    if (g === "hide") { hideMascot(); return; }
+    location.hash = g;
+  });
+  wrap.querySelector(".mm-close").addEventListener("click", () => { bub.hidden = true; lastPrio = 0; });
+  btn.addEventListener("click", ask);
+  /* afficher / cacher, mémorisé sur l'appareil */
+  const tog = document.createElement("button"); tog.type = "button"; tog.className = "mm-tog";
+  const setTog = () => { tog.textContent = wrap.classList.contains("off") ? "Afficher Mémo, le guide" : "Cacher Mémo, le guide"; };
+  function hideMascot() { wrap.classList.add("off"); store.set("ms-mascotte", "off"); setTog(); }
+  tog.addEventListener("click", () => { if (wrap.classList.contains("off")) { wrap.classList.remove("off"); store.set("ms-mascotte", "on"); setTog(); say("Me revoilà !", { prio: 3, mood: "joy" }); } else hideMascot(); });
+  const foot = document.querySelector(".menu-foot"); if (foot) foot.before(tog);
+  if (store.get("ms-mascotte") === "off") wrap.classList.add("off");
+  setTog();
+  /* il se place au-dessus du mini-lecteur et s'efface derrière la bulle des sigles et le menu */
+  setInterval(() => {
+    const vp = document.getElementById("vplayer"), sp = document.getElementById("sigpop");
+    const mini = vp && !vp.hidden && vp.classList.contains("mini");
+    wrap.style.setProperty("--mm-up", mini ? (vp.offsetHeight + 14) + "px" : "0px");
+    wrap.classList.toggle("away", !!(sp && !sp.hidden) || document.body.classList.contains("menu-open"));
+    wrap.classList.toggle("quiet", examOn());
+  }, 250);
+  /* petites vies autonomes : regarder, marcher, saluer */
+  if (!reduce) setInterval(() => {
+    if (wrap.classList.contains("off")) return;
+    const r = Math.random();
+    if (r < .35) { wrap.style.setProperty("--mm-look", pick(["-2px", "2px", "0px"])); }
+    else if (r < .6) { wrap.style.setProperty("--mm-x", pick(["0px", "-18px", "-36px", "-10px"])); wrap.classList.add("walk"); setTimeout(() => wrap.classList.remove("walk"), 1300); }
+    else if (r < .7) mood("wave");
+  }, 7000);
+  /* ce qu'il dit selon la page */
+  const seen = new Set();
+  const PAGE = {
+    accueil: () => ask(),
+    parcours: () => say(pick(["36 chapitres, du SSIAP 1 au SSIAP 2. Commence par le début ou va droit au chapitre qui t'intéresse.", "Chaque chapitre a son schéma, sa vidéo quand il y en a une, et 10 questions à la fin."])),
+    textes: () => say("Les textes officiels qui font foi, avec un lien vers chacun."),
+    qcm: () => say("Examen blanc : chrono, plusieurs bonnes réponses possibles, correction à la fin. Pendant l'épreuve, je me tais.", { dur: 7000 }),
+    glossaire: () => say("Tape un sigle, je te le traduis. Les sigles en rouge dans une définition t'emmènent vers leur fiche."),
+    cas: () => say(pick(["Mets-toi à la place de l'agent : à chaque étape, la bonne décision.", "Pas de panique : on lit, on réfléchit, on décide."])),
+    sst: () => say("Les gestes qui sauvent : un schéma et une vidéo par situation, puis un quiz."),
+    apropos: () => say("Un site construit par une équipe d'agents en poste. Une erreur ? Le bouton « Signaler » est là pour ça."),
+    journal: () => say("Le site avance chaque semaine : voici les nouveautés.")
+  };
+  function onPage() {
+    const h = (location.hash || "#accueil").slice(1);
+    const m = h.match(/^ch-(\d+)$/);
+    if (m) {
+      const c = CH.find(x => x.n === +m[1]); if (!c || seen.has(h)) return; seen.add(h);
+      say(pick([`Chapitre ${pad(c.n)} : ${c.t}. Les 10 questions à la fin te diront si c'est acquis.`, `${c.t} : lis l'essentiel, regarde le schéma, puis teste-toi.`, `C'est parti pour le chapitre ${pad(c.n)}. Les sigles soulignés s'expliquent en un geste.`]));
+      return;
+    }
+    const k = /^cas/.test(h) ? "cas" : /^qcm/.test(h) ? "qcm" : /^bloc-/.test(h) ? "parcours" : h;
+    if (PAGE[k] && !seen.has(k)) { seen.add(k); setTimeout(PAGE[k], 700); }
+  }
+  addEventListener("hashchange", onPage); setTimeout(onPage, 2500);
+  /* réactions à ce que fait le visiteur */
+  let pend = null;
+  document.addEventListener("click", ev => {
+    lastAct = Date.now();
+    const v = ev.target.closest(".vbtn");
+    if (v) { let r = v.parentElement; while (r && !r.querySelector(".fbz")) r = r.parentElement; pend = r; }
+  }, true);
+  document.addEventListener("click", ev => {
+    if (pend) {
+      const r = pend; pend = null;
+      setTimeout(() => {
+        const fb = r.querySelector(".fbz .fb"); if (!fb) return;
+        if (!fb.classList.contains("bad")) { streak++; say(streak >= 3 && streak % 3 === 0 ? `${streak} bonnes réponses d'affilée, chapeau !` : pick(["Bien vu !", "Exact !", "C'est ça !", "Parfait.", "Tu maîtrises."]), { prio: 2, mood: "joy", dur: 3500 }); }
+        else { streak = 0; say(pick(["Pas grave, lis bien l'explication.", "Presque ! L'explication est juste en dessous.", "On apprend de ses erreurs : relis la correction."]), { prio: 2, mood: "oops", dur: 4500 }); }
+      }, 40);
+      return;
+    }
+    if (ev.target.closest(".vid-play")) say("Bon visionnage ! Si tu changes de page, la vidéo te suit dans le petit lecteur.", { prio: 2, mood: "wave", dur: 5000 });
+    else if (ev.target.closest(".btn-rep")) say("Merci ! Chaque signalement rend le site plus juste.", { prio: 2, mood: "joy" });
+    else if (ev.target.closest(".sig") && Math.random() < .3) say("Bonne idée de vérifier ce sigle.", { prio: 1 });
+  });
+  const q = document.getElementById("gl-q"); let qt = 0;
+  if (q) q.addEventListener("input", () => { clearTimeout(qt); qt = setTimeout(() => { const n = document.getElementById("gl-n"); if (n && /^Aucun/.test(n.textContent)) say("Je ne connais pas ce sigle. Essaie un mot, par exemple « alarme ».", { prio: 2, mood: "think" }); }, 1100); });
+  if (typeof drawResult === "function") { const _dr = drawResult; drawResult = function (r) { _dr(r); const s = String(r.sur20).replace(".", ","); say(r.sur20 >= 16 ? `${s}/20 : excellent, tu es prêt !` : r.sur20 >= 12 ? `${s}/20 : au-dessus du seuil. Regarde les thèmes en orange pour progresser.` : `${s}/20 : courage. Commence par les chapitres « à retravailler » juste en dessous.`, { prio: 3, mood: r.sur20 >= 12 ? "joy" : "think", dur: 9000, force: true }); }; }
+  if (typeof drawCasEnd === "function") { const _de = drawCasEnd; drawCasEnd = function () { _de(); const p = cs.ok / cs.steps.length; say(p === 1 ? "Sans faute ! Tu aurais géré ça comme un chef." : p >= .6 ? "Bien géré. Lis le débriefing pour les points à revoir." : "Pas simple, ce cas. Le débriefing t'explique chaque décision.", { prio: 3, mood: p >= .6 ? "joy" : "think", dur: 8000 }); }; }
+  /* un « le savais-tu ? » de temps en temps, si on lit sans bouger */
+  setInterval(() => {
+    if (Date.now() - lastAct < 50000 || Date.now() - lastSay < 90000 || document.hidden) return;
+    const e = pick(GLO.filter(x => x.l && x.s.length <= 6));
+    say(`Le savais-tu ? ${e.s}, c'est « ${e.l} ».`, { prio: 0, mood: "think", dur: 7000 }); lastAct = Date.now();
+  }, 15000);
 })();
 
 /* ---- menu à trois traits ---- */
