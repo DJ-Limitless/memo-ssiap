@@ -593,9 +593,9 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
 
 /* ---- v18 : métamorphoses ---- */
 .mm-btn { position: relative; perspective: 400px; }
-#mascot.m-spin .mm-svg { animation: mmSpin .9s cubic-bezier(.5, 0, .3, 1); }
+#mascot.m-spin .mm-svg { animation: mmSpin .7s cubic-bezier(.5, 0, .3, 1); }
 @keyframes mmSpin { 0% { transform: rotateY(0) scale(1); } 45% { transform: rotateY(540deg) scale(.55); filter: blur(1.5px) drop-shadow(0 3px 6px rgba(0,0,0,.18)); } 100% { transform: rotateY(1080deg) scale(1); } }
-#mascot.m-poof .mm-svg { animation: mmPoof 1s ease-in-out; }
+#mascot.m-poof .mm-svg { animation: mmPoof .7s ease-in-out; }
 @keyframes mmPoof { 0% { transform: scale(1); opacity: 1; } 35% { transform: scale(.15) translateY(-10px); opacity: 0; } 55% { transform: scale(.15); opacity: 0; } 85% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
 .mm-cloud { position: absolute; left: 50%; top: 50%; width: 0; height: 0; pointer-events: none; }
 .mm-cloud span { position: absolute; left: -14px; top: -14px; width: 28px; height: 28px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff 0 40%, #DDE3E8 70%, rgba(200,208,215,.6) 100%); opacity: 0; animation: mmPuff 1.1s ease-out forwards; }
@@ -614,7 +614,7 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
 #mascot .mm-bub.below { animation-name: mmPopDown; }
 @keyframes mmPopDown { from { transform: translateY(-6px) scale(.96); opacity: 0; } to { transform: none; opacity: 1; } }
 #mascot.roam .mm-body { animation: mmStep .34s ease-in-out infinite; }
-#mascot.hop .mm-svg { animation: mmHop .9s ease-in-out; }
+#mascot.hop .mm-svg { animation: mmHop .65s ease-in-out; }
 @keyframes mmHop { 0% { transform: translateY(0) scaleY(1); } 12% { transform: translateY(0) scaleY(.85); } 50% { transform: translateY(-46px) scaleY(1.05) rotate(-8deg); } 88% { transform: translateY(0) scaleY(.9); } 100% { transform: translateY(0) scaleY(1); } }
 
 
@@ -704,6 +704,84 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
 @keyframes mmOrbit { 0% { transform: translate(-22px, 0) scale(.8); opacity: 1; } 25% { transform: translate(0, -6px) scale(1); } 50% { transform: translate(22px, 0) scale(.8); } 75% { transform: translate(0, 6px) scale(.6); opacity: .6; } 100% { transform: translate(-22px, 0) scale(.8); opacity: 1; } }
 
 
+/* ---- v22 : bouton Précédent ---- */
+.backrow { margin: 4px 0 14px; }
+#v-chap > .wrap .backrow { margin: 18px 0 0; }
+.back-btn { display: inline-flex; align-items: center; gap: 4px; font: inherit; font-size: 14.5px; font-weight: 700; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px 6px 8px; min-height: 40px; cursor: pointer; }
+.back-btn:hover, .back-btn:focus-visible { border-color: var(--ink); }
+.back-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+/* ---- v22 : gestes de Vimo ---- */
+#mascot.point-r .mm-arm-r { transform: rotate(-58deg); transition: transform .2s; }
+#mascot.point-l .mm-arm-l { transform: rotate(58deg); transition: transform .2s; }
+#mascot.point-r .mm-body, #mascot.point-l .mm-body { animation: mmNudge .5s ease-in-out 3; }
+@keyframes mmNudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+#mascot.thumb .mm-arm-r { animation: mmThumb 1.1s ease-out; }
+@keyframes mmThumb { 0%, 100% { transform: rotate(0); } 25%, 75% { transform: rotate(-120deg); } }
+#mascot.thumb .mm-svg { animation: mmSquish .3s ease-out; }
+#mascot.nod .mm-body { animation: mmNod .36s ease-in-out 3; }
+@keyframes mmNod { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(2px) rotate(3deg); } }
+
+
+/* ---- v23 : question du jour ---- */
+#vimo-qdj { position: fixed; z-index: 53; left: 50%; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); width: min(520px, calc(100vw - 24px)); max-height: 72vh; overflow-y: auto; background: var(--surface); border: 2px solid var(--ink); border-radius: 16px; padding: 14px 16px; box-shadow: 0 16px 44px rgba(0, 0, 0, .3); animation: mmPop .25s ease-out; }
+.qdj-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.qdj-top b { font-family: var(--font-display); font-size: 20px; text-transform: uppercase; color: var(--fire); }
+.qdj-top span { font-family: var(--font-mono); font-size: 12px; color: var(--muted); flex: 1; }
+.qdj-x { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); cursor: pointer; }
+#vimo-qdj .q { font-weight: 700; margin: 0 0 4px; }
+.qdj-end { display: grid; gap: 4px; margin-top: 10px; font-size: 13.5px; color: var(--muted); }
+.qdj-end[hidden] { display: none; }
+.qdj-go { font-weight: 700; color: var(--fire); font-size: 15px; }
+
+
+/* ---- v24 : Ma progression ---- */
+.pg-hero { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; max-width: 760px; }
+.pg-ring { width: 132px; height: 132px; flex: none; }
+.pg-ring circle { fill: none; stroke-width: 12; }
+.pg-bg { stroke: var(--line); }
+.pg-fg { stroke: var(--fire); stroke-linecap: round; transform: rotate(-90deg); transform-origin: 60px 60px; transition: stroke-dashoffset .8s ease; }
+.pg-ring text { font-family: var(--font-display); font-size: 30px; fill: var(--ink); }
+.pg-hero > div { flex: 1 1 220px; }
+.pg-lvl { font-family: var(--font-display); font-size: 26px; text-transform: uppercase; margin: 0; color: var(--fire); }
+.pg-sub { font-size: 14.5px; color: var(--muted); margin: 4px 0 12px; }
+.pg-next { white-space: normal; text-align: left; }
+.pg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin-top: 18px; max-width: 760px; }
+.pg-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: grid; gap: 8px; }
+.pg-ct { display: flex; justify-content: space-between; align-items: baseline; }
+.pg-ct b { font-family: var(--font-display); font-size: 22px; text-transform: uppercase; }
+.pg-ct span { font-family: var(--font-display); font-size: 26px; color: var(--fire); }
+.pg-row { display: grid; grid-template-columns: 1fr 70px auto; align-items: center; gap: 8px; font-size: 13.5px; }
+.pg-row b { font-family: var(--font-mono); font-size: 12px; min-width: 52px; text-align: right; }
+.pg-bar { height: 8px; background: var(--bg); border: 1px solid var(--line); border-radius: 99px; overflow: hidden; }
+.pg-bar i { display: block; height: 100%; background: var(--exit); border-radius: 99px; }
+.pg-mini { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 12px; max-width: 760px; }
+.pg-mini div { display: grid; justify-items: center; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 4px; }
+.pg-mini b { font-family: var(--font-display); font-size: 22px; color: var(--ink); }
+.pg-mini span { font-size: 11.5px; color: var(--muted); line-height: 1.25; }
+.pg-dots { display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 6px; max-width: 760px; }
+.pg-dots a { display: grid; justify-items: center; gap: 1px; text-decoration: none; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 2px; }
+.pg-dots b { font-family: var(--font-mono); font-size: 13px; }
+.pg-dots i { font-style: normal; font-size: 10.5px; min-height: 13px; }
+.pg-dots a.lu { background: var(--warn-soft); border-color: var(--warn); color: var(--ink); }
+.pg-dots a.ok { background: var(--exit-soft); border-color: var(--exit); color: var(--ink); }
+.pg-leg { font-size: 12.5px; color: var(--muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.pg-leg span { width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--line); background: var(--surface); display: inline-block; margin-left: 6px; }
+.pg-leg span.ok { background: var(--exit-soft); border-color: var(--exit); } .pg-leg span.lu { background: var(--warn-soft); border-color: var(--warn); }
+.pg-tr { max-width: 760px; display: grid; gap: 10px; }
+.pg-tr p { margin: 0; font-size: 15px; }
+.pg-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.pg-tr textarea { width: 100%; min-height: 76px; font-family: var(--font-mono); font-size: 12px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px; box-sizing: border-box; word-break: break-all; }
+.pg-msg { font-weight: 700; color: var(--exit); min-height: 1em; }
+.pg-lab { font-size: 14px; font-weight: 700; }
+.pg-reset { border-color: var(--line); color: var(--muted); }
+/* affiche de l'accueil */
+.prog-pill { display: flex; align-items: center; gap: 10px; margin-top: 16px; max-width: 420px; text-decoration: none; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--exit); border-radius: 0 12px 12px 0; padding: 10px 14px; font-size: 15px; }
+.prog-pill[hidden] { display: none; }
+.prog-pill i { font-style: normal; font-weight: 700; color: var(--fire); margin-left: auto; white-space: nowrap; }
+.pp-ring { --p: 0; flex: none; width: 34px; height: 34px; border-radius: 50%; background: conic-gradient(var(--exit) calc(var(--p) * 1%), var(--line) 0); -webkit-mask: radial-gradient(circle, transparent 10px, #000 11px); mask: radial-gradient(circle, transparent 10px, #000 11px); }
+.tile.wide { grid-column: 1 / -1; grid-template-columns: auto auto; justify-content: center; align-items: center; padding: 14px 8px; }
+
+
 /* ---- v20 : lien discret vers les mises à jour ---- */
 .land-upd { margin: 22px 0 0; font-size: 14px; }
 .land-upd a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--muted); }
@@ -758,6 +836,7 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
     <a class="tile" href="#cas"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4M7 9h4M7 12h7"/><circle cx="17" cy="9" r="1.2"/></svg>Cas pratiques</a>
     <a class="tile" href="#sst"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><path d="M12 9v6M9 12h6"/></svg>Secourisme SST</a>
     <a class="tile hot" href="#qcm"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="7"/><path d="M12 13V9.5M10 3h4M12 3v3"/></svg>Examens blancs</a>
+    <a class="tile wide" href="#progres"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Ma progression</a>
   </div>
   <div class="menu-list">
     <details class="grp"><summary><span>SSIAP 1</span><i>▾</i></summary>
@@ -788,6 +867,7 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
         <a class="btn primary" href="#parcours">Commencer le parcours</a>
         <a class="btn" href="#qcm">Faire un examen blanc</a>
       </div>
+      <a class="prog-pill" id="prog-pill" href="#progres" hidden></a>
     </div>
     <nav class="hub" aria-label="Ce que contient le site">
       <a href="#parcours"><b data-n="ch">36</b><span>chapitres</span><i>Le parcours SSIAP 1 et 2 →</i></a>
@@ -911,6 +991,13 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
     </div>
   </section>
 
+  <section class="page" id="progres">
+    <div class="wrap">
+      <div class="sec-head"><h2>Ma progression</h2><p>Votre avancement sur tout le site. Tout est enregistré sur cet appareil uniquement : rien n'est envoyé.</p></div>
+      <div id="prog-box"></div>
+    </div>
+  </section>
+
   <section class="page" id="apropos">
     <div class="wrap">
       <div class="sec-head"><h2>À propos</h2></div>
@@ -930,6 +1017,9 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
     <div class="wrap">
       <div class="sec-head"><h2>Mises à jour récentes</h2><p>Les dernières nouveautés du site.</p></div>
       <div class="log">
+        <div><time>10/2026</time><span>Nouvelle page « Ma progression » : votre pourcentage global, chapitre par chapitre, et le transfert vers un autre appareil.</span></div>
+        <div><time>10/2026</time><span>Une question du jour, et Vimo vous propose de reprendre le dernier chapitre ouvert.</span></div>
+        <div><time>10/2026</time><span>Un bouton « Précédent » sur chaque page, et Vimo qui vous montre l'essentiel de chaque rubrique.</span></div>
         <div><time>10/2026</time><span>Des vidéos d'organismes officiels (INRS, Croix-Rouge, sapeurs-pompiers…) dans les chapitres, les fiches de secourisme et les cas pratiques.</span></div>
         <div><time>10/2026</time><span>Nouvelle rubrique Secourisme SST : un schéma par situation, les chiffres clés et un quiz.</span></div>
         <div><time>10/2026</time><span>Vimo, le petit guide du site, vous accompagne pendant vos révisions.</span></div>
@@ -6860,11 +6950,22 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
     clearTimeout(hideT); hideT = setTimeout(() => { bub.hidden = true; lastPrio = 0; }, o.dur || (o.chips ? 14000 : 6000));
   }
   const MENU = [["Réviser un chapitre", "#parcours"], ["Un examen blanc", "#qcm"], ["Un cas pratique", "#cas"], ["Chercher un sigle", "#glossaire"], ["Les gestes SST", "#sst"]];
-  const ask = () => say(pick(["Qu'est-ce que tu veux faire ?", "On travaille quoi aujourd'hui ?", "Je t'emmène où ?"]), { chips: MENU.concat([["Me cacher", "hide"]]), prio: 3, mood: "wave" });
+  const day = () => String(Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 864e5));
+  const smartChips = () => {
+    const ex = [];
+    if (store.get("ms-qdj") !== day()) ex.push(["Question du jour", "qdj"]);
+    const lc = +store.get("ms-last-ch"), here = (location.hash || "").match(/^#ch-(\d+)/);
+    if (lc && CH.find(x => x.n === lc) && !(here && +here[1] === lc)) ex.push([`Reprendre : chapitre ${pad(lc)}`, "#ch-" + pad(lc)]);
+    const wk = +store.get("ms-weak"); if (wk && wk !== lc && CH.find(x => x.n === wk)) ex.push([`Revoir le chapitre ${pad(wk)}`, "#ch-" + pad(wk)]);
+    return ex.concat(MENU.slice(0, Math.max(2, 6 - ex.length))).concat([["Me cacher", "hide"]]);
+  };
+  window.__vimoChips = smartChips;
+  const ask = () => say(pick(["Qu'est-ce que tu veux faire ?", "On travaille quoi aujourd'hui ?", "Je t'emmène où ?"]), { chips: smartChips(), prio: 3, mood: "wave" });
   chipsEl.addEventListener("click", ev => {
     const c = ev.target.closest(".mm-chip"); if (!c) return;
     const g = c.dataset.go; bub.hidden = true; lastPrio = 0;
     if (g === "hide") { hideMascot(); return; }
+    if (g === "qdj") { window.__vimoQDJ && window.__vimoQDJ(); return; }
     location.hash = g;
   });
   wrap.querySelector(".mm-close").addEventListener("click", () => { bub.hidden = true; lastPrio = 0; });
@@ -6896,7 +6997,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   /* ce qu'il dit selon la page */
   const seen = new Set();
   const PAGE = {
-    accueil: () => { if (!store.get("ms-vimo-vu")) { store.set("ms-vimo-vu", "1"); say("Salut, moi c'est Vimo ! Je veille sur le site et je change de forme quand ça me chante. Qu'est-ce que tu veux faire ?", { chips: MENU.concat([["Me cacher", "hide"]]), prio: 3, mood: "wave" }); } else ask(); },
+    accueil: () => { if (!store.get("ms-vimo-vu")) { store.set("ms-vimo-vu", "1"); say("Salut, moi c'est Vimo ! Je veille sur le site et je change de forme quand ça me chante. Qu'est-ce que tu veux faire ?", { chips: smartChips(), prio: 3, mood: "wave" }); } else ask(); },
     parcours: () => say(pick(["36 chapitres, du SSIAP 1 au SSIAP 2. Commence par le début ou va droit au chapitre qui t'intéresse.", "Chaque chapitre a son schéma, sa vidéo quand il y en a une, et 10 questions à la fin."])),
     textes: () => say("Les textes officiels qui font foi, avec un lien vers chacun."),
     qcm: () => say("Examen blanc : chrono, plusieurs bonnes réponses possibles, correction à la fin. Pendant l'épreuve, je me tais.", { dur: 7000 }),
@@ -6911,6 +7012,8 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
     const m = h.match(/^ch-(\d+)$/);
     if (m) {
       const c = CH.find(x => x.n === +m[1]); if (!c || seen.has(h)) return; seen.add(h);
+      const prev = store.get("ms-ch-" + c.n);
+      if (prev) { say(`Chapitre ${pad(c.n)} : la dernière fois, tu as eu ${prev.replace("/", " sur ")} aux questions. ${+prev.split("/")[0] >= 8 ? "On confirme ?" : "On vise mieux ?"}`); return; }
       say(pick([`Chapitre ${pad(c.n)} : ${c.t}. Les 10 questions à la fin te diront si c'est acquis.`, `${c.t} : lis l'essentiel, regarde le schéma, puis teste-toi.`, `C'est parti pour le chapitre ${pad(c.n)}. Les sigles soulignés s'expliquent en un geste.`]));
       return;
     }
@@ -6945,7 +7048,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   if (typeof drawCasEnd === "function") { const _de = drawCasEnd; drawCasEnd = function () { _de(); const p = cs.ok / cs.steps.length; say(p === 1 ? "Sans faute ! Tu aurais géré ça comme un chef." : p >= .6 ? "Bien géré. Lis le débriefing pour les points à revoir." : "Pas simple, ce cas. Le débriefing t'explique chaque décision.", { prio: 3, mood: p >= .6 ? "joy" : "think", dur: 8000 }); }; }
   /* un « le savais-tu ? » de temps en temps, si on lit sans bouger */
   setInterval(() => {
-    if (Date.now() - lastAct < 50000 || Date.now() - lastSay < 90000 || document.hidden) return;
+    if (Date.now() - lastAct < 50000 || Date.now() - lastSay < 90000 || document.hidden || Math.random() > (window.__vimoLevel ? window.__vimoLevel() : 1)) return;
     const e = pick(GLO.filter(x => x.l && x.s.length <= 6));
     say(`Le savais-tu ? ${e.s}, c'est « ${e.l} ».`, { prio: 0, mood: "think", dur: 7000 }); lastAct = Date.now();
   }, 15000);
@@ -6971,8 +7074,8 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
     if (reduce) { if (!same) { btn.innerHTML = FORMS[to]; form = to; } return; }
     busy = true; style = style || pick(["poof", "spin"]);
     wrap.classList.add("m-" + style); if (style === "poof") cloud();
-    setTimeout(() => { if (!same) { btn.innerHTML = FORMS[to]; form = to; if (style === "poof") cloud(); } }, style === "poof" ? 420 : 400);
-    setTimeout(() => { wrap.classList.remove("m-" + style); busy = false; }, style === "poof" ? 1000 : 900);
+    setTimeout(() => { if (!same) { btn.innerHTML = FORMS[to]; form = to; if (style === "poof") cloud(); } }, style === "poof" ? 300 : 330);
+    setTimeout(() => { wrap.classList.remove("m-" + style); busy = false; }, style === "poof" ? 720 : 720);
   }
   window.__memoMorph = morph;
   window.__memo = { cloud, busy: () => busy, setBusy: v => { busy = v; }, setForm: f => { btn.innerHTML = FORMS[f]; form = f; }, forms: () => Object.keys(FORMS), form: () => form };
@@ -6985,6 +7088,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   /* de temps en temps, une pirouette ou un déguisement passager */
   setInterval(() => {
     if (document.hidden || busy || wrap.classList.contains("quiet") || wrap.classList.contains("away") || wrap.classList.contains("sleep") || wrap.classList.contains("act")) return;
+    if (Math.random() > (window.__vimoLevel ? window.__vimoLevel() : 1)) return;
     const r = Math.random();
     if (r < .14) morph(null, "spin");
     else if (r < .34) { const base = form, other = pick(Object.keys(FORMS).filter(k => k !== form)); morph(other, "poof"); setTimeout(() => { if (form === other) morph(base, pick(["spin", "poof"])); }, 9000 + Math.random() * 8000); }
@@ -7023,33 +7127,37 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   }
   const face = nx => wrap.classList.toggle("face-l", nx < x - 4);
   function walk(nx, ny) {
-    const d = Math.hypot(nx - x, ny - y), dur = Math.max(700, Math.min(4200, d / 0.11));
+    const d = Math.hypot(nx - x, ny - y), dur = Math.max(350, Math.min(1500, d / 0.32));
     face(nx); moving = true; wrap.classList.add("roam"); set(nx, ny, dur);
     setTimeout(() => { wrap.classList.remove("roam"); moving = false; placeBub(); }, dur + 50);
   }
   function hop(nx, ny) {
-    const dur = 900; face(nx); moving = true; wrap.classList.add("hop"); set(nx, ny, dur);
+    const dur = 650; face(nx); moving = true; wrap.classList.add("hop"); set(nx, ny, dur);
     setTimeout(() => { wrap.classList.remove("hop"); moving = false; placeBub(); }, dur + 50);
   }
   function teleport(nx, ny, morphTo) {
     if (M.busy()) return; M.setBusy(true); moving = true;
     wrap.classList.add("m-poof"); M.cloud();
-    setTimeout(() => { set(nx, ny, 0); if (morphTo) M.setForm(morphTo); M.cloud(); }, 420);
-    setTimeout(() => { wrap.classList.remove("m-poof"); M.setBusy(false); moving = false; placeBub(); }, 1000);
+    setTimeout(() => { set(nx, ny, 0); if (morphTo) M.setForm(morphTo); M.cloud(); }, 300);
+    setTimeout(() => { wrap.classList.remove("m-poof"); M.setBusy(false); moving = false; placeBub(); }, 720);
   }
   const free = () => !wrap.classList.contains("off") && !wrap.classList.contains("quiet") && !wrap.classList.contains("away") && !wrap.classList.contains("sleep") && !wrap.classList.contains("act") && bub.hidden && !moving && !M.busy() && !document.hidden;
   set(...home(), 0);
   addEventListener("resize", () => set(x, y, 0));
   setInterval(() => { if (!moving && !M.busy() && blocked(x, y)) { const h = home(); moving = true; set(h[0], h[1], 500); setTimeout(() => { moving = false; placeBub(); }, 550); } }, 400);
   if (reduce) { setInterval(() => set(...home(), 0), 1000); return; }
+  window.__vimoMove = { teleport, walk, hop, pos: () => [x, y], free, W, H, clampX, clampY, blocked, vw, vh };
   (function loop() {
-    setTimeout(loop, 3500 + Math.random() * 4500);
+    setTimeout(loop, 2200 + Math.random() * 2800);
     if (wrap.classList.contains("quiet")) { const h = home(); if (Math.abs(h[0] - x) + Math.abs(h[1] - y) > 4) walk(...h); return; }
     if (!free()) return;
+    const L = window.__vimoLevel ? window.__vimoLevel() : 1;
+    if (L < .3) { const h = home(); if (Math.abs(h[0] - x) + Math.abs(h[1] - y) > 4) teleport(h[0], h[1], null); return; }
+    if (Math.random() > L) return;
     const r = Math.random(), [nx, ny] = Math.random() < .2 ? home() : spot();
-    if (r < .5) walk(nx, ny);
-    else if (r < .75) hop(clampX(x + (Math.random() * 240 - 120)), clampY(y + (Math.random() * 160 - 100)));
-    else teleport(nx, ny, Math.random() < .6 ? pick(M.forms().filter(f => f !== M.form())) : null);
+    if (r < .15) walk(nx, ny);
+    else if (r < .3) hop(clampX(x + (Math.random() * 240 - 120)), clampY(y + (Math.random() * 160 - 100)));
+    else teleport(nx, ny, Math.random() < .35 ? pick(M.forms().filter(f => f !== M.form())) : null);
   })();
   /* s'il est au milieu de l'écran quand il parle avec des choix, il reste immobile ; un clic sur un lien le fait revenir près du bord */
   addEventListener("hashchange", () => { if (Math.random() < .5 && free()) walk(...spot()); });
@@ -7126,7 +7234,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   const choose = () => { const t = W8.reduce((s, x) => s + x[1], 0); let r = Math.random() * t; for (const [k, w] of W8) { if ((r -= w) < 0) return k; } return "lookAround"; };
   (function loop() {
     setTimeout(loop, 4200 + Math.random() * 5200);
-    if (document.hidden || !bub.hidden || has("away")) return;
+    if (document.hidden || !bub.hidden || has("away") || Math.random() > (window.__vimoLevel ? window.__vimoLevel() : 1)) return;
     let k = choose(); if (!ACTS[k]()) ACTS.lookAround();
   })();
   /* s'endort si personne ne bouge, bâille d'abord */
@@ -7148,6 +7256,339 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   new MutationObserver(() => { if (has("joy") && Math.random() < .5) setTimeout(() => ACTS.dance(), 1900); }).observe(wrap, { attributes: true, attributeFilter: ["class"] });
 })();
 
+/* ---- bouton « Précédent » ---- */
+(function () {
+  let depth = 0, going = false;
+  addEventListener("hashchange", () => { if (going) { depth = Math.max(0, depth - 1); going = false; } else depth++; });
+  const html = '<div class="backrow"><button type="button" class="back-btn" aria-label="Revenir à la page précédente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Précédent</button></div>';
+  document.querySelectorAll(".page:not(#accueil) > .wrap").forEach(w => w.insertAdjacentHTML("afterbegin", html));
+  const vc = document.getElementById("v-chap"); if (vc) vc.insertAdjacentHTML("afterbegin", '<div class="wrap">' + html + '</div>');
+  document.addEventListener("click", ev => {
+    if (!ev.target.closest(".back-btn")) return;
+    if (depth > 0) { going = true; history.back(); } else location.hash = "#accueil";
+  });
+})();
+/* ---- Vimo vit avec le site ---- */
+(function () {
+  const wrap = document.getElementById("mascot"), mv = window.__vimoMove; if (!wrap || !mv) return;
+  const bub = wrap.querySelector(".mm-bub"), txt = wrap.querySelector(".mm-txt"), chips = wrap.querySelector(".mm-chips");
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const has = c => wrap.classList.contains(c), pick = a => a[Math.floor(Math.random() * a.length)];
+  const okNow = () => !has("off") && !has("quiet") && !has("away") && !has("sleep") && bub.hidden && !document.hidden;
+  let lastShow = 0;
+  function quip(t, dur, ch) {
+    txt.textContent = t; chips.innerHTML = (ch || []).map(c => `<button type="button" class="mm-chip" data-go="${c[1]}">${c[0]}</button>`).join("");
+    bub.hidden = false; setTimeout(() => { if (txt.textContent === t) bub.hidden = true; }, dur || 3800);
+  }
+  /* geste : il montre du bras un élément, et le regarde */
+  function pointAt(el, say, force) {
+    if (!el || (!force && (!okNow() || Date.now() - lastShow < 5000 || has("act") || document.getElementById("vimo-qdj")))) return false;
+    const r = el.getBoundingClientRect(), V = mv.vw(), Hh = mv.vh();
+    if (r.bottom < 70 || r.top > Hh - 40 || r.width === 0) return false;
+    const cy = Math.max(r.top, 80) + Math.min(r.height, Hh - Math.max(r.top, 80)) / 2;
+    let nx, side;
+    if (r.left > mv.W + 16) { nx = r.left - mv.W - 6; side = "r"; }
+    else if (V - r.right > mv.W + 16) { nx = r.right + 6; side = "l"; }
+    else { const leftHalf = r.left + r.width / 2 > V / 2; nx = leftHalf ? 6 : V - mv.W - 6; side = leftHalf ? "r" : "l"; }
+    let ny = mv.clampY(cy - mv.H / 2);
+    if (mv.blocked(mv.clampX(nx), ny)) ny = mv.clampY(r.top - mv.H - 4);
+    lastShow = Date.now(); wrap.classList.remove("peek-l", "peek-r", "act");
+    mv.teleport(nx, ny, null);
+    setTimeout(() => {
+      const visualRight = side === "r", flipped = has("face-l");
+      const arm = (visualRight !== flipped) ? "point-r" : "point-l";
+      wrap.classList.add(arm, "act");
+      wrap.style.setProperty("--lx", ((visualRight ? 2.3 : -2.3) * (flipped ? -1 : 1)) + "px"); wrap.style.setProperty("--ly", "0px");
+      if (say) quip(say, 3600);
+      setTimeout(() => { wrap.classList.remove(arm, "act"); wrap.style.setProperty("--lx", "0px"); }, 2600);
+    }, 760);
+    return true;
+  }
+  window.__vimoPoint = pointAt;
+  /* ce qui est utile sur chaque page */
+  const USEFUL = [
+    ["#chap .fig", "Ce schéma résume le chapitre en un coup d'œil."],
+    ["#chap .vids", "Une vidéo officielle t'attend ici."],
+    ["#chap .mini-q", "Teste-toi : 10 questions, une ou plusieurs bonnes réponses."],
+    ["#chap .report", "Une erreur ? Ce bouton nous prévient directement."],
+    ["#gl-q", "Tape un sigle ici, la réponse s'affiche tout de suite."],
+    ["#qcm .qm", "Choisis ton examen blanc ici."],
+    ["#sst-box .sst-toc", "Le sommaire : va droit à la situation qui t'intéresse."],
+    ["#sst-box .sst-fig", "Le plan d'intervention, dans l'ordre."],
+    ["#cas .cas-card", "Choisis un cas et mets-toi en situation."],
+    ["#parcours .c-row-link", "Clique sur un chapitre pour commencer."],
+    ["#accueil .hub", "Tout le site est ici : choisis une rubrique."],
+    ["#textes .texts", "Chaque texte officiel, avec son lien."],
+    ["#progres .pg-next", "Voilà ta prochaine étape : un clic et c'est parti."],
+    ["#progres .pg-tr", "Pour retrouver ta progression sur un autre appareil, c'est ici."]
+  ];
+  const shown = new Set();
+  const visibleUseful = () => {
+    for (const [sel, t] of USEFUL) {
+      const key = location.hash + sel; if (shown.has(key)) continue;
+      const el = [...document.querySelectorAll(sel)].find(e => e.offsetParent !== null && !e.closest("[hidden]"));
+      if (!el) continue; const r = el.getBoundingClientRect();
+      if (r.top > 70 && r.top < innerHeight * .7) return [el, t, key];
+    }
+    return null;
+  };
+  let scT = 0;
+  addEventListener("scroll", () => { clearTimeout(scT); scT = setTimeout(() => { const u = visibleUseful(); if (u && Math.random() < .85 * (window.__vimoLevel ? window.__vimoLevel() : 1) && pointAt(u[0], u[1])) shown.add(u[2]); }, 900); }, { passive: true });
+  /* à l'ouverture d'une page : au bout de 5 s, il montre le bouton « Précédent » (une fois), sinon un élément utile */
+  let backShown = store.get("ms-vimo-back") === "1", pageT = 0;
+  function onOpen(tries) {
+    clearTimeout(pageT); tries = typeof tries === "number" ? tries : 0;
+    pageT = setTimeout(() => {
+      if (!okNow()) { if (tries < 5) onOpen(tries + 1); return; }
+      const h = location.hash || "#accueil";
+      const back = [...document.querySelectorAll(".back-btn")].find(b => b.offsetParent !== null && !b.closest("[hidden]"));
+      if (h !== "#accueil" && back && !backShown && back.getBoundingClientRect().top > 60) {
+        if (pointAt(back, "Ce bouton « Précédent » te ramène à la page d'avant.")) { backShown = true; store.set("ms-vimo-back", "1"); return; }
+      }
+      const u = visibleUseful(); if (u && pointAt(u[0], u[1])) shown.add(u[2]);
+    }, tries ? 1500 : 5000);
+  }
+  addEventListener("hashchange", () => onOpen(0)); setTimeout(() => onOpen(0), 1500);
+  /* il réagit au bouton « Précédent » */
+  document.addEventListener("click", ev => {
+    if (ev.target.closest(".back-btn") && !has("off")) {
+      setTimeout(() => { if (window.__memoMorph) window.__memoMorph(null, "spin"); if (bub.hidden || true) quip(pick(["On revient en arrière, hop !", "Retour à la page d'avant.", "Marche arrière enclenchée !"]), 2200); }, 250);
+    }
+  });
+  /* il vient près de l'endroit où tu touches l'écran, avec un geste rapide */
+  let lastTap = 0;
+  addEventListener("pointerup", ev => {
+    if (ev.target.closest("#mascot, #vplayer, #sigpop, .mm-bub, input, textarea, #vimo-qdj, .mini-q, .opt, .vbtn, #quiz") || !okNow()) return;
+    const n = Date.now(); if (n - lastTap < 7000 || Math.random() > .35 * (window.__vimoLevel ? window.__vimoLevel() : 1)) return; lastTap = n;
+    const V = mv.vw(), left = ev.clientX > V / 2;
+    const nx = left ? ev.clientX - mv.W - 34 : ev.clientX + 34, ny = mv.clampY(ev.clientY - mv.H / 2);
+    if (mv.blocked(mv.clampX(nx), ny)) return;
+    mv.teleport(nx, ny, null);
+    setTimeout(() => { const g = pick(["thumb", "hello", "nod"]); wrap.classList.add(g, "act"); setTimeout(() => wrap.classList.remove(g, "act"), 1100); }, 760);
+  }, { passive: true });
+  /* à chaque mise à jour du site, il l'annonce aux habitués */
+  const V0 = store.get("ms-version"), VER = "2026-10-06-prog";
+  if (V0 !== VER) {
+    store.set("ms-version", VER);
+    if (V0) setTimeout(() => { if (has("off")) return; wrap.classList.add("joy"); setTimeout(() => wrap.classList.remove("joy"), 1500); quip("Nouveau : la page « Ma progression » avec ton pourcentage global, et tu peux transférer ta progression sur un autre appareil.", 9000, [["Voir ma progression", "#progres"], ["Les nouveautés", "#journal"]]); }, 4200);
+  }
+})();
+
+/* ---- Vimo se dose tout seul ---- */
+(function () {
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const ss = { get: k => { try { return sessionStorage.getItem(k); } catch (e) { return "1"; } }, set: (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) {} } };
+  const wrap = document.getElementById("mascot"); if (!wrap) return;
+  const bub = wrap.querySelector(".mm-bub");
+  let visits = +store.get("ms-visits") || 0, annoy = +store.get("ms-vimo-annoy") || 0;
+  if (!ss.get("ms-sess")) { ss.set("ms-sess", "1"); visits++; annoy = Math.max(0, annoy - 1); store.set("ms-visits", visits); store.set("ms-vimo-annoy", annoy); }
+  let focusUntil = 0, boostUntil = 0, shownAt = 0;
+  window.__vimoLevel = () => {
+    const base = visits <= 1 ? 1 : visits <= 3 ? .75 : .55;
+    let f = base * Math.pow(.6, annoy);
+    if (Date.now() < focusUntil) f *= .3;
+    if (Date.now() < boostUntil) f = Math.min(1, f + .3);
+    return Math.max(.12, Math.min(1, f));
+  };
+  const focus = ms => { focusUntil = Math.max(focusUntil, Date.now() + ms); };
+  /* il se fait discret quand on travaille : répondre, chercher, lire tranquillement */
+  document.addEventListener("click", ev => { if (ev.target.closest(".opt, .vbtn, .cas-box button, #quiz")) focus(25000); }, true);
+  document.addEventListener("input", ev => { if (ev.target.id === "gl-q") focus(15000); }, true);
+  let lastY = scrollY, slow = 0;
+  addEventListener("scroll", () => { const d = Math.abs(scrollY - lastY); lastY = scrollY; if (d > 0 && d < 40) { if (++slow > 12) { focus(20000); slow = 0; } } else if (d > 200) slow = 0; }, { passive: true });
+  /* il se calme si on ferme vite ses bulles, et reprend de l'entrain si on joue avec lui */
+  new MutationObserver(() => { if (!bub.hidden) shownAt = Date.now(); }).observe(bub, { attributes: true, attributeFilter: ["hidden"] });
+  wrap.addEventListener("click", ev => {
+    if (ev.target.closest(".mm-close") && Date.now() - shownAt < 3000) { annoy = Math.min(4, annoy + 1); store.set("ms-vimo-annoy", annoy); }
+    else if (ev.target.closest(".mm-chip[data-go='hide']")) { annoy = Math.min(4, annoy + 2); store.set("ms-vimo-annoy", annoy); }
+    else if (ev.target.closest(".mm-btn, .mm-chip")) { annoy = Math.max(0, annoy - 1); store.set("ms-vimo-annoy", annoy); boostUntil = Date.now() + 60000; }
+  });
+})();
+
+/* ---- Vimo utile ---- */
+(function () {
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const wrap = document.getElementById("mascot"); if (!wrap) return;
+  const bub = wrap.querySelector(".mm-bub"), txt = wrap.querySelector(".mm-txt"), chips = wrap.querySelector(".mm-chips");
+  const has = c => wrap.classList.contains(c);
+  const dayN = () => Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 864e5);
+  function quip(t, dur, ch) {
+    if (has("off")) return;
+    txt.textContent = t; chips.innerHTML = (ch || []).map(c => `<button type="button" class="mm-chip" data-go="${c[1]}">${c[0]}</button>`).join("");
+    bub.hidden = false; setTimeout(() => { if (txt.textContent === t) bub.hidden = true; }, dur || 5000);
+  }
+  /* la question du jour : la même pour tout le monde, tirée des 360 questions du parcours */
+  const ALL = []; CH.forEach(c => c.qcm.forEach(q => ALL.push({ c, q })));
+  function qdj() {
+    const old = document.getElementById("vimo-qdj"); if (old) old.remove();
+    const d = dayN(), it = ALL[(d * 7919) % ALL.length], q = shufQ(it.q);
+    const p = document.createElement("div"); p.id = "vimo-qdj"; p.className = "mini-q"; p.setAttribute("role", "dialog"); p.setAttribute("aria-label", "Question du jour");
+    p.innerHTML = `<div class="qdj-top"><b>Question du jour</b><span>Chapitre ${pad(it.c.n)}</span><button type="button" class="qdj-x" aria-label="Fermer">✕</button></div><p class="q">${q[0]}</p>${optsHTML(q, "qdj")}<div class="qdj-end" hidden></div>`;
+    document.body.appendChild(p); bub.hidden = true;
+    const close = () => { p.remove(); wrap.classList.remove("act"); };
+    p.querySelector(".qdj-x").addEventListener("click", close);
+    bindQuestion(p, q, ok => {
+      store.set("ms-qdj", String(d));
+      store.set("ms-qdj-n", (+store.get("ms-qdj-n") || 0) + 1); if (ok) store.set("ms-qdj-ok", (+store.get("ms-qdj-ok") || 0) + 1);
+      const end = p.querySelector(".qdj-end"); end.hidden = false;
+      end.innerHTML = `<a href="#ch-${pad(it.c.n)}" class="qdj-go">Revoir le chapitre ${pad(it.c.n)} : ${it.c.t} →</a><span>Nouvelle question demain.</span>`;
+      end.querySelector("a").addEventListener("click", close);
+    });
+    const place = n => { const mv = window.__vimoMove; if (!mv) return; if (window.__memo && window.__memo.busy() && n < 8) { setTimeout(() => place(n + 1), 350); return; } const r = p.getBoundingClientRect(); mv.teleport(mv.vw() - mv.W - 14, mv.clampY(r.top - mv.H - 2), null); setTimeout(() => { wrap.classList.add("point-l", "act"); setTimeout(() => wrap.classList.remove("point-l"), 1800); }, 760); };
+    wrap.classList.add("act"); setTimeout(() => place(0), 250);
+    let rt = 0; new ResizeObserver(() => { clearTimeout(rt); rt = setTimeout(() => { const mv = window.__vimoMove; if (!mv || !document.body.contains(p)) return; const r = p.getBoundingClientRect(); mv.walk(mv.vw() - mv.W - 14, mv.clampY(r.top - mv.H - 2)); }, 120); }).observe(p);
+  }
+  window.__vimoQDJ = qdj;
+  /* série de jours de révision */
+  const today = dayN(), last = +store.get("ms-day-last") || 0;
+  let streak = +store.get("ms-streak") || 0;
+  if (last !== today) {
+    streak = last === today - 1 ? streak + 1 : 1; store.set("ms-streak", streak); store.set("ms-day-last", today);
+    if ([2, 3, 5, 7, 10, 14, 21, 30, 50, 100].includes(streak)) setTimeout(() => { if (bub.hidden) { wrap.classList.add("joy"); setTimeout(() => wrap.classList.remove("joy"), 1500); quip(`${streak} jours de révision d'affilée, bravo ! On continue ?`, 7000, store.get("ms-qdj") !== String(today) ? [["Question du jour", "qdj"]] : null); } }, 6500);
+  }
+  /* dernier chapitre ouvert, et note des 10 questions de chaque chapitre */
+  const _rc = renderChapter;
+  renderChapter = function (n) {
+    const ok = _rc(n);
+    if (ok) {
+      store.set("ms-last-ch", n);
+      const seen = (store.get("ms-seen") || "").split(",").filter(Boolean); if (!seen.includes(String(n))) { seen.push(String(n)); store.set("ms-seen", seen.join(",")); }
+      const qs = document.getElementById("qs");
+      if (qs) new MutationObserver(() => { const m = qs.textContent.match(/Résultat : (\d+) \/ (\d+)/); if (m) { store.set("ms-ch-" + n, m[1] + "/" + m[2]); if (+m[1] > (+store.get("ms-best-" + n) || 0)) store.set("ms-best-" + n, m[1]); } }).observe(qs, { childList: true, characterData: true, subtree: true });
+    }
+    return ok;
+  };
+  /* après un examen blanc, il retient le chapitre où l'on s'est le plus trompé */
+  if (typeof drawResult === "function") {
+    const _dr = drawResult;
+    drawResult = function (r) {
+      _dr(r);
+      try { const cnt = {}; pool.filter(x => !x.ok).forEach(x => { cnt[x.n] = (cnt[x.n] || 0) + 1; }); const w = Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a])[0]; if (w) store.set("ms-weak", w); else store.set("ms-weak", ""); } catch (e) {}
+    };
+  }
+})();
+
+/* ---- Ma progression ---- */
+(function () {
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} }, del: k => { try { localStorage.removeItem(k); } catch (e) {} } };
+  /* cas pratiques terminés et quiz SST : on garde le meilleur résultat */
+  if (typeof drawCasEnd === "function") { const _de = drawCasEnd; drawCasEnd = function () { _de(); try { const m = JSON.parse(store.get("ms-cas") || "{}"), p = Math.round(cs.ok / cs.steps.length * 100); if (!(m[cs.c.id] >= p)) m[cs.c.id] = p; store.set("ms-cas", JSON.stringify(m)); } catch (e) {} }; }
+  const sq = document.getElementById("sst-qs");
+  if (sq) new MutationObserver(() => { const m = sq.textContent.match(/Résultat : (\d+) \/ (\d+)/); if (m && +m[1] > (+store.get("ms-sst") || 0)) store.set("ms-sst", m[1]); }).observe(sq, { childList: true, characterData: true, subtree: true });
+  /* calcul */
+  function stats() {
+    const seen = new Set((store.get("ms-seen") || "").split(",").filter(Boolean).map(Number));
+    const best = n => +store.get("ms-best-" + n) || 0;
+    let cas = {}; try { cas = JSON.parse(store.get("ms-cas") || "{}"); } catch (e) {}
+    let hist = []; try { hist = JSON.parse(store.get("ms-historique") || "[]"); } catch (e) {}
+    const block = b => {
+      const chs = CH.filter(c => PARTS[c.p].b === b), n = chs.length;
+      const lus = chs.filter(c => seen.has(c.n)).length, q = chs.reduce((s, c) => s + best(c.n), 0), qMax = chs.reduce((s, c) => s + c.qcm.length, 0);
+      const cs_ = CAS.filter(c => (c.lvl || 2) === b), casOk = cs_.filter(c => (cas[c.id] || 0) >= 60).length;
+      const ex = hist.filter(h => h.m === String(b)).map(h => +h.s), exBest = ex.length ? Math.max(...ex) : 0;
+      const pct = Math.round(100 * (.3 * lus / n + .4 * q / qMax + .15 * (cs_.length ? casOk / cs_.length : 0) + .15 * Math.min(1, exBest / 16)));
+      return { n, lus, q, qMax, cas: casOk, casN: cs_.length, exBest, exN: ex.length, pct };
+    };
+    const b1 = block(1), b2 = block(2);
+    const global = Math.round((b1.pct * b1.n + b2.pct * b2.n) / (b1.n + b2.n));
+    return { b1, b2, global, seen, best, streak: +store.get("ms-streak") || 0, qdjN: +store.get("ms-qdj-n") || 0, qdjOk: +store.get("ms-qdj-ok") || 0, sst: +store.get("ms-sst") || 0, exams: hist.length };
+  }
+  window.__progStats = stats;
+  const level = p => p >= 90 ? "Expert" : p >= 75 ? "Prêt pour l'examen" : p >= 50 ? "Solide" : p >= 25 ? "En route" : p > 0 ? "Découverte" : "Pas encore commencé";
+  const bar = (lab, v, max, txt) => `<div class="pg-row"><span>${lab}</span><span class="pg-bar"><i style="width:${max ? Math.max(2, Math.round(v / max * 100)) : 0}%"></i></span><b>${txt}</b></div>`;
+  function nextStep(s) {
+    const wk = +store.get("ms-weak");
+    if (wk && CH.find(c => c.n === wk)) return [`Revoir le chapitre ${pad(wk)}, le plus raté au dernier examen`, "#ch-" + pad(wk)];
+    const notSeen = CH.find(c => !s.seen.has(c.n)); if (notSeen) return [`Lire le chapitre ${pad(notSeen.n)} : ${notSeen.t}`, "#ch-" + pad(notSeen.n)];
+    const low = CH.find(c => s.best(c.n) < 8); if (low) return [`Viser 8/10 au chapitre ${pad(low.n)} : ${low.t}`, "#ch-" + pad(low.n)];
+    if (s.b1.exBest < 16) return ["Passer un examen blanc SSIAP 1", "#qcm-1"];
+    if (s.b2.exBest < 16) return ["Passer un examen blanc SSIAP 2", "#qcm-2"];
+    return ["Tout est maîtrisé : une série rapide pour garder le niveau", "#qcm-r"];
+  }
+  function draw() {
+    const s = stats(), box = document.getElementById("prog-box"); if (!box) return;
+    const C = 2 * Math.PI * 52, off = C * (1 - s.global / 100), ns = nextStep(s);
+    const blk = (t, b) => `<div class="pg-card"><div class="pg-ct"><b>${t}</b><span>${b.pct} %</span></div>
+      ${bar("Chapitres lus", b.lus, b.n, `${b.lus} / ${b.n}`)}
+      ${bar("Questions réussies", b.q, b.qMax, `${b.q} / ${b.qMax}`)}
+      ${bar("Cas pratiques réussis", b.cas, b.casN, `${b.cas} / ${b.casN}`)}
+      ${bar("Meilleur examen blanc", b.exBest, 20, b.exN ? String(b.exBest).replace(".", ",") + " / 20" : "—")}</div>`;
+    box.innerHTML = `
+      <div class="pg-hero">
+        <svg class="pg-ring" viewBox="0 0 120 120" role="img" aria-label="Progression globale : ${s.global} %"><circle cx="60" cy="60" r="52" class="pg-bg"/><circle cx="60" cy="60" r="52" class="pg-fg" style="stroke-dasharray:${C.toFixed(1)};stroke-dashoffset:${off.toFixed(1)}"/><text x="60" y="66" text-anchor="middle">${s.global}%</text></svg>
+        <div><p class="pg-lvl">${level(s.global)}</p><p class="pg-sub">Progression globale sur les 36 chapitres, les cas pratiques et les examens blancs.</p>
+        <a class="btn primary pg-next" href="${ns[1]}">${ns[0]} →</a></div>
+      </div>
+      <div class="pg-grid">${blk("SSIAP 1", s.b1)}${blk("SSIAP 2", s.b2)}</div>
+      <div class="pg-mini">
+        <div><b>${s.streak}</b><span>jour${s.streak > 1 ? "s" : ""} d'affilée</span></div>
+        <div><b>${s.qdjOk}/${s.qdjN}</b><span>questions du jour</span></div>
+        <div><b>${s.sst ? s.sst + "/20" : "—"}</b><span>quiz secourisme</span></div>
+        <div><b>${s.exams}</b><span>examen${s.exams > 1 ? "s" : ""} blanc${s.exams > 1 ? "s" : ""}</span></div>
+      </div>
+      <h3 class="x-h">Les 36 chapitres</h3>
+      <div class="pg-dots">${CH.map(c => { const b = s.best(c.n), st = b >= 8 ? "ok" : s.seen.has(c.n) ? "lu" : ""; return `<a href="#ch-${pad(c.n)}" class="${st}" title="${esc(c.t)}"><b>${pad(c.n)}</b><i>${b ? b + "/10" : s.seen.has(c.n) ? "lu" : ""}</i></a>`; }).join("")}</div>
+      <p class="pg-leg"><span class="ok"></span> 8/10 ou plus <span class="lu"></span> lu <span></span> pas encore ouvert</p>
+      <h3 class="x-h">Changer d'appareil</h3>
+      <div class="pg-tr">
+        <p>Votre progression reste sur cet appareil. Pour la retrouver sur un autre téléphone ou un ordinateur, créez un code ou un lien, puis ouvrez-le là-bas.</p>
+        <div class="pg-btns"><button type="button" class="btn primary" id="pg-make">Créer mon code</button><button type="button" class="btn" id="pg-share">Envoyer le lien</button></div>
+        <textarea id="pg-code" readonly hidden aria-label="Votre code de progression"></textarea>
+        <p class="pg-msg" id="pg-msg" aria-live="polite"></p>
+        <label class="pg-lab" for="pg-in">Vous avez un code ? Collez-le ici :</label>
+        <textarea id="pg-in" placeholder="MS1.…"></textarea>
+        <div class="pg-btns"><button type="button" class="btn" id="pg-imp">Importer ma progression</button><button type="button" class="btn pg-reset" id="pg-reset">Tout effacer</button></div>
+      </div>`;
+    const msg = t => { document.getElementById("pg-msg").textContent = t; };
+    document.getElementById("pg-make").onclick = () => { const c = document.getElementById("pg-code"); c.value = makeCode(); c.hidden = false; c.select(); const no = () => msg("Code créé : copiez-le et collez-le sur l'autre appareil, dans « Ma progression »."); try { navigator.clipboard.writeText(c.value).then(() => msg("Code créé et copié. Collez-le sur l'autre appareil, dans « Ma progression »."), no); } catch (e) { no(); } };
+    document.getElementById("pg-share").onclick = async () => { const url = location.href.split("#")[0] + "#importer=" + makeCode(); try { if (navigator.share) { await navigator.share({ title: "Ma progression Mémo SSIAP", url }); msg("Lien envoyé. Ouvrez-le sur l'autre appareil."); } else { await navigator.clipboard.writeText(url); msg("Lien copié. Envoyez-le-vous (mail, SMS) et ouvrez-le sur l'autre appareil."); } } catch (e) { const c = document.getElementById("pg-code"); c.value = url; c.hidden = false; c.select(); msg("Copiez ce lien et ouvrez-le sur l'autre appareil."); } };
+    document.getElementById("pg-imp").onclick = () => { const v = document.getElementById("pg-in").value.trim(); if (!v) { msg("Collez d'abord un code."); return; } msg(importCode(v) ? "Progression importée !" : "Ce code n'est pas valide. Vérifiez qu'il est complet."); };
+    document.getElementById("pg-reset").onclick = () => { if (confirm("Effacer toute votre progression sur cet appareil ? Cette action est définitive.")) { KEYS().forEach(k => store.del(k)); draw(); pill(); msg("Progression effacée."); } };
+  }
+  /* code de transfert */
+  const KEEP = /^ms-(historique|ch-\d+|best-\d+|seen|cas|sst|qdj|qdj-n|qdj-ok|streak|day-last|last-ch|weak|mascotte|vimo-vu|vimo-back)$/;
+  const KEYS = () => { const a = []; try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (KEEP.test(k)) a.push(k); } } catch (e) {} return a; };
+  const b64e = s => btoa(String.fromCharCode(...new TextEncoder().encode(s))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  const b64d = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), c => c.charCodeAt(0)));
+  function makeCode() { const o = {}; KEYS().forEach(k => { o[k.slice(3)] = store.get(k); }); return "MS1." + b64e(JSON.stringify(o)); }
+  function importCode(code) {
+    try {
+      code = decodeURIComponent(code.trim()).replace(/^.*#importer=/, "");
+      if (!code.startsWith("MS1.")) return false;
+      const o = JSON.parse(b64d(code.slice(4))); let n = 0;
+      Object.keys(o).forEach(k => { if (KEEP.test("ms-" + k) && typeof o[k] === "string") { store.set("ms-" + k, o[k]); n++; } });
+      if (!n) return false; draw(); pill(); return true;
+    } catch (e) { return false; }
+  }
+  function fromHash() {
+    const h = location.hash; if (!h.startsWith("#importer=")) return;
+    const code = h.slice(10);
+    setTimeout(() => {
+      if (confirm("Importer la progression reçue sur cet appareil ? Elle remplacera la progression actuelle.")) { const ok = importCode(code); location.hash = "#progres"; setTimeout(() => { const m = document.getElementById("pg-msg"); if (m) m.textContent = ok ? "Progression importée !" : "Ce lien n'est pas valide."; }, 200); }
+      else location.hash = "#progres";
+    }, 300);
+  }
+  /* l'affiche de l'accueil */
+  function pill() {
+    const el = document.getElementById("prog-pill"); if (!el) return;
+    const s = stats(); el.hidden = s.global <= 0;
+    el.innerHTML = `<span class="pp-ring" style="--p:${s.global}"></span><span>Ta progression : <b>${s.global} %</b> · ${level(s.global)}</span><i>Voir →</i>`;
+  }
+  addEventListener("hashchange", () => { fromHash(); if (location.hash === "#progres") draw(); if ((location.hash || "#accueil") === "#accueil") pill(); });
+  draw(); pill(); fromHash();
+  /* Vimo commente la progression */
+  addEventListener("hashchange", () => {
+    if (location.hash !== "#progres") return;
+    setTimeout(() => {
+      const w = document.getElementById("mascot"); if (!w || w.classList.contains("off")) return;
+      const b = w.querySelector(".mm-bub"); if (!b.hidden) return;
+      const s = stats(), t = w.querySelector(".mm-txt");
+      t.textContent = s.global === 0 ? "Tout commence ici ! Ouvre un chapitre et ta progression grimpera." : s.global < 50 ? `${s.global} %, c'est un bon début. Le bouton rouge te dit quoi faire ensuite.` : s.global < 75 ? `${s.global} % : du solide ! Continue sur ta lancée.` : `${s.global} % : tu es presque prêt pour l'examen. Bravo !`;
+      w.querySelector(".mm-chips").innerHTML = ""; b.hidden = false; w.classList.add(s.global >= 50 ? "joy" : "wave"); setTimeout(() => { w.classList.remove("joy", "wave"); }, 1600); setTimeout(() => { b.hidden = true; }, 6000);
+    }, 900);
+  });
+})();
+
 /* ---- menu à trois traits ---- */
 (function () {
   const m = $("#menu"), s = $("#scrim"), btn = $("#burger");
@@ -7167,7 +7608,7 @@ function route() {
     $("#v-home").hidden = true; $("#v-chap").hidden = false; window.scrollTo(0, 0); return;
   }
   $("#v-chap").hidden = true; $("#v-home").hidden = false;
-  const PAGES = ["accueil", "parcours", "textes", "qcm", "apropos", "journal", "glossaire", "cas", "sst"];
+  const PAGES = ["accueil", "parcours", "textes", "qcm", "apropos", "journal", "glossaire", "cas", "sst", "progres"];
   const page = PAGES.includes(h) ? h : /^bloc-/.test(h) ? "parcours" : /^cas(1?-\d+|-s[12])$/.test(h) ? "cas" : /^qcm-[12r]$/.test(h) ? "qcm" : "accueil";
   if (page === "cas") renderCas(h);
   if (/^qcm-[12r]$/.test(h)) setMode(h.slice(4));
