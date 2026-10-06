@@ -1018,6 +1018,52 @@ body[data-univ="ads"] .fl-i b { color: #fff; text-decoration: underline; text-un
 .vn-i { flex: 1 1 100%; font-size: 12.5px; color: var(--muted); }
 
 
+/* ---- v31 : l'éclair ---- */
+.bolt-btn { position: relative; margin-left: auto; flex: none; width: 42px; height: 42px; display: grid; place-items: center; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 9px; cursor: pointer; color: #B98500; }
+.bolt-btn[hidden] { display: none; }
+.bolt-btn:not([hidden]) + .srch-btn { margin-left: 0; }
+.bolt-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; position: relative; z-index: 1; }
+.bolt-btn.on { background: #FFD60A; border-color: #E0A800; color: #1A1200; box-shadow: 0 0 0 3px rgba(255, 214, 10, .28), 0 0 16px rgba(255, 196, 0, .55); }
+.bolt-btn.on svg { fill: currentColor; }
+.bolt-btn:not(.on)::after { content: ""; position: absolute; top: 5px; right: 5px; width: 7px; height: 7px; border-radius: 50%; background: #FFB800; box-shadow: 0 0 0 2px var(--surface); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .bolt-btn:not(.on) { color: #FFD60A; } }
+:root[data-theme="dark"] .bolt-btn:not(.on) { color: #FFD60A; }
+body[data-univ="ads"] .bolt-btn.on { background: #fff; border-color: #111; color: #111; box-shadow: 0 0 0 3px rgba(0, 0, 0, .15), 0 0 14px rgba(255, 255, 255, .6); }
+/* le coup de foudre */
+.bolt-zap { position: absolute; left: 50%; bottom: 50%; width: 30px; height: 66px; transform: translateX(-50%); pointer-events: none; opacity: 0; z-index: 0;
+  background: linear-gradient(180deg, #FFF6B0, #FFD60A 45%, #FFB800 85%, #fff);
+  clip-path: polygon(30% 0, 78% 0, 58% 36%, 88% 36%, 26% 100%, 42% 54%, 14% 54%);
+  filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 10px #FFC400) drop-shadow(0 0 18px #FF9E00); }
+.bolt-btn.strike .bolt-zap { animation: boltZap 1.1s ease-out; }
+.bolt-btn.strike svg { animation: boltHit 1.1s cubic-bezier(.3, 1.6, .5, 1); }
+.bolt-btn.strike { animation: boltGlow 1.2s ease-out; }
+@keyframes boltZap { 0% { opacity: 0; transform: translateX(-50%) scaleY(.15); transform-origin: 50% 0; } 7% { opacity: 1; transform: translateX(-50%) scaleY(1); } 18% { opacity: 1; } 22% { opacity: .15; } 28% { opacity: 1; } 42% { opacity: 1; } 55% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes boltHit { 0%, 6% { transform: scale(.2) rotate(-20deg); opacity: 0; } 14% { transform: scale(1.5) rotate(8deg); opacity: 1; } 30% { transform: scale(.9) rotate(-4deg); } 46% { transform: scale(1.12); } 100% { transform: none; } }
+@keyframes boltGlow { 0%, 8% { box-shadow: 0 0 0 0 rgba(255, 214, 10, 0); } 14% { box-shadow: 0 0 0 6px rgba(255, 214, 10, .55), 0 0 30px 8px rgba(255, 220, 60, .8); background: #FFF6B0; } 26% { box-shadow: 0 0 0 2px rgba(255, 214, 10, .2); } 34% { box-shadow: 0 0 0 5px rgba(255, 214, 10, .5), 0 0 24px 6px rgba(255, 220, 60, .6); } 100% { box-shadow: 0 0 0 0 rgba(255, 214, 10, 0); } }
+.top::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(60% 140% at 85% 0%, rgba(255, 246, 176, .95), rgba(255, 214, 10, .25) 45%, transparent 75%); opacity: 0; }
+.top.lit::before { animation: topLit 1.1s ease-out; }
+@keyframes topLit { 0%, 6% { opacity: 0; } 12% { opacity: 1; } 20% { opacity: .1; } 28% { opacity: .8; } 50%, 100% { opacity: 0; } }
+/* fenêtre de réglage */
+.bolt-pop { position: fixed; z-index: 65; top: calc(70px + env(safe-area-inset-top, 0px)); right: 10px; width: min(340px, calc(100vw - 20px)); background: var(--surface); color: var(--ink); border: 2px solid var(--ink); border-radius: 14px; padding: 14px 16px; box-shadow: 0 16px 44px rgba(0, 0, 0, .3); display: grid; gap: 8px; animation: mmPop .2s ease-out; }
+.bolt-pop[hidden] { display: none; }
+.bolt-pop h3 { display: flex; align-items: center; gap: 8px; font-size: 19px; }
+.bolt-pop h3 svg { width: 22px; height: 22px; fill: #FFD60A; stroke: #B98500; stroke-width: 1.5; flex: none; }
+.bolt-pop p { margin: 0; font-size: 14.5px; }
+.bolt-pop .bp-i { font-size: 12.5px; color: var(--muted); }
+.bolt-pop .bp-on { display: none; }
+.bolt-pop.is-on .bp-on { display: block; }
+.bolt-pop.is-on .bp-off { display: none; }
+.bp-act { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.bp-act .btn { min-height: 40px; padding: 8px 14px; font-size: 14.5px; }
+/* place dans l'en-tête sur petit écran */
+.tq-ic { display: none; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.3; stroke-linecap: round; }
+@media (max-width: 430px) { body.has-vid .tq-w { display: none; } body.has-vid .tq-ic { display: block; } body.has-vid .top-qcm { padding: 6px 7px; } }
+@media (max-width: 400px) { .bolt-btn { width: 38px; height: 38px; } }
+@media (max-width: 380px) { body.has-vid .brand .sq { display: none; } body.has-vid .top .wrap { gap: 6px; } }
+@media (max-width: 340px) { .bolt-btn { width: 34px; height: 34px; } .bolt-btn svg { width: 19px; height: 19px; } body.has-vid .brand { font-size: 14px; } }
+@media (prefers-reduced-motion: reduce) { .bolt-btn.strike, .bolt-btn.strike svg, .bolt-btn.strike .bolt-zap, .top.lit::before { animation: none; } }
+
+
 /* ---- v20 : lien discret vers les mises à jour ---- */
 .land-upd { margin: 22px 0 0; font-size: 14px; }
 .land-upd a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--muted); }
@@ -1072,8 +1118,9 @@ body[data-univ="ads"] .fl-i b { color: #fff; text-decoration: underline; text-un
   <div class="wrap">
     <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
     <a class="brand" href="#accueil"><span class="sq">+</span>MÉMO WORLD</a>
+    <button type="button" class="bolt-btn" id="bolt" hidden aria-haspopup="dialog" aria-expanded="false" aria-label="Vidéos instantanées"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 2 4.5 13.6h6.1L9.4 22l9.1-12.1h-6.2L13.2 2z"/></svg><i class="bolt-zap" aria-hidden="true"></i></button>
     <button type="button" class="srch-btn" data-srch aria-label="Rechercher sur le site"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></button>
-    <a class="top-qcm" href="#qcm">Examen<span class="tq-l"> blanc</span></a>
+    <a class="top-qcm" href="#qcm" aria-label="Examen blanc"><svg class="tq-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="7"/><path d="M12 13V9.5M10 3h4M12 3v3"/></svg><span class="tq-w">Examen<span class="tq-l"> blanc</span></span></a>
   </div>
 </header>
 <div class="flash" id="flash" role="region" aria-label="Flash info" hidden>
@@ -1082,6 +1129,13 @@ body[data-univ="ads"] .fl-i b { color: #fff; text-decoration: underline; text-un
     <div class="fl-vp"><div class="fl-track" id="fl-track"><a class="fl-i" href="#newsletter" data-nl="nl-vigi"><b>Vigipirate</b> : posture « Vigilance renforcée » depuis le 22 juin 2026.</a><a class="fl-i" href="#newsletter" data-nl="nl-vigi"><b>Plan Vigipirate 2026</b> : 3 niveaux · Vigilance, Vigilance renforcée, Alerte attentat.</a><a class="fl-i" href="#newsletter" data-nl="nl-ripost"><b>Loi RIPOST</b> : inspection visuelle des véhicules par l&#x27;agent privé, art. L.613-2-1 du CSI (20/08/2026).</a><a class="fl-i" href="#newsletter" data-nl="nl-secours"><b>Premiers secours</b> : nouvelles références GQS, PSC, PSE (arrêté du 7 juillet 2026). Le SST ne change pas.</a><a class="fl-i" href="#newsletter" data-nl="nl-atmp"><b>AT-MP</b> : nouvelle indemnisation de l&#x27;incapacité permanente à partir du 1er novembre 2026.</a><a class="fl-i" href="#newsletter" data-nl="nl-carte"><b>Carte « grands événements » pérennisée (décret n° 2026-670, selon la presse spécialisée).</b></a></div></div>
     <button type="button" class="fl-x" aria-label="Masquer le flash info">✕</button>
   </div>
+</div>
+<div class="bolt-pop" id="bolt-pop" role="dialog" aria-modal="false" aria-labelledby="bolt-h" hidden>
+  <h3 id="bolt-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 2 4.5 13.6h6.1L9.4 22l9.1-12.1h-6.2L13.2 2z"/></svg><span>Vidéos instantanées</span></h3>
+  <p class="bp-off">Le lecteur YouTube se prépare pendant que vous lisez : quand vous appuyez sur lecture, la vidéo démarre presque tout de suite.</p>
+  <p class="bp-off bp-i">YouTube reçoit alors votre adresse IP dès l'ouverture d'une page avec vidéo. Choix gardé sur cet appareil, réversible à tout moment.</p>
+  <p class="bp-on">Activées : la vidéo de cette page est prête à démarrer.</p>
+  <div class="bp-act"><button type="button" class="btn primary bp-go"></button><button type="button" class="btn bp-x">Plus tard</button></div>
 </div>
 <div class="srch" id="srch" hidden role="dialog" aria-modal="true" aria-label="Rechercher sur le site">
   <div class="srch-box">
@@ -1361,7 +1415,7 @@ body[data-univ="ads"] .fl-i b { color: #fff; text-decoration: underline; text-un
       <p class="hx-cta">Vous aussi, vous repérez une erreur ? Le bouton « Signaler une erreur » est en bas de chaque chapitre. Une question sans réponse sûre ? Elle va dans les <a href="#doutes">points à vérifier</a>.</p>
       <h3 class="x-h">Toutes les nouveautés</h3>
       <div class="log">
-        <div><time>10/2026</time><span>Vidéos instantanées : si vous l'activez, le lecteur se prépare pendant que vous lisez et la vidéo démarre presque tout de suite.</span></div>
+        <div><time>10/2026</time><span>Vidéos instantanées : un éclair apparaît en haut de chaque page avec vidéo. Un appui, et le lecteur se prépare pendant que vous lisez : la vidéo démarre presque tout de suite.</span></div>
         <div><time>10/2026</time><span>Une barre de recherche sur tout le site, une bannière Flash info, la lettre Mémo World, des textes officiels classés par type (21 textes, dont 11 pour la sécurité privée) et une couleur par univers : le feu pour le SSIAP, le noir et blanc pour l'ADS. Vimo relaie le Flash info et a beaucoup plus de choses à dire.</span></div>
         <div><time>10/2026</time><span>Veille réglementaire : la note sur le secourisme est corrigée. L'arrêté du 7 juillet 2026 concerne les premiers secours de sécurité civile (GQS, PSC, PSE), pas le SST.</span></div>
         <div><time>10/2026</time><span>Corrections après la relecture d'un agent du métier : dégagements (CO 38), extincteurs (MS 39, PE 26), temporisation (MS 66) et commandes du SSI, alerte, fumées, PLS ; examen blanc SSIAP 1 en 30 questions. Deux points à vérifier sont résolus.</span></div>
@@ -8970,8 +9024,10 @@ function vidPreOn() { try { return localStorage.getItem("ms-vid-pre") === "1"; }
       const b = n.querySelector(".vid-pre"); if (b) { b.textContent = on ? "Désactiver" : "⚡ Activer les vidéos instantanées"; b.setAttribute("aria-pressed", on); }
       const i = n.querySelector(".vn-i"); if (i) i.hidden = on;
     });
+    if (window.__boltPaint) window.__boltPaint();
   }
   window.__vidPaint = paint;
+  window.__vidPre = { set: v => { setPre(v); paint(); if (v) warm(); } };
   new MutationObserver(() => { if (document.querySelector(".vid-note:not([data-p])")) { document.querySelectorAll(".vid-note:not([data-p])").forEach(n => n.dataset.p = "1"); paint(); warm(); } }).observe(document.body, { childList: true, subtree: true });
   document.addEventListener("click", e => {
     const b = e.target.closest(".vid-pre"); if (!b) return;
@@ -8987,6 +9043,55 @@ function vidPreOn() { try { return localStorage.getItem("ms-vid-pre") === "1"; }
     if (!b) return; const r = b.getBoundingClientRect(); if (r.top < 90 || r.top > innerHeight * .75) return;
     if (window.__vimoPoint(b, "Un appui ici, et les vidéos démarrent presque tout de suite.")) { shownPre = true; try { localStorage.setItem("ms-vimo-vidpre", "1"); } catch (e) {} }
   }, { passive: true });
+})();
+
+/* ---- v31 : l'éclair des vidéos instantanées ---- */
+(function () {
+  const bolt = document.getElementById("bolt"), pop = document.getElementById("bolt-pop"); if (!bolt || !pop) return;
+  const on = () => typeof vidPreOn === "function" && vidPreOn();
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function paint() {
+    const o = on();
+    bolt.classList.toggle("on", o);
+    bolt.setAttribute("aria-label", o ? "Vidéos instantanées activées" : "Activer les vidéos instantanées");
+    pop.classList.toggle("is-on", o);
+    pop.querySelector(".bp-go").textContent = o ? "Désactiver" : "⚡ Activer";
+    pop.querySelector(".bp-x").textContent = o ? "OK" : "Plus tard";
+  }
+  window.__boltPaint = paint;
+  const pageHasVid = () => [...document.querySelectorAll(".vid[data-y]")].some(v => !v.closest("[hidden]") && !v.closest(".vid-warm"));
+  function strike() {
+    if (reduce) return;
+    bolt.classList.remove("strike"); document.querySelector(".top").classList.remove("lit");
+    void bolt.offsetWidth;
+    bolt.classList.add("strike"); document.querySelector(".top").classList.add("lit");
+    setTimeout(() => { bolt.classList.remove("strike"); document.querySelector(".top").classList.remove("lit"); }, 1300);
+  }
+  let last = "";
+  function check() {
+    setTimeout(() => {
+      const has = pageHasVid(), was = !bolt.hidden;
+      bolt.hidden = !has; document.body.classList.toggle("has-vid", has);
+      if (!has) { close(); last = ""; return; }
+      const key = location.hash || "#accueil";
+      if (!was || key !== last) strike();
+      last = key; paint();
+    }, 350);
+  }
+  addEventListener("hashchange", check); setTimeout(check, 900);
+  function open() { paint(); pop.hidden = false; bolt.setAttribute("aria-expanded", "true"); pop.querySelector(".bp-go").focus({ preventScroll: true }); }
+  function close() { if (pop.hidden) return; pop.hidden = true; bolt.setAttribute("aria-expanded", "false"); }
+  bolt.addEventListener("click", e => { e.stopPropagation(); pop.hidden ? open() : close(); });
+  pop.querySelector(".bp-go").addEventListener("click", () => {
+    const v = !on(); if (window.__vidPre) window.__vidPre.set(v); paint();
+    if (v) { strike(); window.__vimoSay && window.__vimoSay("Vidéos instantanées activées : la vidéo est prête à démarrer !", { prio: 2, mood: "joy", dur: 4500 }); setTimeout(close, 900); }
+    else close();
+  });
+  pop.querySelector(".bp-x").addEventListener("click", close);
+  document.addEventListener("click", e => { if (!pop.hidden && !e.target.closest("#bolt-pop, #bolt")) close(); });
+  addEventListener("keydown", e => { if (e.key === "Escape" && !pop.hidden) { close(); bolt.focus(); } });
+  addEventListener("hashchange", close);
+  paint();
 })();
 
 /* ---- menu à trois traits ---- */
