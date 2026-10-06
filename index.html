@@ -1008,6 +1008,16 @@ body[data-univ="ads"] .fl-i b { color: #fff; text-decoration: underline; text-un
 .txt .arts { overflow-wrap: anywhere; }
 
 
+/* ---- v30 : vidéos instantanées ---- */
+.vid-warm { position: absolute; left: -10000px; top: 0; width: 320px; height: 180px; overflow: hidden; opacity: 0; pointer-events: none; }
+.vid-warm iframe { width: 320px; height: 180px; border: 0; }
+.vid-note { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.vid-note .vn-t, .vid-note .vn-f { flex: 1 1 100%; }
+.vid-pre { font: inherit; font-size: 13.5px; font-weight: 700; color: var(--fire); background: var(--surface); border: 1px solid var(--fire); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+.vid-pre[aria-pressed="true"] { color: var(--muted); border-color: var(--line); font-weight: 600; }
+.vn-i { flex: 1 1 100%; font-size: 12.5px; color: var(--muted); }
+
+
 /* ---- v20 : lien discret vers les mises à jour ---- */
 .land-upd { margin: 22px 0 0; font-size: 14px; }
 .land-upd a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--muted); }
@@ -1335,7 +1345,7 @@ body[data-univ="ads"] .fl-i b { color: #fff; text-decoration: underline; text-un
   <section class="page" id="journal">
     <div class="wrap">
       <div class="sec-head"><h2>Historique du site</h2><p>Mis à jour grâce à vous 💪 Chaque erreur signalée est vérifiée sur le texte officiel, corrigée, puis affichée ici.</p></div>
-      <div class="hx-stats"><div><b>8</b><span>corrections grâce à un agent du métier</span></div><div><b>15</b><span>mises à jour en octobre 2026</span></div></div>
+      <div class="hx-stats"><div><b>8</b><span>corrections grâce à un agent du métier</span></div><div><b>16</b><span>mises à jour en octobre 2026</span></div></div>
       <h3 class="x-h">Corrigé grâce à vous</h3>
       <p class="hx-lead">Octobre 2026 · relecture complète par un agent du métier. Merci à lui !</p>
       <div class="hx-list">
@@ -1351,6 +1361,7 @@ body[data-univ="ads"] .fl-i b { color: #fff; text-decoration: underline; text-un
       <p class="hx-cta">Vous aussi, vous repérez une erreur ? Le bouton « Signaler une erreur » est en bas de chaque chapitre. Une question sans réponse sûre ? Elle va dans les <a href="#doutes">points à vérifier</a>.</p>
       <h3 class="x-h">Toutes les nouveautés</h3>
       <div class="log">
+        <div><time>10/2026</time><span>Vidéos instantanées : si vous l'activez, le lecteur se prépare pendant que vous lisez et la vidéo démarre presque tout de suite.</span></div>
         <div><time>10/2026</time><span>Une barre de recherche sur tout le site, une bannière Flash info, la lettre Mémo World, des textes officiels classés par type (21 textes, dont 11 pour la sécurité privée) et une couleur par univers : le feu pour le SSIAP, le noir et blanc pour l'ADS. Vimo relaie le Flash info et a beaucoup plus de choses à dire.</span></div>
         <div><time>10/2026</time><span>Veille réglementaire : la note sur le secourisme est corrigée. L'arrêté du 7 juillet 2026 concerne les premiers secours de sécurité civile (GQS, PSC, PSE), pas le SST.</span></div>
         <div><time>10/2026</time><span>Corrections après la relecture d'un agent du métier : dégagements (CO 38), extincteurs (MS 39, PE 26), temporisation (MS 66) et commandes du SSI, alerte, fumées, PLS ; examen blanc SSIAP 1 en 30 questions. Deux points à vérifier sont résolus.</span></div>
@@ -1382,7 +1393,7 @@ body[data-univ="ads"] .fl-i b { color: #fff; text-decoration: underline; text-un
     <p><b>Mémo World</b> · version 3 (56 chapitres : SSIAP 1, SSIAP 2 et ADS), à jour au 6 octobre 2026.</p>
     <p>Ces fiches aident à réviser et à travailler au quotidien. Elles ne remplacent ni la formation officielle, ni les consignes de votre établissement. Les textes cités font foi.</p>
     <p>Contact, erreur à signaler, proposition : <a class="mail" href="mailto:contact.limitlessprojets@gmail.com?subject=M%C3%A9mo%20World">contact.limitlessprojets@gmail.com</a></p>
-    <p><b>Mentions légales</b> · Éditeur : Jérémy, particulier, site personnel et non commercial. Contact : contact.limitlessprojets@gmail.com. Hébergeur : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. Données : le site ne collecte aucune donnée personnelle et ne dépose aucun cookie. Les vidéos sont hébergées par YouTube (Google) et ne se chargent que si vous appuyez sur lecture, en mode « confidentialité renforcée » (youtube-nocookie.com) ; YouTube applique alors sa propre politique de confidentialité. Vos résultats de QCM sont gardés uniquement sur votre appareil. La fréquentation est mesurée de façon anonyme, sans cookie (GoatCounter).</p>
+    <p><b>Mentions légales</b> · Éditeur : Jérémy, particulier, site personnel et non commercial. Contact : contact.limitlessprojets@gmail.com. Hébergeur : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. Données : le site ne collecte aucune donnée personnelle et ne dépose aucun cookie. Les vidéos sont hébergées par YouTube (Google) et ne se chargent que si vous appuyez sur lecture, en mode « confidentialité renforcée » (youtube-nocookie.com) ; YouTube applique alors sa propre politique de confidentialité. Si vous activez les « vidéos instantanées », le lecteur YouTube se prépare dès l'ouverture d'une page qui contient une vidéo (YouTube reçoit alors votre adresse IP) ; ce choix est gardé sur votre appareil et se désactive à tout moment sous chaque bloc vidéo. Vos résultats de QCM sont gardés uniquement sur votre appareil. La fréquentation est mesurée de façon anonyme, sans cookie (GoatCounter).</p>
   </div>
 </footer>
 
@@ -7851,7 +7862,7 @@ function vidBlock(key, h) {
   const H = h || "h2";
   return `<section class="vids"><${H} class="vids-h"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M10 9.2v5.6l4.8-2.8z"/></svg>En vidéo</${H}>
     ${L.map(v => `<div class="vid" data-y="${v.y}" data-t="${esc(v.t)}"><button type="button" class="vid-play" aria-label="Lire la vidéo : ${esc(v.t)}"><span class="vid-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span><span class="vid-tx"><b>${esc(v.t)}</b><span>${esc(v.s)}${v.d ? " · " + esc(v.d) : ""}</span></span></button></div>`).join("")}
-    <p class="vid-note">Vidéos d'organismes officiels, lues depuis YouTube seulement quand vous appuyez sur lecture. En cas d'écart, la fiche et les textes cités font foi.</p>
+    <p class="vid-note"><span class="vn-t">Vidéos d'organismes officiels, lues depuis YouTube seulement quand vous appuyez sur lecture.</span><button type="button" class="vid-pre" aria-pressed="false">⚡ Activer les vidéos instantanées</button><span class="vn-i">Le lecteur se prépare pendant que vous lisez : la vidéo démarre presque tout de suite. YouTube reçoit alors votre adresse IP dès l'ouverture de la page. Choix gardé sur cet appareil, réversible à tout moment.</span><span class="vn-f">En cas d'écart, la fiche et les textes cités font foi.</span></p>
   </section>`;
 }
 /* lecteur unique : dans la page de la vidéo, puis en mini-lecteur flottant quand on navigue ailleurs */
@@ -8918,6 +8929,64 @@ window.__flash = [["nl-vigi", "Vigipirate : posture « Vigilance renforcée » d
     if (location.hash !== "#newsletter" || store.get("ms-vimo-flashpt") === "1") return;
     setTimeout(() => { const el = document.querySelector("#newsletter .nl-flash"); if (el && window.__vimoPoint && window.__vimoPoint(el, "Ici, la veille de la semaine, avec ses sources.")) store.set("ms-vimo-flashpt", "1"); }, 2500);
   });
+})();
+
+/* ---- v30 : vidéos instantanées ---- */
+function vidPreOn() { try { return localStorage.getItem("ms-vid-pre") === "1"; } catch (e) { return false; } }
+(function () {
+  const YT = "https://www.youtube-nocookie.com";
+  const setPre = v => { try { localStorage.setItem("ms-vid-pre", v ? "1" : "0"); } catch (e) {} };
+  /* connexion anticipée (DNS + TLS), une seule fois */
+  let pc = false;
+  const preconnect = () => { if (pc) return; pc = true; [YT, "https://i.ytimg.com", "https://www.google.com", "https://static.doubleclick.net"].forEach(h => { const l = document.createElement("link"); l.rel = "preconnect"; l.href = h; l.crossOrigin = ""; document.head.appendChild(l); }); };
+  ["pointerover", "touchstart", "focusin"].forEach(ev => document.addEventListener(ev, e => { if (e.target.closest && e.target.closest(".vid-play")) preconnect(); }, { passive: true }));
+  /* préparation du lecteur : un lecteur invisible charge le code de YouTube en arrière-plan ;
+     au clic, le vrai lecteur le retrouve déjà en cache et démarre beaucoup plus vite */
+  const box = document.createElement("div"); box.className = "vid-warm"; box.setAttribute("aria-hidden", "true"); document.body.appendChild(box);
+  const warmed = new Set(); let tm = 0;
+  function warm() {
+    clearTimeout(tm);
+    tm = setTimeout(() => {
+      if (!vidPreOn() || document.hidden) return;
+      if (navigator.connection && (navigator.connection.saveData || /(^|-)2g$/.test(navigator.connection.effectiveType || ""))) return;
+      const v = [...document.querySelectorAll(".vid[data-y]")].find(s => !s.closest("[hidden]") && s.offsetParent !== null && !warmed.has(s.dataset.y));
+      if (!v) return;
+      preconnect(); warmed.add(v.dataset.y);
+      const f = document.createElement("iframe");
+      f.src = `${YT}/embed/${v.dataset.y}?rel=0&hl=fr&mute=1&controls=0`; f.tabIndex = -1; f.title = "Préparation du lecteur vidéo"; f.setAttribute("allow", "encrypted-media");
+      f.addEventListener("load", () => setTimeout(() => f.remove(), 4000));
+      setTimeout(() => f.remove(), 25000);
+      box.appendChild(f);
+    }, 1200);
+  }
+  addEventListener("hashchange", warm); document.addEventListener("toggle", warm, true); setTimeout(warm, 1500);
+  /* le réglage, sous chaque bloc vidéo */
+  const ON = "Vidéos instantanées activées : le lecteur YouTube se prépare pendant que vous lisez.";
+  const OFF = "Vidéos d'organismes officiels, lues depuis YouTube seulement quand vous appuyez sur lecture.";
+  function paint() {
+    const on = vidPreOn();
+    document.querySelectorAll(".vid-note").forEach(n => {
+      const t = n.querySelector(".vn-t"); if (t) t.textContent = on ? ON : OFF;
+      const b = n.querySelector(".vid-pre"); if (b) { b.textContent = on ? "Désactiver" : "⚡ Activer les vidéos instantanées"; b.setAttribute("aria-pressed", on); }
+      const i = n.querySelector(".vn-i"); if (i) i.hidden = on;
+    });
+  }
+  window.__vidPaint = paint;
+  new MutationObserver(() => { if (document.querySelector(".vid-note:not([data-p])")) { document.querySelectorAll(".vid-note:not([data-p])").forEach(n => n.dataset.p = "1"); paint(); warm(); } }).observe(document.body, { childList: true, subtree: true });
+  document.addEventListener("click", e => {
+    const b = e.target.closest(".vid-pre"); if (!b) return;
+    const on = !vidPreOn(); setPre(on); paint();
+    if (on) { warm(); window.__vimoSay && window.__vimoSay("Vidéos instantanées activées : elles démarreront bien plus vite.", { prio: 2, mood: "joy", dur: 4500 }); }
+  });
+  paint();
+  /* Vimo montre le réglage une fois */
+  let shownPre = (() => { try { return localStorage.getItem("ms-vimo-vidpre") === "1"; } catch (e) { return false; } })();
+  addEventListener("scroll", () => {
+    if (shownPre || vidPreOn() || !window.__vimoPoint) return;
+    const b = [...document.querySelectorAll(".vid-pre")].find(x => x.offsetParent !== null && !x.closest("[hidden]"));
+    if (!b) return; const r = b.getBoundingClientRect(); if (r.top < 90 || r.top > innerHeight * .75) return;
+    if (window.__vimoPoint(b, "Un appui ici, et les vidéos démarrent presque tout de suite.")) { shownPre = true; try { localStorage.setItem("ms-vimo-vidpre", "1"); } catch (e) {} }
+  }, { passive: true });
 })();
 
 /* ---- menu à trois traits ---- */
