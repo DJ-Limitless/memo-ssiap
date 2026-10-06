@@ -859,11 +859,178 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
 .vc-l.o.seen b { color: #9A6B00; }
 
 
+/* ---- v28 : couleurs de sens (gardent le rouge en univers noir et blanc) ---- */
+:root { --bad: #C8211B; --bad-soft: #FBE9E8; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bad: #FF5A4E; --bad-soft: #3A1A18; } }
+:root[data-theme="dark"] { --bad: #FF5A4E; --bad-soft: #3A1A18; }
+/* ---- v28 : univers feu (SSIAP) ---- */
+body[data-univ="fire"] { --bg: #FBF4EF; background: radial-gradient(120% 55% at 50% -12%, rgba(232, 84, 26, .17), transparent 62%), radial-gradient(70% 45% at 105% 105%, rgba(200, 33, 27, .13), transparent 65%), radial-gradient(60% 40% at -5% 100%, rgba(242, 160, 5, .10), transparent 65%), var(--bg); background-attachment: fixed; }
+body[data-univ="fire"] .top { background: rgba(251, 244, 239, .93); -webkit-backdrop-filter: saturate(1.2) blur(8px); backdrop-filter: saturate(1.2) blur(8px); }
+.top::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: linear-gradient(90deg, #C8211B, #F06A1A 55%, #F2B705); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body[data-univ="fire"] { --bg: #16100E; } :root:not([data-theme="light"]) body[data-univ="fire"] .top { background: rgba(22, 16, 14, .92); } }
+:root[data-theme="dark"] body[data-univ="fire"] { --bg: #16100E; }
+:root[data-theme="dark"] body[data-univ="fire"] .top { background: rgba(22, 16, 14, .92); }
+/* ---- v28 : univers noir et blanc (ADS) ---- */
+body[data-univ="ads"] { --bg: #F1F1F1; --surface: #FFFFFF; --ink: #111111; --muted: #5C5C5C; --line: #D4D4D4; --fire: #111111; --fire-soft: #E6E6E6; background: radial-gradient(120% 55% at 50% -12%, rgba(0, 0, 0, .09), transparent 62%), repeating-linear-gradient(135deg, rgba(0, 0, 0, .025) 0 2px, transparent 2px 14px), var(--bg); background-attachment: fixed; }
+body[data-univ="ads"] .top { background: rgba(241, 241, 241, .94); }
+body[data-univ="ads"] .top::after { background: linear-gradient(90deg, #111 0 33%, #8A8A8A 33% 66%, #111 66%); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body[data-univ="ads"] { --bg: #0B0B0B; --surface: #161616; --ink: #F2F2F2; --muted: #A6A6A6; --line: #2E2E2E; --fire: #EDEDED; --fire-soft: #262626; background: radial-gradient(120% 55% at 50% -12%, rgba(255, 255, 255, .07), transparent 62%), repeating-linear-gradient(135deg, rgba(255, 255, 255, .025) 0 2px, transparent 2px 14px), var(--bg); background-attachment: fixed; } :root:not([data-theme="light"]) body[data-univ="ads"] .top { background: rgba(11, 11, 11, .94); } :root:not([data-theme="light"]) body[data-univ="ads"] .top::after { background: linear-gradient(90deg, #EDEDED 0 33%, #6A6A6A 33% 66%, #EDEDED 66%); } }
+:root[data-theme="dark"] body[data-univ="ads"] { --bg: #0B0B0B; --surface: #161616; --ink: #F2F2F2; --muted: #A6A6A6; --line: #2E2E2E; --fire: #EDEDED; --fire-soft: #262626; background: radial-gradient(120% 55% at 50% -12%, rgba(255, 255, 255, .07), transparent 62%), repeating-linear-gradient(135deg, rgba(255, 255, 255, .025) 0 2px, transparent 2px 14px), var(--bg); background-attachment: fixed; }
+:root[data-theme="dark"] body[data-univ="ads"] .top { background: rgba(11, 11, 11, .94); }
+body[data-univ="ads"] .btn.primary, body[data-univ="ads"] .tile.hot, body[data-univ="ads"] .brand .sq, body[data-univ="ads"] .avatar, body[data-univ="ads"] .vp-back, body[data-univ="ads"] .btn-rep:hover, body[data-univ="ads"] .btn-rep:focus-visible { color: var(--bg); }
+body[data-univ="ads"] .opt.bad { border-color: var(--bad); background: var(--bad-soft); }
+body[data-univ="ads"] .opt.bad::before { background: var(--bad); border-color: var(--bad); box-shadow: inset 0 0 0 3px var(--bad-soft); }
+body[data-univ="ads"] .fb.bad { border-left-color: var(--bad); }
+body[data-univ="ads"] .bad.sel { border-color: var(--bad); }
+body[data-univ="ads"] .err, body[data-univ="ads"] .kot, body[data-univ="ads"] .sst-l.bad { color: var(--bad); }
+body[data-univ="ads"] .th-bar i.b, body[data-univ="ads"] .legend i.b { background: var(--bad); }
+body[data-univ="ads"] #mascot .mm-svg { filter: grayscale(1) contrast(1.1); }
+.univ .u-priv { border-top-color: var(--ink); }
+/* ---- v28 : bouton et barre de recherche ---- */
+.srch-btn { margin-left: auto; flex: none; width: 42px; height: 42px; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 9px; color: var(--ink); cursor: pointer; padding: 0; }
+.srch-btn svg, .srch-pill svg, .srch-bar svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.3; stroke-linecap: round; }
+.srch-btn:hover, .srch-btn:focus-visible { border-color: var(--ink); }
+.srch-btn + .top-qcm { margin-left: 0; }
+.srch-pill { display: flex; align-items: center; gap: 10px; width: 100%; max-width: 640px; margin: 0 0 18px; font: inherit; font-size: 16px; color: var(--muted); text-align: left; background: var(--surface); border: 2px solid var(--line); border-radius: 999px; padding: 12px 16px; cursor: text; box-shadow: 0 4px 18px rgba(0, 0, 0, .07); }
+.hero > div { min-width: 0; }
+.srch-pill { box-sizing: border-box; min-width: 0; }
+.srch-pill span { width: 0; }
+.srch-pill:hover, .srch-pill:focus-visible { border-color: var(--fire); color: var(--ink); }
+.srch-pill svg { color: var(--fire); flex: none; }
+.srch-pill span { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.srch-pill kbd { font-family: var(--font-mono); font-size: 12px; border: 1px solid var(--line); border-radius: 5px; padding: 1px 7px; color: var(--muted); }
+@media (hover: none) { .srch-pill kbd { display: none; } }
+.srch { position: fixed; inset: 0; z-index: 70; background: rgba(10, 16, 22, .5); display: flex; justify-content: center; align-items: flex-start; padding: calc(10px + env(safe-area-inset-top, 0px)) 10px 10px; }
+.srch[hidden] { display: none; }
+.srch-box { width: min(720px, 100%); max-height: calc(100dvh - 20px); display: flex; flex-direction: column; background: var(--bg); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 20px 60px rgba(0, 0, 0, .35); overflow: hidden; }
+.srch-bar { display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 16px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.srch-bar svg { color: var(--fire); flex: none; }
+.srch-bar input { flex: 1; min-width: 0; font: inherit; font-size: 18px; color: var(--ink); background: transparent; border: 0; outline: 0; padding: 8px 0; }
+.srch-bar input::-webkit-search-cancel-button { display: none; }
+.srch-x { flex: none; width: 40px; height: 40px; font-size: 18px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 9px; cursor: pointer; }
+.srch-filt { display: flex; gap: 6px; overflow-x: auto; padding: 10px 12px 0; scrollbar-width: none; }
+.srch-filt:empty { display: none; }
+.srch-filt button, .tx-chips button, .srch-sugg button { flex: none; font: inherit; font-size: 13.5px; font-weight: 700; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; cursor: pointer; white-space: nowrap; }
+.srch-filt button i, .tx-chips button i { font-style: normal; color: var(--muted); font-weight: 600; margin-left: 2px; }
+.srch-filt button[aria-pressed="true"], .tx-chips button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.srch-filt button[aria-pressed="true"] i, .tx-chips button[aria-pressed="true"] i { color: inherit; opacity: .75; }
+.srch-meta { margin: 8px 16px 0; font-size: 13px; color: var(--muted); }
+.srch-meta:empty { display: none; }
+.srch-res { list-style: none; margin: 0; padding: 6px 8px 12px; overflow-y: auto; }
+.srch-res:empty { display: none; }
+.srch-res a { display: grid; gap: 3px; padding: 10px 10px; border-radius: 10px; text-decoration: none; color: var(--ink); min-width: 0; }
+.srch-res a:hover, .srch-res a.on, .srch-res a:focus-visible { background: var(--surface); outline: 0; box-shadow: inset 0 0 0 1px var(--line); }
+.srch-res b { font-size: 16px; line-height: 1.3; overflow-wrap: anywhere; }
+.sr-s { font-size: 13.5px; color: var(--muted); line-height: 1.45; overflow-wrap: anywhere; }
+.sr-k { font-style: normal; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.sr-k.ch { color: var(--fire); } .sr-k.gl { color: var(--exit); } .sr-k.tx { color: var(--ink); }
+.srch-res mark, .sr-s mark { background: rgba(242, 183, 5, .38); color: inherit; border-radius: 3px; padding: 0 1px; }
+.sr-none { display: grid; gap: 6px; padding: 14px 10px; font-size: 14.5px; }
+.sr-none span { color: var(--muted); }
+.sr-none a { color: var(--fire); font-weight: 700; }
+.srch-sugg { padding: 6px 16px 16px; overflow-y: auto; }
+.srch-sugg p { margin: 10px 0 6px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.srch-sugg div { display: flex; flex-wrap: wrap; gap: 6px; }
+body.srch-open { overflow: hidden; }
+body.srch-open #mascot { visibility: hidden; }
+.srch-hit { animation: srchHit 2.6s ease-out; border-radius: 6px; }
+@keyframes srchHit { 0%, 30% { box-shadow: 0 0 0 4px rgba(242, 183, 5, .7); background-color: rgba(242, 183, 5, .18); } 100% { box-shadow: 0 0 0 4px rgba(242, 183, 5, 0); background-color: transparent; } }
+.m-srch { display: flex; align-items: center; gap: 10px; width: 100%; font: inherit; font-size: 15px; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 10px 14px; cursor: pointer; text-align: left; }
+.m-srch svg { width: 20px; height: 20px; fill: none; stroke: var(--fire); stroke-width: 2.3; stroke-linecap: round; flex: none; }
+@media (max-width: 430px) { .tq-l { display: none; } }
+@media (max-width: 400px) { .srch-btn { width: 38px; height: 38px; } .srch-btn svg { width: 20px; height: 20px; } }
+@media (max-width: 340px) { .srch-btn { width: 34px; height: 34px; } .top .wrap { gap: 6px; } }
+/* ---- v28 : flash info ---- */
+.flash { background: #1A0B09; color: #FFF3EC; border-bottom: 1px solid rgba(255, 255, 255, .08); }
+body[data-univ="ads"] .flash { background: #111; color: #F2F2F2; }
+.fl-in { display: flex; align-items: center; gap: 10px; padding-block: 6px; }
+.fl-k { flex: none; display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 11.5px; font-weight: 700; letter-spacing: .08em; color: #fff; background: #C8211B; border-radius: 5px; padding: 4px 8px; text-decoration: none; }
+body[data-univ="ads"] .fl-k { background: #fff; color: #111; }
+.fl-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: flDot 1.4s ease-in-out infinite; }
+@keyframes flDot { 50% { opacity: .25; } }
+.fl-vp { flex: 1; min-width: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 18px, #000 calc(100% - 18px), transparent); mask-image: linear-gradient(90deg, transparent, #000 18px, #000 calc(100% - 18px), transparent); }
+.fl-track { display: flex; width: max-content; animation: flRun var(--fl-d, 60s) linear infinite; }
+.flash:hover .fl-track, .flash:focus-within .fl-track { animation-play-state: paused; }
+@keyframes flRun { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.fl-i { flex: none; color: inherit; text-decoration: none; font-size: 14px; white-space: nowrap; padding: 0 28px 0 0; }
+.fl-i::after { content: "◆"; margin-left: 28px; font-size: 9px; opacity: .5; vertical-align: 2px; }
+.fl-i b { color: #FFB59A; }
+body[data-univ="ads"] .fl-i b { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+.fl-i:hover { text-decoration: underline; }
+.flash.rm .fl-track { animation: none; width: auto; display: block; }
+.flash.rm .fl-i { display: none; white-space: normal; padding: 0; }
+.flash.rm .fl-i.on { display: block; }
+.flash.rm .fl-i::after { content: none; }
+.fl-x { flex: none; width: 30px; height: 30px; color: inherit; background: transparent; border: 1px solid rgba(255, 255, 255, .25); border-radius: 7px; cursor: pointer; font-size: 13px; }
+/* ---- v28 : lettre ---- */
+.nl-mast { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 14px; max-width: 760px; border-top: 4px solid var(--fire); border-bottom: 1px solid var(--line); padding: 10px 0; margin: 4px 0 6px; }
+.nl-mast b { display: block; line-height: 1.1; font-family: var(--font-display); font-size: 21px; text-transform: uppercase; letter-spacing: .02em; }
+.nl-mast span { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+.nl-flash { max-width: 760px; margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 15px; }
+.nl-flash a { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--muted); }
+.nl-flash a:hover { color: var(--fire); }
+.nl-list { display: grid; gap: 12px; max-width: 760px; }
+.nl-it { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 7px; min-width: 0; }
+.nl-top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 13px; }
+.nl-top time { font-family: var(--font-mono); color: var(--muted); }
+.nl-dom { font-weight: 700; }
+.nl-st { font-family: var(--font-mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--exit); border: 1px solid var(--exit); border-radius: 999px; padding: 1px 8px; }
+.nl-st.warn { color: var(--warn, #B26B00); border-color: var(--warn, #B26B00); }
+.nl-st.fut { color: var(--muted); border-color: var(--muted); }
+.nl-it h4 { font-size: 19px; line-height: 1.25; }
+.nl-it p { margin: 0; font-size: 15px; }
+.nl-src { font-size: 13px !important; color: var(--muted); overflow-wrap: anywhere; }
+.nl-src a { color: var(--muted); }
+.nl-go { font-weight: 700; font-size: 14.5px; color: var(--fire); text-decoration: none; }
+.nl-site { max-width: 760px; font-size: 15.5px; }
+.nl-site a { color: var(--fire); font-weight: 700; }
+.nl-sub { max-width: 760px; margin-top: 22px; background: var(--surface); border: 2px solid var(--ink); border-radius: 14px; padding: 16px 18px; display: grid; gap: 10px; justify-items: start; }
+.nl-sub h3 { font-size: 21px; }
+.nl-sub p { margin: 0; font-size: 15px; }
+.nl-ok { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; cursor: pointer; border-radius: 8px; padding: 4px; }
+.nl-ok input { width: 20px; height: 20px; margin-top: 2px; flex: none; accent-color: var(--fire); }
+.nl-ok.need { box-shadow: 0 0 0 2px var(--fire); }
+.nl-btn[aria-disabled="true"] { opacity: .5; }
+.nl-sub .rgpd { font-size: 12.5px; color: var(--muted); }
+/* ---- v28 : textes classés ---- */
+.tx-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 18px; }
+.tx-grp { margin-bottom: 22px; }
+.tx-h { font-size: 22px; margin: 0 0 10px; display: flex; align-items: baseline; gap: 8px; border-bottom: 2px solid var(--fire); padding-bottom: 4px; }
+.tx-h i { font-style: normal; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.texts-g { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(290px, 100%), 1fr)); gap: 14px; }
+.tx-top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.tx-u { font-family: var(--font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .05em; border-radius: 4px; padding: 1px 6px; }
+.tx-u.ssiap { color: #fff; background: #C8211B; }
+.tx-u.ads { color: #fff; background: #111; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tx-u.ads { color: #111; background: #EDEDED; } }
+:root[data-theme="dark"] .tx-u.ads { color: #111; background: #EDEDED; }
+.txt h3 { overflow-wrap: break-word; hyphens: auto; -webkit-hyphens: auto; }
+.txt .arts { overflow-wrap: anywhere; }
+
+
 /* ---- v20 : lien discret vers les mises à jour ---- */
 .land-upd { margin: 22px 0 0; font-size: 14px; }
 .land-upd a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--muted); }
 .land-upd a:hover { color: var(--fire); border-color: var(--fire); }
 .log-back { display: inline-block; margin-top: 18px; font-weight: 700; color: var(--fire); }
+.hx-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; max-width: 720px; margin: 4px 0 8px; }
+.hx-stats div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: grid; gap: 2px; }
+.hx-stats b { font-family: var(--font-display); font-size: 34px; line-height: 1; color: var(--fire); }
+.hx-stats span { font-size: 13.5px; color: var(--muted); }
+.hx-lead { color: var(--muted); font-size: 14.5px; margin: -4px 0 10px; }
+.hx-list { display: grid; gap: 10px; max-width: 760px; }
+.hx { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--exit); border-radius: 10px; padding: 12px 14px; display: grid; gap: 6px; min-width: 0; }
+.hx-top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-size: 13.5px; }
+.hx-top a { font-weight: 700; color: var(--fire); text-decoration: none; }
+.hx-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--exit); border: 1px solid var(--exit); border-radius: 999px; padding: 1px 8px; }
+.hx h4 { font-size: 18px; }
+.hx p { font-size: 14.5px; margin: 0; }
+.hx p b { display: inline-block; min-width: 92px; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; }
+.hx-av { color: var(--muted); }
+.hx-av b { color: var(--muted); }
+.hx-ap b { color: var(--exit); }
+.hx-cta { max-width: 760px; margin: 14px 0 6px; font-size: 15px; }
+.hx-cta a { color: var(--fire); font-weight: 700; }
 
 /* ---- QCM : cases à cocher ---- */
 .hint { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); margin: -6px 0 10px; }
@@ -895,9 +1062,26 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
   <div class="wrap">
     <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
     <a class="brand" href="#accueil"><span class="sq">+</span>MÉMO WORLD</a>
-    <a class="top-qcm" href="#qcm">Examen blanc</a>
+    <button type="button" class="srch-btn" data-srch aria-label="Rechercher sur le site"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></button>
+    <a class="top-qcm" href="#qcm">Examen<span class="tq-l"> blanc</span></a>
   </div>
 </header>
+<div class="flash" id="flash" role="region" aria-label="Flash info" hidden>
+  <div class="wrap fl-in">
+    <a class="fl-k" href="#newsletter"><span class="fl-dot" aria-hidden="true"></span>FLASH INFO</a>
+    <div class="fl-vp"><div class="fl-track" id="fl-track"><a class="fl-i" href="#newsletter" data-nl="nl-vigi"><b>Vigipirate</b> : posture « Vigilance renforcée » depuis le 22 juin 2026.</a><a class="fl-i" href="#newsletter" data-nl="nl-vigi"><b>Plan Vigipirate 2026</b> : 3 niveaux · Vigilance, Vigilance renforcée, Alerte attentat.</a><a class="fl-i" href="#newsletter" data-nl="nl-ripost"><b>Loi RIPOST</b> : inspection visuelle des véhicules par l&#x27;agent privé, art. L.613-2-1 du CSI (20/08/2026).</a><a class="fl-i" href="#newsletter" data-nl="nl-secours"><b>Premiers secours</b> : nouvelles références GQS, PSC, PSE (arrêté du 7 juillet 2026). Le SST ne change pas.</a><a class="fl-i" href="#newsletter" data-nl="nl-atmp"><b>AT-MP</b> : nouvelle indemnisation de l&#x27;incapacité permanente à partir du 1er novembre 2026.</a><a class="fl-i" href="#newsletter" data-nl="nl-carte"><b>Carte « grands événements » pérennisée (décret n° 2026-670, selon la presse spécialisée).</b></a></div></div>
+    <button type="button" class="fl-x" aria-label="Masquer le flash info">✕</button>
+  </div>
+</div>
+<div class="srch" id="srch" hidden role="dialog" aria-modal="true" aria-label="Rechercher sur le site">
+  <div class="srch-box">
+    <div class="srch-bar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><input id="srch-q" type="search" placeholder="MS 39, CMSI, PLS, palpation…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-label="Votre recherche" aria-controls="srch-res"><button type="button" class="srch-x" aria-label="Fermer la recherche">✕</button></div>
+    <div class="srch-filt" id="srch-filt" role="group" aria-label="Filtrer les résultats"></div>
+    <p class="srch-meta" id="srch-meta" aria-live="polite"></p>
+    <ol class="srch-res" id="srch-res"></ol>
+    <div class="srch-sugg" id="srch-sugg"></div>
+  </div>
+</div>
 
 <div class="scrim" id="scrim" hidden></div>
 <nav class="menu" id="menu" aria-label="Menu principal" hidden>
@@ -905,6 +1089,7 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
     <span class="brand"><span class="sq">+</span>MÉMO WORLD</span>
     <button class="menu-x" id="menu-x" aria-label="Fermer le menu">✕</button>
   </div>
+  <button type="button" class="m-srch" data-srch><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>Rechercher sur le site</button>
   <div class="tiles">
     <a class="tile" href="#accueil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/></svg>Accueil</a>
     <a class="tile" href="#parcours"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h11v14H4zM15 8h5v11h-5"/><path d="M7 9h5M7 12h5M7 15h3"/></svg>Parcours</a>
@@ -930,6 +1115,8 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
       <a href="#bloc-3">Le bloc ADS · chapitres 37 à 56</a>
       <a href="#qcm-a">Examen blanc ADS</a>
     </details>
+    <a href="#newsletter"><span>Flash info et lettre</span><i>›</i></a>
+    <a href="#journal"><span>Historique · grâce à vous</span><i>›</i></a>
     <a href="#doutes"><span>Points à vérifier</span><i>›</i></a>
     <a href="#apropos"><span>À propos</span><i>›</i></a>
   </div>
@@ -943,6 +1130,7 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
   <div class="wrap hero">
     <div>
       <div class="wordmark" aria-label="Mémo World"><span class="wm-line" aria-hidden="true"><span class="wl">M</span><span class="wl">É</span><span class="wl">M</span><span class="wl">O</span></span><span class="wm-line red" aria-hidden="true"><span class="wl">W</span><span class="wl">O</span><span class="wl">R</span><span class="wl">L</span><span class="wl">D</span></span></div>
+      <button type="button" class="srch-pill" data-srch><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><span>Rechercher un article, un sigle, un chapitre…</span><kbd>/</kbd></button>
       <p class="eyebrow">Sécurité incendie · Sécurité privée</p>
       <h1>Le jour J, <em>on ne cherche pas, on sait.</em></h1>
       <p class="lead">Une alarme à 3 heures du matin, une porte coupe-feu calée, un permis de feu à signer, les pompiers qui arrivent : dans ce métier, l'hésitation coûte cher. Mémo World rassemble l'essentiel, expliqué simplement, vérifié dans les textes et toujours dans la poche.</p>
@@ -998,7 +1186,7 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
       <b>À savoir</b>
       <p>Mémo World aide à réviser et à travailler au quotidien. Il ne remplace ni la formation officielle, ni les consignes de votre établissement. Chaque information renvoie à son texte officiel : en cas de doute, c'est le texte qui fait foi.</p>
     </div>
-    <p class="land-upd"><a href="#journal">Mises à jour récentes · octobre 2026</a></p>
+    <p class="land-upd"><a href="#journal">Historique du site · mis à jour grâce à vous</a></p>
   </div>
 </section>
 
@@ -1023,7 +1211,8 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
         <div class="h-step"><span class="lvl">NIVEAU 2</span><b>Les arrêtés</b><span>Les règles détaillées, obligatoires : arrêtés de 1980, 2005, 2011.</span></div>
         <div class="h-step"><span class="lvl">NIVEAU 3</span><b>Les normes</b><span>Le « comment faire » technique, obligatoire quand un texte y renvoie.</span></div>
       </div>
-      <div class="texts" id="texts"></div>
+      <div class="tx-chips" id="tx-chips" role="group" aria-label="Filtrer les textes par type"></div>
+      <div id="texts"></div>
     </div>
   </section>
 
@@ -1094,6 +1283,40 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
     </div>
   </section>
 
+  <section class="page" id="newsletter">
+    <div class="wrap">
+      <div class="sec-head"><h2>Flash info et lettre Mémo World</h2><p>La veille réglementaire du site : ce qui change dans la sécurité incendie, la sécurité privée, le secourisme et le Code du travail. Chaque information est datée et sourcée ; les textes officiels font foi.</p></div>
+      <div class="nl-mast"><b>La lettre Mémo World</b><span>N° 1 · octobre 2026 · veille arrêtée au 6 octobre 2026</span></div>
+      <h3 class="x-h">Le flash info</h3>
+      <ul class="nl-flash"><li><a href="#nl-vigi" data-nl="nl-vigi">Vigipirate : posture « Vigilance renforcée » depuis le 22 juin 2026.</a></li><li><a href="#nl-vigi" data-nl="nl-vigi">Plan Vigipirate 2026 : 3 niveaux · Vigilance, Vigilance renforcée, Alerte attentat.</a></li><li><a href="#nl-ripost" data-nl="nl-ripost">Loi RIPOST : inspection visuelle des véhicules par l&#x27;agent privé, art. L.613-2-1 du CSI (20/08/2026).</a></li><li><a href="#nl-secours" data-nl="nl-secours">Premiers secours : nouvelles références GQS, PSC, PSE (arrêté du 7 juillet 2026). Le SST ne change pas.</a></li><li><a href="#nl-atmp" data-nl="nl-atmp">AT-MP : nouvelle indemnisation de l&#x27;incapacité permanente à partir du 1er novembre 2026.</a></li><li><a href="#nl-carte" data-nl="nl-carte">Carte « grands événements » pérennisée (décret n° 2026-670, selon la presse spécialisée).</a></li></ul>
+      <h3 class="x-h">Réglementation : ce qui a changé</h3>
+      <div class="nl-list">
+        <article class="nl-it" id="nl-vigi"><div class="nl-top"><time>22/06/2026</time><span class="nl-dom">Vigipirate</span><span class="nl-st">En vigueur</span></div><h4>Plan Vigipirate 2026 : trois niveaux, posture « Vigilance renforcée »</h4><p>Le plan 2026 compte trois niveaux : Vigilance, Vigilance renforcée et Alerte attentat. Le niveau « Alerte attentat » est décidé par le Premier ministre, pour 12 jours renouvelables. Depuis le 22 juin 2026, la posture est « Vigilance renforcée » (été-automne 2026) : lutte contre les drones, lieux touristiques et à forte affluence, bâtiments publics.</p><p class="nl-src">Sources : <a href="https://www.info.gouv.fr/risques/le-plan-vigipirate" target="_blank" rel="noopener">info.gouv.fr · le plan Vigipirate ↗</a> · <a href="https://www.interieur.gouv.fr/actualites/actualites-du-ministere/mise-en-oeuvre-du-plan-vigipirate-2026" target="_blank" rel="noopener">interieur.gouv.fr · Vigipirate 2026 ↗</a></p><a class="nl-go" href="#ch-51">Voir sur le site : Chapitre 51 →</a></article>
+        <article class="nl-it" id="nl-ripost"><div class="nl-top"><time>18/08/2026</time><span class="nl-dom">Sécurité privée</span><span class="nl-st">En vigueur</span></div><h4>Loi « RIPOST » : l&#x27;inspection visuelle des véhicules passe dans l&#x27;article L.613-2-1 du CSI</h4><p>Depuis le 20 août 2026, à la demande du gestionnaire du site et avec le consentement exprès du conducteur, l&#x27;agent peut inspecter visuellement un véhicule et son coffre avant l&#x27;accès à certains lieux (grands événements, enceintes sportives, sites sensibles) ; ailleurs, il faut un arrêté du préfet. En cas de refus, le véhicule n&#x27;entre pas, mais ses occupants peuvent entrer à pied. Les règles de la palpation de sécurité (art. L.613-2) ne changent pas. Les caméras individuelles des agents privés (art. 53) restent une expérimentation qui attend son décret.</p><p class="nl-src">Sources : <a href="https://www.interieur.gouv.fr/actualites/dossiers-de-presse/loi-ripost" target="_blank" rel="noopener">interieur.gouv.fr · loi RIPOST ↗</a> · <a href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000054707332" target="_blank" rel="noopener">Légifrance · loi n° 2026-798 ↗</a></p><a class="nl-go" href="#ch-47">Voir sur le site : Chapitre 47 →</a></article>
+        <article class="nl-it" id="nl-carte"><div class="nl-top"><time>28/07/2026</time><span class="nl-dom">Sécurité privée</span><span class="nl-st warn">En vigueur · à confirmer</span></div><h4>La carte « surveillance de grands événements » devient permanente</h4><p>Selon la presse spécialisée, le décret n° 2026-670 (JO du 28 juillet 2026) pérennise cette carte professionnelle : manifestations de plus de 300 personnes, missions limitées au filtrage, au contrôle d&#x27;accès et à la gestion de foule. Une seule source à ce jour : nous vérifions le texte sur Légifrance avant de l&#x27;intégrer aux chapitres.</p><p class="nl-src">Sources : <a href="https://www.lofficieldesmetiers.fr/securite-privee-la-carte-grands-evenements-devient-permanente/" target="_blank" rel="noopener">L&#x27;Officiel des métiers, 28/07/2026 ↗</a></p><a class="nl-go" href="#ch-54">Voir sur le site : Chapitre 54 →</a></article>
+        <article class="nl-it" id="nl-secours"><div class="nl-top"><time>07/07/2026</time><span class="nl-dom">Secourisme</span><span class="nl-st">En vigueur</span></div><h4>Premiers secours : de nouvelles références techniques nationales</h4><p>L&#x27;arrêté du 7 juillet 2026 (JO du 11 juillet) fixe les références techniques nationales des gestes qui sauvent (GQS), du PSC et du PSE. Il ne concerne pas le SST, qui suit le référentiel de l&#x27;INRS : nos fiches SST ne changent pas.</p><p class="nl-src">Sources : <a href="https://www.inrs.fr/actualites/bulletin-juridique-juillet-aout-2026.html" target="_blank" rel="noopener">INRS · bulletin juridique juillet-août 2026 ↗</a></p><a class="nl-go" href="#sst">Voir sur le site : Secourisme SST →</a></article>
+        <article class="nl-it" id="nl-atmp"><div class="nl-top"><time>01/11/2026</time><span class="nl-dom">Code du travail</span><span class="nl-st fut">Entre en vigueur le 1er novembre</span></div><h4>Accidents du travail : nouvelle indemnisation de l&#x27;incapacité permanente</h4><p>Les décrets n° 2026-354 et 2026-355 du 7 mai 2026 séparent deux volets : l&#x27;incapacité professionnelle et le préjudice fonctionnel. Le seuil de 10 % (capital ou rente) est maintenu. Le nouveau régime s&#x27;applique selon la date de consolidation, à partir du 1er novembre 2026.</p><p class="nl-src">Sources : <a href="https://www.editions-tissot.fr/actualite/sante-securite/reforme-de-lindemnisation-de-lincapacite-permanente-at-mp-le-nouveau-regime-applicable-est-precise" target="_blank" rel="noopener">Éditions Tissot, 22/05/2026 ↗</a></p><a class="nl-go" href="#ch-34">Voir sur le site : Chapitre 34 →</a></article>
+        <article class="nl-it" id="nl-erp5"><div class="nl-top"><time>01/01/2026</time><span class="nl-dom">ERP</span><span class="nl-st">En vigueur</span></div><h4>ERP de 5e catégorie : nouvelles modalités de contrôle des installations techniques</h4><p>L&#x27;arrêté du 1er décembre 2025 modifie le règlement de sécurité du 25 juin 1980 pour le contrôle des installations techniques dans les petits établissements. Il s&#x27;applique depuis le 1er janvier 2026, et depuis le 1er juillet 2026 pour les installations de gaz neuves ou modifiées.</p><p class="nl-src">Sources : <a href="https://affairesjuridiques.aphp.fr/textes/arrete-du-1er-decembre-2025-modifiant-larrete-du-25-juin-1980-portant-approbation-des-dispositions-generales-du-reglement-de-securite-contre-les-risques-dincendie-et-de-panique-dans-les-etablissem/" target="_blank" rel="noopener">AP-HP, affaires juridiques ↗</a></p><a class="nl-go" href="#ch-32">Voir sur le site : Chapitre 32 →</a></article>
+      </div>
+      <h3 class="x-h">À surveiller</h3>
+      <div class="log nl-watch">
+        <div><time>31/12/2026</time><span>SSIAP 2 : l&#x27;enregistrement de la certification au Répertoire spécifique (RS5642) court jusqu&#x27;au 31 décembre 2026. Son renouvellement est une démarche administrative, pas une réforme.</span></div>
+        <div><time>01/02/2027</time><span>Loi RIPOST : la vente de protoxyde d&#x27;azote aux particuliers sera interdite.</span></div>
+        <div><time>01/06/2027</time><span>ERP, constructions : l&#x27;arrêté du 19 février 2026 (façades, bois apparent, protections passives) s&#x27;appliquera aux demandes de travaux déposées à partir de cette date.</span></div>
+        <div><time>Non confirmé</time><span>Un « nouveau référentiel SST au 1er janvier 2027 » et une « réforme de l&#x27;A2SP » circulent : aucune source officielle ne les confirme. Nous n&#x27;en parlerons qu&#x27;une fois publiés.</span></div>
+      </div>
+      <h3 class="x-h">Sur le site ce mois-ci</h3>
+      <p class="nl-site">Huit corrections faites grâce à la relecture d'un agent du métier, une recherche sur tout le site, des textes officiels classés par type et une couleur par univers. Tout est détaillé dans l'<a href="#journal">historique du site</a>.</p>
+      <div class="nl-sub" id="nl-sub">
+        <h3>Recevoir la lettre par e-mail</h3>
+        <p>Une lettre à chaque édition : les changements de réglementation et les nouveautés du site.</p>
+        <label class="nl-ok"><input type="checkbox" id="nl-ok"> J'accepte que mon adresse e-mail serve uniquement à recevoir la lettre Mémo World.</label>
+        <a class="btn primary nl-btn" id="nl-btn" href="#newsletter" aria-disabled="true">S'inscrire par e-mail</a>
+        <p class="rgpd">Votre adresse n'est ni vendue ni transmise à qui que ce soit. Vous pouvez vous désinscrire à tout moment en répondant « désinscription ». Vos droits (accès, rectification, effacement) s'exercent à la même adresse. Le bouton ouvre votre messagerie : rien n'est enregistré par le site.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="page" id="apropos">
     <div class="wrap">
       <div class="sec-head"><h2>À propos</h2></div>
@@ -1111,8 +1334,25 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
 
   <section class="page" id="journal">
     <div class="wrap">
-      <div class="sec-head"><h2>Mises à jour récentes</h2><p>Les dernières nouveautés du site.</p></div>
+      <div class="sec-head"><h2>Historique du site</h2><p>Mis à jour grâce à vous 💪 Chaque erreur signalée est vérifiée sur le texte officiel, corrigée, puis affichée ici.</p></div>
+      <div class="hx-stats"><div><b>8</b><span>corrections grâce à un agent du métier</span></div><div><b>15</b><span>mises à jour en octobre 2026</span></div></div>
+      <h3 class="x-h">Corrigé grâce à vous</h3>
+      <p class="hx-lead">Octobre 2026 · relecture complète par un agent du métier. Merci à lui !</p>
+      <div class="hx-list">
+        <article class="hx"><div class="hx-top"><span class="hx-tag">Corrigé</span><a href="#ch-09">Chapitre 09 →</a></div><h4>Dégagements (CO 38)</h4><p class="hx-av"><b>Avant</b> Au-delà de 100 personnes, seul le nombre de dégagements était donné.</p><p class="hx-ap"><b>Maintenant</b> Ajout du calcul des unités de passage : 1 UP pour 100 personnes, plus 1 UP tant que l'effectif est inférieur à 501. Exemple : 300 personnes donnent 2 sorties de 2 UP.</p></article>
+        <article class="hx"><div class="hx-top"><span class="hx-tag">Corrigé</span><a href="#ch-11">Chapitre 11 →</a></div><h4>Extincteurs (MS 38, MS 39, PE 26)</h4><p class="hx-av"><b>Avant</b> Une seule règle « 1 pour 200 m² » présentée comme commune aux ERP et au Code du travail.</p><p class="hx-ap"><b>Maintenant</b> Trois règles distinctes : MS 39 (1 pour 200 m² et par niveau, au moins 2), PE 26 en 5e catégorie (1 pour 300 m² et par niveau), R.4227-29 du Code du travail.</p></article>
+        <article class="hx"><div class="hx-top"><span class="hx-tag">Corrigé</span><a href="#ch-15">Chapitre 15 →</a></div><h4>Temporisation de l'alarme (MS 66, U 45)</h4><p class="hx-av"><b>Avant</b> La limite de 5 minutes n'était pas rattachée à son article.</p><p class="hx-ap"><b>Maintenant</b> MS 66 : 5 minutes au plus, avec du personnel qualifié présent. U 45 : pas de temporisation dans les locaux à sommeil des établissements de soins.</p></article>
+        <article class="hx"><div class="hx-top"><span class="hx-tag">Corrigé</span><a href="#ch-30">Chapitre 30 →</a></div><h4>Commandes du SSI</h4><p class="hx-av"><b>Avant</b> Arrêt du signal sonore, acquittement et réarmement étaient confondus.</p><p class="hx-ap"><b>Maintenant</b> Trois commandes différentes, expliquées une par une, avec les questions du chapitre corrigées.</p></article>
+        <article class="hx"><div class="hx-top"><span class="hx-tag">Corrigé</span><a href="#ch-18">Chapitre 18 →</a></div><h4>Alarme, alerte et levée de doute</h4><p class="hx-av"><b>Avant</b> La levée de doute semblait toujours précéder l'appel des secours.</p><p class="hx-ap"><b>Maintenant</b> Feu constaté ou signalé de façon crédible : l'alerte est donnée tout de suite. La levée de doute sert à traiter un signal non confirmé.</p></article>
+        <article class="hx"><div class="hx-top"><span class="hx-tag">Corrigé</span><a href="#ch-04">Chapitre 04 →</a></div><h4>Fumées : se baisser</h4><p class="hx-av"><b>Avant</b> « L'air respirable est près du sol. »</p><p class="hx-ap"><b>Maintenant</b> Se baisser limite l'exposition pendant qu'on s'éloigne, sans garantir un air respirable. On ne pénètre pas dans un local enfumé.</p></article>
+        <article class="hx"><div class="hx-top"><span class="hx-tag">Corrigé</span><a href="#sst">Secourisme SST →</a></div><h4>Victime qui ne répond pas mais respire</h4><p class="hx-av"><b>Avant</b> La PLS était présentée dans tous les cas.</p><p class="hx-ap"><b>Maintenant</b> PLS s'il n'y a pas de traumatisme ; en cas de traumatisme, la victime est laissée sur le dos (guide INRS des données techniques, V5).</p></article>
+        <article class="hx"><div class="hx-top"><span class="hx-tag">Corrigé</span><a href="#ch-02">Chapitre 02 →</a></div><h4>Examen SSIAP 1</h4><p class="hx-av"><b>Avant</b> Examen blanc de 40 questions, et une durée de 30 minutes présentée comme officielle.</p><p class="hx-ap"><b>Maintenant</b> QCM de 30 questions, 12/20 minimum, puis une épreuve pratique. L'examen blanc passe à 30 questions.</p></article>
+      </div>
+      <p class="hx-cta">Vous aussi, vous repérez une erreur ? Le bouton « Signaler une erreur » est en bas de chaque chapitre. Une question sans réponse sûre ? Elle va dans les <a href="#doutes">points à vérifier</a>.</p>
+      <h3 class="x-h">Toutes les nouveautés</h3>
       <div class="log">
+        <div><time>10/2026</time><span>Une barre de recherche sur tout le site, une bannière Flash info, la lettre Mémo World, des textes officiels classés par type (21 textes, dont 11 pour la sécurité privée) et une couleur par univers : le feu pour le SSIAP, le noir et blanc pour l'ADS. Vimo relaie le Flash info et a beaucoup plus de choses à dire.</span></div>
+        <div><time>10/2026</time><span>Veille réglementaire : la note sur le secourisme est corrigée. L'arrêté du 7 juillet 2026 concerne les premiers secours de sécurité civile (GQS, PSC, PSE), pas le SST.</span></div>
         <div><time>10/2026</time><span>Corrections après la relecture d'un agent du métier : dégagements (CO 38), extincteurs (MS 39, PE 26), temporisation (MS 66) et commandes du SSI, alerte, fumées, PLS ; examen blanc SSIAP 1 en 30 questions. Deux points à vérifier sont résolus.</span></div>
         <div><time>10/2026</time><span>Nouvelle page « Points à vérifier » : nos doutes, ouverts à tous. Vous avez la réponse et sa source ? Proposez-la.</span></div>
         <div><time>10/2026</time><span>Le site devient Mémo World : un deuxième univers, la sécurité privée, avec 20 chapitres pour l'agent de prévention et de sécurité (ADS), 200 questions et un examen blanc.</span></div>
@@ -6422,6 +6662,9 @@ const TEXTS = [
 
 const pad = n => String(n).padStart(2, "0");
 const $ = s => document.querySelector(s);
+const VOC = {"ask": ["Qu'est-ce que tu veux faire ?", "On travaille quoi aujourd'hui ?", "Je t'emmène où ?", "Une petite révision ?", "Par quoi on commence ?", "Dis-moi tout : chapitre, examen blanc ou cas pratique ?", "Prêt ? Choisis, je te suis.", "On attaque quoi ?", "Une idée en tête ? Sinon, je te propose ça."], "morning": ["Bonjour ! Un café et une question du jour ?", "Bien réveillé ? On commence en douceur.", "Bonjour ! Le matin, la mémoire est fraîche : on en profite."], "day": ["Pause déjeuner studieuse ? Je t'accompagne.", "Bon après-midi ! Un chapitre, et on souffle."], "evening": ["Bonsoir ! Une révision avant la relève ?", "Bonsoir ! Dix questions et au lit ?"], "night": ["De nuit au PC ? Je veille avec toi.", "Ronde de nuit terminée ? Une petite révision pour rester éveillé.", "Il est tard… Une question, pas plus !"], "page": {"parcours": ["56 chapitres en trois blocs : SSIAP 1, SSIAP 2 et ADS. Commence par le début ou va droit au chapitre qui t'intéresse.", "Chaque chapitre a son schéma, sa vidéo quand il y en a une, et 10 questions à la fin.", "Un chapitre par jour, et en deux mois tout le programme est vu.", "Pas besoin de tout lire d'un coup : un chapitre, dix questions, et on recommence demain.", "Rouge pour le SSIAP, noir et blanc pour l'ADS : tu sais toujours où tu es."], "textes": ["Les textes officiels qui font foi, avec un lien vers chacun.", "Codes, lois, décrets, arrêtés : touche une catégorie pour trier.", "En cas de doute, c'est toujours le texte officiel qui a raison.", "Un article cité dans un chapitre ? Il est ici, avec le lien pour le lire."], "qcm": ["Examen blanc : chrono, plusieurs bonnes réponses possibles, correction à la fin. Pendant l'épreuve, je me tais.", "Conditions réelles : chrono lancé, et moi, motus. Bonne chance !", "Respire, lis chaque réponse jusqu'au bout, et coche toutes les bonnes."], "glossaire": ["Tape un sigle, je te le traduis. Les sigles en rouge dans une définition t'emmènent vers leur fiche.", "SSI, CMSI, UGA, DAS… Ici, plus aucun sigle ne te fait peur.", "Un sigle inconnu dans un chapitre ? Il est forcément ici."], "cas": ["Mets-toi à la place de l'agent : à chaque étape, la bonne décision.", "Pas de panique : on lit, on réfléchit, on décide.", "Sur le terrain, l'ordre des actions compte autant que les actions.", "Le débriefing à la fin vaut de l'or : lis-le même si tu as tout bon."], "sst": ["Les gestes qui sauvent : un schéma et une vidéo par situation, puis un quiz.", "Protéger, examiner, faire alerter, secourir : l'ordre ne change jamais.", "En secourisme, on ne réfléchit pas le jour J : on applique ce qu'on a répété."], "apropos": ["Un site construit par des agents en poste. Une erreur ? Le bouton « Signaler » est là pour ça.", "Ici, tout est vérifié dans les textes. Et si quelque chose t'échappe, écris-nous."], "journal": ["Toutes les corrections, faites grâce à vous. Merci !", "L'historique : ce qui a changé, et pourquoi.", "Chaque erreur signalée finit ici, corrigée. Le site grandit avec vous."], "newsletter": ["La veille réglementaire, datée et sourcée. Je la surveille chaque semaine.", "Flash info : ce qui a changé dans la sécurité incendie, la sécurité privée et le secourisme.", "Une info sans source n'entre pas ici. Promis."], "progres": ["Ta progression, chapitre par chapitre. Chaque point vert, c'est du solide.", "Regarde où tu en es, et vise le prochain chapitre.", "Petit à petit, la barre monte. Continue !"], "doutes": ["Nos points à vérifier : tu as la réponse et sa source ? Propose-la !", "Ici, on avoue ce qu'on n'a pas encore confirmé. C'est ça, l'honnêteté."]}, "chap": ["Chapitre {n} : {t}. Les 10 questions à la fin te diront si c'est acquis.", "{t} : lis l'essentiel, regarde le schéma, puis teste-toi.", "C'est parti pour le chapitre {n}. Les sigles soulignés s'expliquent en un geste.", "Chapitre {n}. Lis d'abord « L'essentiel », le reste viendra tout seul.", "{t} : un classique de l'examen. On s'y met ?", "Chapitre {n} ouvert. Le bloc « À retenir » est parfait pour réviser la veille.", "Un chapitre, un schéma, dix questions. Simple et efficace."], "good": ["Bien vu !", "Exact !", "C'est ça !", "Parfait.", "Tu maîtrises.", "Impeccable !", "Dans le mille !", "Juste !", "Bravo, c'est acquis.", "Comme un pro.", "Rien à redire.", "Nickel !"], "bad": ["Pas grave, lis bien l'explication.", "Presque ! L'explication est juste en dessous.", "On apprend de ses erreurs : relis la correction.", "Raté, mais maintenant tu ne l'oublieras plus.", "Pas cette fois. Lis la correction, elle est courte.", "Mieux vaut se tromper ici que le jour J !", "Ce piège tombe souvent : retiens bien la correction."], "wake": ["Hein ? Je ne dormais pas !", "Oh ! Tu es là !", "Je veillais… les yeux fermés.", "Présent ! Tout est sous contrôle.", "Hop, réveillé ! Une ronde ?", "Rien à signaler, chef !"], "scratch": ["Hmm… voyons voir.", "Qu'est-ce que je voulais dire, déjà ?", "Ça me gratte, ce détecteur.", "Je réfléchis… ça fume un peu là-dedans.", "Attends, j'ai une idée… non, c'est passé."], "sneeze": ["Atchoum ! Trop de fumée par ici…", "Atchoum ! Pardon.", "Atchoum ! Il faudrait désenfumer.", "Atchoum ! Allergique à la poussière des archives."], "dizzy": ["Ouh là, j'ai la tête qui tourne !", "Doucement, je ne suis pas un bouton !", "Stop, stop… je vois des étoiles.", "Je ne suis pas un déclencheur manuel, hein !", "Pitié, je vais perdre ma pression !"], "back": ["On revient en arrière, hop !", "Retour à la page d'avant.", "Marche arrière enclenchée !", "Demi-tour !", "On rebrousse chemin."], "tips": ["Au-delà de 100 personnes : 1 UP pour 100 personnes, plus 1 UP tant que l'effectif est inférieur à 501 (CO 38).", "MS 66 : la temporisation de l'alarme générale ne dépasse pas 5 minutes, avec du personnel qualifié présent.", "MS 39 : au moins 1 extincteur pour 200 m² et par niveau, et au moins 2 par établissement.", "Code du travail, R.4227-29 : au moins 1 extincteur à eau pulvérisée de 6 litres pour 200 m², et 1 par niveau.", "U 45 : dans les locaux à sommeil des établissements de soins, l'alarme générale est diffusée sans temporisation.", "Feu constaté ou signalé de façon crédible : on alerte tout de suite. La levée de doute, c'est pour un signal non confirmé.", "Arrêt du signal sonore, acquittement, réarmement : trois commandes différentes au SSI.", "Se baisser sous la fumée limite l'exposition, sans garantir un air respirable. On n'entre pas dans un local enfumé.", "Victime qui ne répond pas mais respire : PLS s'il n'y a pas de traumatisme ; sinon, on la laisse sur le dos.", "Numéros d'urgence : 18 pour les pompiers, 15 pour le SAMU, 112 pour l'Europe entière.", "Palpation de sécurité : consentement exprès de la personne et agent du même sexe (CSI, art. L.613-2).", "Véhicule : l'agent ne fait qu'une inspection visuelle, avec le consentement exprès du conducteur (CSI, art. L.613-2-1).", "Légitime défense : une riposte nécessaire, simultanée et proportionnée (Code pénal, art. 122-5).", "Flagrant délit : toute personne peut appréhender l'auteur et le conduire devant l'officier de police judiciaire le plus proche (CPP, art. 73).", "Déontologie : aucune violence, même légère, hors légitime défense (CSI, art. R.631-10).", "Formation initiale de l'agent de sécurité privée : 175 heures depuis le 1er octobre 2025.", "Vigipirate 2026 : trois niveaux, Vigilance, Vigilance renforcée et Alerte attentat.", "SSIAP 1 : un QCM de 30 questions, 12/20 minimum, puis une épreuve pratique."], "form": {"ext": ["Retour en extincteur, prêt à servir !", "Extincteur paré : goupille, pression, cap sur la base des flammes.", "Je suis vérifié chaque année, et toi, tu révises chaque jour ?"], "det": ["Version détecteur : je repère la moindre fumée.", "Mode détecteur : je renifle, je surveille, je signale.", "Détecteur en veille. Rien ne m'échappe."], "kit": ["Version secouriste, trousse en main.", "Trousse de secours prête : protéger, examiner, alerter, secourir.", "Sauveteur secouriste du travail au rapport !"], "dm": ["Déclencheur manuel ! Mais on n'appuie sur moi qu'en cas de feu, hein.", "Boîtier rouge, vitre fragile : à n'utiliser qu'en cas de feu.", "Déclencheur manuel : un geste, et l'alarme part."], "dae": ["Mode défibrillateur : je parle, tu suis mes instructions.", "Défibrillateur prêt : j'analyse, je guide, tu agis.", "Allumé, les électrodes posées : écoute-moi bien."], "hyd": ["Poteau incendie ! Les pompiers comptent sur moi.", "Hydrant au rapport : accès dégagé, s'il vous plaît.", "Poteau incendie : on ne se gare pas devant moi !"], "baes": ["Bloc de secours : je m'allume quand tout s'éteint.", "BAES en place : je montre la sortie, même dans le noir.", "Coupure de courant ? Pas de souci, je prends le relais."]}};
+VOC.hello = () => { const h = new Date().getHours(); return h >= 5 && h < 11 ? VOC.morning : h >= 11 && h < 18 ? VOC.day : h >= 18 && h < 23 ? VOC.evening : VOC.night; };
+
 
 /* ---- accueil : parcours ---- */
 const BLOCS = [
@@ -6839,7 +7082,641 @@ const _drawCasEnd = drawCasEnd;
 drawCasEnd = function () { _drawCasEnd(); linkRefs($("#cas-box .ref")); };
 
 /* ---- rubrique SST ---- */
-const SST = {"version": "Document de référence du dispositif SST, version 8 (01/2021), et Guide des données techniques et conduites à tenir SST, version V5_01/2024 (INRS). Aucune version plus récente trouvée en octobre 2026. Le cahier des charges d'habilitation SST (dispositions spécifiques, version 6 de mars 2026) concerne l'organisation des formations ; il ne modifie pas les gestes.", "intro": ["Le sauveteur secouriste du travail (SST) est un salarié formé pour porter les premiers secours à une victime d'accident ou de malaise au travail, en attendant les secours spécialisés.", "Il a aussi un rôle de prévention : il repère les dangers dans son entreprise et les signale aux personnes chargées de la prévention.", "Pour l'agent SSIAP, le secourisme est obligatoire : l'accès à la formation SSIAP 1 exige un SST ou un PSE1 en cours de validité, ou un PSC de moins de deux ans (arrêté du 2 mai 2005, art. 4). Sur site, l'agent est souvent le premier à intervenir et à guider les secours.", "Ces fiches aident à réviser : les gestes s'apprennent et se pratiquent en formation SST avec un formateur certifié."], "formation": ["Formation initiale : 14 heures minimum en présentiel (plus le temps pour les risques spécifiques de l'entreprise si besoin). Groupe de 4 à 10 personnes. (Document de référence SST V8)", "Le certificat SST est valable 24 mois. (Document de référence SST V8)", "MAC (Maintien et actualisation des compétences) : 7 heures en présentiel, tous les 24 mois, pour prolonger le certificat. (Document de référence SST V8)", "Certificat expiré : le SST ne peut plus exercer en tant que SST. Il peut suivre un MAC pour récupérer sa certification, si le délai écoulé ne compromet pas la réussite aux épreuves ; sinon, il est conseillé de refaire une formation initiale. (Document de référence SST V8)", "Le certificat SST (modèle national) est délivré obligatoirement par l'intermédiaire d'une entité habilitée par l'INRS. La formation est assurée par un formateur SST certifié. (Document de référence SST V8)", "Un SST à jour de son MAC est réputé détenir l'unité d'enseignement PSC1 (Prévention et secours civiques de niveau 1, devenue PSC en 2024). (Document de référence SST V8)", "Titulaires du PSE1, du PSE2 ou de l'AFGSU : ils peuvent suivre une formation SST allégée. Le titulaire d'un certificat APS (acteur prévention secours) est réputé détenir le certificat SST. (Document de référence SST V8)", "Titulaires du PSC (ex-PSC1) de moins de 2 ans : formation passerelle complémentaire possible pour obtenir le SST (page INRS « Accident, malaise »).", "Code du travail R.4224-15 : un membre du personnel reçoit la formation de secouriste dans chaque atelier où sont accomplis des travaux dangereux, et sur chaque chantier de 20 travailleurs au moins pendant plus de 15 jours avec travaux dangereux. Ces secouristes ne remplacent pas les infirmiers.", "Code du travail R.4224-16 : en l'absence d'infirmiers (ou s'ils ne sont pas présents en permanence), l'employeur, après avis du médecin du travail, prend les mesures pour assurer les premiers secours, en liaison avec les secours extérieurs ; ces mesures sont écrites et tenues à disposition de l'inspection du travail.", "DAE dans les ERP (décret n° 2018-1186 du 19 décembre 2018) : obligatoire depuis le 1er janvier 2020 pour les ERP de catégories 1 à 3, le 1er janvier 2021 pour la catégorie 4, le 1er janvier 2022 pour certains ERP de 5e catégorie (structures pour personnes âgées ou handicapées, établissements de soins, gares, hôtels-restaurants d'altitude, refuges de montagne, établissements sportifs clos et couverts, salles polyvalentes sportives). Le DAE doit être visible et facilement accessible en permanence ; le propriétaire veille à sa maintenance."], "plan": {"intervention": [["Protéger", "Repérer les dangers persistants, puis les supprimer ou les isoler. Si c'est impossible, soustraire la victime au danger. Le dégagement d'urgence est exceptionnel : seulement face à un danger réel, immédiat et non contrôlable qui menace la vie de la victime."], ["Examiner", "Rechercher dans l'ordre : saigne-t-elle abondamment ? s'étouffe-t-elle ? répond-elle ? respire-t-elle ? pour choisir l'action à mener."], ["Faire alerter ou alerter", "Transmettre le message d'alerte aux secours adaptés (interne à l'entreprise ou 15, 18, 112, 114), de préférence par un témoin."], ["Secourir", "Faire les gestes adaptés à l'état de la victime, du plus urgent au moins urgent, puis la surveiller jusqu'à l'arrivée des secours."]], "prevention": [["Situer son rôle dans la prévention", "Le SST est un acteur de la prévention dans son entreprise ; il connaît les personnes chargées de la prévention et s'approprie les enjeux de la prévention."], ["Repérer les dangers et informer", "Repérer les dangers dans une situation de travail et informer les personnes qui pourraient y être exposées."], ["Déterminer les risques", "Déterminer les risques et les dommages qu'ils pourraient causer."], ["Supprimer ou réduire", "Supprimer, ou à défaut réduire, les risques sur lesquels il peut agir."], ["Transmettre et proposer", "Transmettre aux personnes chargées de la prévention les informations sur toute situation dangereuse et, si possible, proposer des pistes d'amélioration."]], "ref": "INRS, Document de référence SST, V8 01/2021 (compétences C2 à C8) ; INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024"}, "alerte": {"numeros": [["15", "SAMU : problème urgent de santé ou avis médical urgent."], ["18", "Sapeurs-pompiers : secours d'urgence aux personnes, accidents divers, incendies."], ["112", "Numéro d'urgence valable dans toute l'Union européenne (réservé aux appels d'urgence)."], ["114", "Pour les personnes sourdes, malentendantes ou qui ne peuvent pas parler : SMS, visio, tchat, application."]], "interne": "Dans l'entreprise : appliquer d'abord la procédure d'alerte interne prévue (PC sécurité, numéro interne).", "message": ["Identité de l'appelant et numéro de téléphone d'où il appelle.", "Lieu exact de l'accident (adresse, bâtiment, atelier, étage…).", "Nature de l'événement (ce qui s'est passé).", "Nombre de victimes.", "État de chaque victime.", "Actions déjà engagées (gestes faits)."], "consignes": ["Faire alerter par un témoin quand c'est possible ; le SST reste avec la victime.", "Le témoin revient rendre compte au SST : l'alerte est donnée.", "Répondre aux questions posées.", "Ne jamais raccrocher le premier : attendre que l'opérateur le dise.", "SST seul face à un arrêt cardiaque : alerter avec son portable en mode haut-parleur et commencer la RCP tout de suite."], "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Faire alerter ou alerter)"}, "fiches": [{"t": "La victime saigne abondamment", "signes": "Perte de sang prolongée, venant d'une plaie ou d'un orifice naturel, qui ne s'arrête pas toute seule : elle imbibe un mouchoir en tissu ou en papier en quelques secondes.", "faire": ["Se protéger les mains (gants à usage unique, ou à défaut un sac plastique).", "Demander à la victime de comprimer immédiatement l'endroit qui saigne ; sinon, comprimer soi-même fortement avec la paume ou les doigts.", "Allonger la victime.", "Faire alerter les secours (ou alerter soi-même).", "Si la compression d'un membre est efficace, et seulement dans ce cas, un pansement compressif peut la remplacer.", "Si la compression d'un membre est inefficace ou impossible (nombreuses victimes, plaie inaccessible, corps étranger…) : poser un garrot, idéalement 5 à 7 cm au-dessus de la plaie (entre le cœur et la plaie), jamais sur une articulation. Garrot du commerce de préférence ; sinon lien de toile solide, non élastique, d'au moins 1,5 m de long et 3 à 5 cm de large, 2 tours autour du membre.", "Garrot : toujours visible, ne jamais le retirer sans avis médical.", "Surveiller la victime, lui parler, la rassurer, la protéger du froid et des intempéries ; rappeler les secours si son état s'aggrave.", "Saignement de nez : asseoir, tête penchée en avant, comprimer les narines avec deux doigts pendant 10 minutes sans relâcher.", "Vomissement ou crachat de sang : alerter immédiatement ; victime consciente en position confortable, victime qui ne répond pas sur le côté."], "pas": ["Ne pas relâcher la compression avant l'arrivée des secours.", "Ne pas poser le garrot sur une articulation.", "Ne pas retirer ni desserrer un garrot.", "Ne pas toucher le sang sans protection."], "chiffres": ["Garrot : idéalement 5 à 7 cm au-dessus de la plaie", "Lien : au moins 1,5 m de long, 3 à 5 cm de large, 2 tours", "Saignement de nez : 10 minutes de compression"], "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Secourir 1)"}, {"t": "La victime s'étouffe", "signes": "Obstruction totale : la victime ne peut plus parler, crier, tousser ni respirer ; elle porte souvent les mains à la gorge et s'agite. Obstruction partielle : elle peut encore parler, crier, tousser et respirer, parfois avec un bruit anormal.", "faire": ["Obstruction partielle : ne pas faire de claques ni de compressions ; installer la victime dans la position où elle se sent le mieux, l'encourager à tousser, faire alerter les secours, surveiller.", "Obstruction totale (adulte, grand enfant), victime debout ou assise : la pencher d'abord en avant, puis donner 1 à 5 claques vigoureuses dans le dos, entre les omoplates, avec le talon de la main.", "Si les claques sont inefficaces : 1 à 5 compressions abdominales (méthode de Heimlich), poing fermé au creux de l'estomac, au-dessus du nombril, tirer vers soi et vers le haut.", "Femme enceinte ou personne obèse (abdomen impossible à encercler) : remplacer les compressions abdominales par 1 à 5 compressions thoraciques, debout derrière la victime, contre son dos.", "Nourrisson : le placer à plat ventre sur l'avant-bras, tête maintenue et plus basse que le corps, puis 1 à 5 claques dans le dos ; si c'est inefficace, le retourner sur le dos et faire 1 à 5 compressions thoraciques avec la pulpe de 2 doigts au milieu de la poitrine. Jamais de compressions abdominales.", "Tant que ce n'est pas efficace : refaire 1 à 5 claques, puis 1 à 5 compressions.", "Arrêter dès que le corps étranger est expulsé (la victime tousse, respire, reprend des couleurs) : installer confortablement, desserrer les vêtements, faire alerter les secours (avis médical), surveiller.", "Si la victime perd connaissance : l'accompagner au sol, faire alerter, commencer la RCP."], "pas": ["Ne pas faire de claques ni de compressions si l'obstruction est partielle.", "Jamais de compressions abdominales chez le nourrisson.", "Ne pas oublier l'avis médical après des compressions abdominales."], "chiffres": ["1 à 5 claques dans le dos", "1 à 5 compressions abdominales (ou thoraciques)", "Nourrisson : pulpe de 2 doigts, compressions thoraciques"], "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Secourir 2)"}, {"t": "La victime se plaint d'un malaise (sensations pénibles, signes anormaux)", "signes": "La victime dit qu'elle ne se sent pas bien, ou on observe des signes anormaux d'apparition soudaine. Signes d'AVC : faiblesse ou paralysie d'un bras, déformation de la face, troubles de la vision, difficulté de langage ou de compréhension, mal de tête sévère et inhabituel, perte d'équilibre. Accident cardiaque : douleur dans la poitrine. Autres : sueurs abondantes sans effort, pâleur intense, difficulté à respirer ou à parler, douleur abdominale intense, fièvre (> 37,8 °C).", "faire": ["Observer les signes (depuis la version V5, l'observation vient avant la mise au repos).", "Mettre la victime au repos : l'allonger confortablement ou la laisser dans la position où elle se sent le mieux ; en cas de gêne pour respirer, position assise ; la rassurer.", "Écouter et questionner la victime et son entourage : âge, première fois ou non, type et endroit de la douleur, durée du malaise, maladie ou hospitalisation récente, traitement en cours.", "Prendre un avis médical (15 ou procédure interne) sans attendre et transmettre les signes observés ; signes d'AVC ou douleur dans la poitrine : alerter immédiatement.", "Appliquer les consignes du médecin. Le SST ne donne un traitement habituel que sur consigne du médecin ; il peut donner du sucre si la victime le demande d'elle-même.", "Surveiller la victime, la protéger du froid, rappeler les secours si son état s'aggrave."], "pas": ["Ne pas laisser la victime repartir travailler ou rentrer seule sans avis médical.", "Ne pas donner de médicament de sa propre initiative.", "Ne pas attendre que les signes disparaissent pour appeler."], "chiffres": ["Fièvre : plus de 37,8 °C", "Avis médical : immédiatement"], "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Secourir 3)"}, {"t": "La victime se plaint de brûlures", "signes": "Rougeur, douleur, cloques. Brûlure grave : cloque(s) de surface totale supérieure à la moitié de la paume de la victime, destruction profonde (aspect blanchâtre ou noirâtre), brûlure du visage, du cou, des mains ou d'une articulation, brûlure électrique, chimique ou interne.", "faire": ["Si les vêtements brûlent : empêcher la victime de courir, étouffer les flammes (vêtement, couverture), puis la rouler au sol.", "Brûlure thermique : refroidir immédiatement par ruissellement d'eau courante tempérée pendant au moins 10 minutes, idéalement 20 minutes.", "Retirer vêtements et bijoux sur ou près de la zone brûlée, sauf ce qui colle à la peau.", "Brûlure grave : faire alerter les secours dès le début de l'arrosage et suivre leurs consignes.", "Brûlure simple : poursuivre le refroidissement jusqu'à disparition de la douleur, puis protéger avec un pansement stérile ou un film plastique non adhésif ; suivre le protocole du médecin du travail.", "Brûlure chimique : se protéger (gants), faire rincer immédiatement et abondamment à l'eau courante tempérée pendant au moins 15 minutes, retirer les vêtements imbibés, alerter en donnant le nom du produit.", "Projection dans l'œil : rincer à l'eau courante tempérée pendant au moins 15 minutes, sans que l'eau coule dans l'autre œil ; alerter.", "Brûlure électrique : arroser la zone visible, alerter (toujours grave).", "Brûlure interne (ingestion ou inhalation) : installer en position assise pour faciliter la respiration, demander un avis médical, garder les informations sur le produit (emballage, étiquette).", "Surveiller, protéger du froid en laissant la brûlure visible."], "pas": ["Ne jamais percer les cloques.", "Aucun produit sur la brûlure sans avis médical.", "Ne pas retirer les vêtements collés à la peau.", "Brûlure interne : ne jamais faire vomir, ne jamais donner à boire."], "chiffres": ["Eau courante tempérée", "Brûlure thermique : au moins 10 min, idéalement 20 min", "Brûlure chimique ou œil : au moins 15 min", "Grave si cloque > moitié de la paume de la victime"], "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Secourir 4)"}, {"t": "La victime se plaint d'une douleur empêchant certains mouvements", "signes": "Après une chute, un choc ou un faux mouvement : douleur vive, impossibilité ou difficulté de bouger, gonflement, déformation. Après un coup à la tête, signes parfois retardés : vomissements, maux de tête persistants, agitation ou somnolence, propos incohérents, perte de mémoire, faiblesse d'un membre.", "faire": ["Demander fermement à la victime de ne pas bouger la partie atteinte.", "Suspicion d'atteinte du cou ou du dos (rachis) : demander de ne pas bouger la tête et stabiliser la tête à deux mains dans la position où on la trouve.", "Membre : ne pas le mobiliser ; laisser la victime dans la position où elle a le moins mal.", "Après un coup à la tête, si des signes apparaissent (tout de suite ou plusieurs minutes après) : allonger la victime.", "Faire alerter les secours et respecter leurs consignes.", "Surveiller, parler à la victime, la protéger du froid ; rappeler les secours si son état s'aggrave."], "pas": ["Ne pas réaligner une fracture déplacée.", "Ne pas déplacer la victime (sauf danger vital).", "Ne pas la faire marcher ou se relever pour « tester »."], "chiffres": ["Tête : maintien à 2 mains", "Signes après un choc à la tête : parfois plusieurs minutes plus tard"], "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Secourir 5)"}, {"t": "La victime se plaint d'une plaie qui ne saigne pas abondamment", "signes": "Plaie grave : par projectile, outil, objet tranchant, morsure, injection de produit, piqûre de matériel de soin, corps étranger, plaie écrasée, membre sectionné, ou plaie du cou, de l'œil, de la face, du thorax, de l'abdomen. Plaie simple : petite coupure ou éraflure superficielle, peu de sang, loin d'un orifice naturel et de l'œil.", "faire": ["Plaie grave — installer selon l'endroit : thorax en position assise ; abdomen allongée, jambes fléchies ; œil allongée, les deux yeux fermés, tête maintenue à deux mains.", "Plaie grave : faire alerter les secours et surveiller.", "Membre sectionné : allonger la victime, protéger le moignon ; envelopper le segment dans un linge propre (ou des compresses), le mettre dans un sac plastique fermé, puis dans un second sac contenant de l'eau fraîche, ou mieux de l'eau et des glaçons ; récupérer aussi les fragments ; confier aux secours.", "Plaie simple : se laver les mains, nettoyer la plaie à l'eau et au savon, rincer, sécher.", "Plaie simple : appliquer un antiseptique préconisé par le médecin du travail, puis un pansement adhésif.", "Plaie simple : se relaver les mains ; conseiller de consulter pour vérifier la vaccination antitétanique, ou si la plaie devient chaude, rouge, gonflée, douloureuse, ou en cas de fièvre."], "pas": ["Ne jamais retirer un corps étranger planté dans la plaie.", "Pas de glace en contact direct avec un membre sectionné.", "Ne pas négliger une plaie simple qui s'infecte."], "chiffres": ["Membre sectionné : 2 sacs, glace jamais en contact direct", "Tétanos : faire vérifier la vaccination"], "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Secourir 6)"}, {"t": "La victime ne répond pas mais elle respire", "signes": "Elle ne répond pas aux questions et ne réagit pas quand on lui secoue doucement les épaules. Après bascule de la tête en arrière et élévation du menton, on voit le ventre ou la poitrine se soulever, on entend et on sent le souffle.", "faire": ["Libérer les voies aériennes : une main sur le front, deux doigts sous la pointe du menton, basculer doucement la tête en arrière et élever le menton (nourrisson : tête en position neutre).", "Vérifier la respiration 10 secondes au plus : regarder, écouter, sentir.", "Sans traumatisme (malaise, par exemple) : placer la victime en position latérale de sécurité (PLS). Femme enceinte ou personne obèse : de préférence sur le côté gauche (côté droit si impossible).", "En cas de traumatisme (chute, choc) ou si l'origine est inconnue : laisser la victime sur le dos et garder ses voies aériennes libres en maintenant la tête basculée en arrière (nourrisson : tête en position neutre). La mettre sur le côté si elle vomit ou régurgite.", "Faire alerter immédiatement les secours. SST seul : après la PLS, aller alerter puis revenir.", "Surveiller en permanence la respiration ; la protéger du froid ; rappeler les secours si son état change.", "Si la respiration s'arrête : remettre sur le dos et commencer la RCP.", "Nourrisson : le tenir sur le côté dans les bras, son dos contre le SST.", "Convulsions : ne pas toucher la victime, écarter les objets dangereux ; à la fin, refaire l'examen et la mettre en PLS si besoin.", "Victime qui vomit : la mettre sur le côté en gardant si possible l'axe tête-cou-tronc."], "pas": ["Ne pas mettre d'emblée en PLS une victime traumatisée ou dont on ignore l'origine de l'état : la laisser sur le dos, voies aériennes libres, sauf si elle vomit.", "Ne rien mettre dans la bouche de la victime.", "Ne pas immobiliser de force une personne qui convulse."], "chiffres": ["Respiration : 10 secondes au plus", "PLS : côté gauche pour femme enceinte ou obèse", "Traumatisme ou origine inconnue : sur le dos, tête basculée"], "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Examiner ; Secourir 7)"}, {"t": "La victime ne répond pas et ne respire pas (arrêt cardiaque)", "signes": "Elle ne répond pas, ne réagit pas, et après libération des voies aériennes on ne perçoit aucune respiration pendant 10 secondes au plus. Une respiration anormale (gasps : mouvements lents, bruyants, inefficaces) doit être traitée comme une absence de respiration.", "faire": ["Faire alerter les secours et réclamer un DAE. SST seul : alerter avec son téléphone en haut-parleur ; aller chercher le DAE seulement s'il est à proximité immédiate.", "Commencer immédiatement la RCP : cycles de 30 compressions thoraciques puis 2 insufflations.", "Compressions adulte : talon de la main au centre de la poitrine, bras tendus, enfoncer le thorax de 5 à 6 cm, à un rythme de 100 à 120 compressions par minute ; laisser la poitrine remonter complètement entre deux compressions.", "Insufflations : tête basculée en arrière, menton élevé, nez pincé, souffler progressivement jusqu'à ce que la poitrine commence à se soulever ; 2 insufflations, puis reprendre aussitôt les compressions.", "Si les insufflations sont impossibles ou refusées : faire uniquement les compressions, sans interruption.", "Dès l'arrivée du DAE : le mettre en marche et suivre ses instructions ; dénuder et sécher la poitrine, coller les électrodes comme sur le schéma.", "Pendant l'analyse et le choc : personne ne touche la victime ; annoncer « écartez-vous ».", "Après le choc (ou si pas de choc) : reprendre immédiatement la RCP selon le DAE.", "Continuer jusqu'à l'arrivée des secours ou la reprise d'une respiration normale.", "Enfant et nourrisson : même conduite, mais commencer par 5 insufflations, puis faire des cycles de 15 compressions et 2 insufflations. Enfant : compressions avec une main. Nourrisson : compressions avec 2 doigts au milieu de la poitrine, insufflations par la bouche et le nez en même temps.", "DAE chez l'enfant ou le nourrisson : suivre les indications de l'appareil et le schéma de pose des électrodes (chez le nourrisson, une électrode devant au milieu du thorax, l'autre dans le dos)."], "pas": ["Ne jamais retirer les électrodes ni éteindre le DAE avant l'arrivée des secours.", "Ne pas toucher la victime pendant l'analyse ou le choc.", "Ne pas interrompre les compressions plus que nécessaire.", "Ne pas attendre le DAE pour commencer la RCP."], "chiffres": ["Adulte : 30 compressions / 2 insufflations", "100 à 120 compressions par minute", "Profondeur adulte : 5 à 6 cm", "Enfant, nourrisson : 5 insufflations puis 15 / 2"], "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Examiner ; Secourir 8) ; INRS, ED 4085 (aide-mémoire SST, 6e édition, septembre 2024)"}], "quiz": [["Quelle est la durée minimale de la formation initiale SST ?", ["7 heures", "10 heures", "14 heures", "21 heures"], 2, "14 heures en présentiel au minimum. Source : INRS, document de référence SST V8."], ["Combien de temps le certificat SST est-il valable ?", ["12 mois", "36 mois", "Sans limite de durée", "24 mois"], 3, "24 mois ; il est prolongé par un MAC. Source : INRS, document de référence SST V8."], ["Quelles affirmations sur le MAC SST sont exactes ?", ["Il peut se faire entièrement en e-learning", "Il dure 7 heures en présentiel", "Il dure 14 heures", "Il a lieu tous les 24 mois"], [1, 3], "MAC : 7 h en présentiel, tous les 24 mois. Source : INRS, document de référence SST V8."], ["Quel est l'ordre des 4 actions du plan d'intervention SST ?", ["Alerter, protéger, examiner, secourir", "Protéger, examiner, faire alerter ou alerter, secourir", "Examiner, protéger, secourir, alerter", "Protéger, alerter, secourir, examiner"], 1, "Protéger, examiner, faire alerter ou alerter, secourir. Source : INRS, guide des données techniques V5."], ["Lors de l'examen, quelle question le SST se pose-t-il en premier ?", ["Respire-t-elle ?", "Répond-elle ?", "Saigne-t-elle abondamment ?", "A-t-elle mal ?"], 2, "Ordre : saigne-t-elle abondamment, s'étouffe-t-elle, répond-elle, respire-t-elle. Source : INRS, guide V5."], ["Quels éléments font partie du message d'alerte ?", ["Le nombre de victimes", "Le numéro de sécurité sociale de la victime", "Le lieu exact de l'accident", "Les actions déjà engagées"], [0, 2, 3], "Message : identité et numéro de rappel, lieu, nature, nombre de victimes, état, actions engagées. Source : INRS, guide V5."], ["Quel numéro permet aux personnes sourdes ou malentendantes d'alerter par SMS, visio ou tchat ?", ["112", "115", "119", "114"], 3, "Le 114. Source : INRS, guide V5 (numéros harmonisés avec le PSC1)."], ["Pendant l'appel aux secours, que doit faire la personne qui alerte ?", ["Raccrocher dès que le lieu est donné", "Répondre aux questions posées", "Attendre que l'opérateur l'autorise à raccrocher", "Rappeler toutes les 2 minutes"], [1, 2], "Répondre aux questions et ne jamais raccrocher le premier. Source : INRS, guide V5."], ["Pendant combien de temps au plus le SST vérifie-t-il la respiration ?", ["5 secondes", "10 secondes", "30 secondes", "1 minute"], 1, "10 secondes au plus. Source : INRS, guide V5 ; même durée maximale dans les recommandations ERC."], ["Quels chiffres de RCP chez l'adulte sont exacts ?", ["100 à 120 compressions par minute", "Profondeur de 5 à 6 cm", "15 compressions pour 2 insufflations", "Profondeur de 2 à 3 cm"], [0, 1], "Adulte : 100 à 120/min, 5 à 6 cm, cycles de 30 compressions / 2 insufflations (15/2 concerne l'enfant et le nourrisson). Source : INRS, guide V5 ; ED 4085."], ["Un enfant de 5 ans ne répond pas et ne respire pas. Par quoi le SST commence-t-il la RCP ?", ["30 compressions thoraciques", "5 insufflations", "2 insufflations", "La recherche du pouls pendant 1 minute"], 1, "Chez l'enfant et le nourrisson : 5 insufflations d'abord, puis cycles de 15 compressions / 2 insufflations. Source : INRS, ED 4085 ; guide V5."], ["Le DAE arrive pendant une RCP. Que fait le SST ?", ["Il met le DAE en marche et suit ses instructions", "Il termine d'abord 5 minutes de RCP", "Il veille à ce que personne ne touche la victime pendant l'analyse", "Il retire les électrodes si la victime bouge"], [0, 2], "Mise en marche dès son arrivée, personne ne touche la victime pendant l'analyse et le choc, électrodes jamais retirées. Source : INRS, guide V5."], ["Une victime adulte s'étouffe : elle ne peut plus parler ni tousser. Quel est le premier geste ?", ["Des compressions abdominales", "Lui donner à boire", "1 à 5 claques vigoureuses dans le dos", "L'allonger en PLS"], 2, "D'abord 1 à 5 claques dans le dos (victime penchée en avant), puis 1 à 5 compressions abdominales si inefficace. Source : INRS, guide V5."], ["Chez une femme enceinte qui s'étouffe, par quoi remplace-t-on les compressions abdominales ?", ["Des compressions thoraciques", "Des insufflations", "Des claques sur la poitrine", "Rien, on attend les secours"], 0, "1 à 5 compressions thoraciques (aussi pour une personne obèse). Source : INRS, guide V5."], ["Une victime tousse fort après une fausse route mais parle et respire. Que fait le SST ?", ["Il l'encourage à tousser", "Il donne des claques dans le dos", "Il fait des compressions abdominales", "Il la surveille"], [0, 3], "Obstruction partielle : le SST ne fait pas de claques ni de compressions ; il l'installe, l'encourage à tousser, fait alerter et surveille. Source : INRS, guide V5."], ["Comment refroidir une brûlure thermique selon le référentiel SST ?", ["Eau courante tempérée pendant au moins 10 minutes, idéalement 20", "Glaçons directement sur la peau", "Eau glacée pendant 2 minutes", "Pommade grasse puis pansement"], 0, "Ruissellement d'eau courante tempérée, au moins 10 min, idéalement 20 min. Source : INRS, guide V5."], ["Quels signes indiquent une brûlure grave ?", ["Une cloque plus grande que la moitié de la paume de la victime", "Une simple rougeur sur l'avant-bras", "Une brûlure du visage ou des mains", "Un aspect blanchâtre ou noirâtre"], [0, 2, 3], "Ces critères imposent de faire alerter dès le début de l'arrosage. Source : INRS, guide V5."], ["Une compression directe ne suffit pas à arrêter un saignement abondant à la cuisse. Que fait le SST ?", ["Il pose un garrot 5 à 7 cm au-dessus de la plaie", "Il pose un garrot sur le genou", "Il desserre le garrot toutes les 10 minutes", "Il laisse saigner en attendant les secours"], 0, "Garrot idéalement 5 à 7 cm au-dessus de la plaie, jamais sur une articulation, jamais retiré sans avis médical. Source : INRS, guide V5."], ["Une victime ne répond pas mais respire. Lesquelles de ces conduites du SST sont exactes ?", ["Après un malaise sans chute ni choc, il la met en PLS", "Après une chute d'échelle, il la met d'emblée en PLS", "Après une chute, ou si l'origine est inconnue, il la laisse sur le dos, tête basculée en arrière", "Si elle vomit, il la laisse sur le dos"], [0, 2], "Sans traumatisme : PLS. Traumatisme ou origine inconnue : la victime reste sur le dos, voies aériennes libres par la bascule de la tête (nourrisson : tête en position neutre), et elle est mise sur le côté si elle vomit. Dans tous les cas : faire alerter et surveiller la respiration. Source : INRS, guide V5_01/2024 (Secourir 7)."], ["Selon le Code du travail (R.4224-15), où un membre du personnel doit-il être formé au secourisme ?", ["Dans chaque atelier où sont accomplis des travaux dangereux", "Uniquement dans les entreprises de plus de 500 salariés", "Sur un chantier de 20 travailleurs au moins pendant plus de 15 jours avec travaux dangereux", "Uniquement dans les ERP de 1re catégorie"], [0, 2], "Article R.4224-15 du Code du travail ; ces secouristes ne remplacent pas les infirmiers."]], "sources": [["INRS – Document de référence du dispositif SST, version 8 (01/2021)", "https://www.inrs.fr/dam/inrs/PDF/document-reference-sst.pdf"], ["INRS – Guide des données techniques et conduites à tenir SST, V5_01/2024 (copie diffusée par un organisme habilité)", "https://fredmauriceformation.jimdofree.com/app/download/10235263886/Guide+des+donn%C3%A9es+techniques+v5.01_2024+version+surlign%C3%A9e.pdf"], ["Académie d'Amiens (CRESST) – Principales modifications du guide des données techniques V5_01/2024", "https://cresst.ac-amiens.fr/IMG/pdf/principales_modifications_du_guide_des_donnees_techniques_v5_01_2024.pdf"], ["Académie d'Amiens (CRESST) – Les documents de l'INRS (versions en vigueur)", "https://cresst.ac-amiens.fr/082-les-documents-de-l-inrs.html"], ["INRS – Cahier des charges habilitation, dispositions spécifiques SST, version 6 (mars 2026)", "https://www.inrs.fr/dam/jcr:5e578ef1-8608-4509-a098-822d5853d5a1/CDC-dispositions-specifiques-SST-mars-2026.pdf"], ["INRS – ED 4085 Sauvetage secourisme du travail (aide-mémoire, 6e édition, septembre 2024 ; copie diffusée par un organisme habilité)", "https://fredmauriceformation.jimdofree.com/app/download/10297370886/ED_4085_6eme_edition.pdf"], ["INRS – Organisation des secours : accident, malaise", "https://www.inrs.fr/demarche/organisation-secours/accident-malaise.html"], ["Code du travail – Article R.4224-15", "https://code.travail.gouv.fr/code-du-travail/r4224-15"], ["Code du travail – Article R.4224-16", "https://code.travail.gouv.fr/code-du-travail/r4224-16"], ["Décret n° 2018-1186 du 19 décembre 2018 relatif aux défibrillateurs automatisés externes", "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037839290"], ["Arrêté du 2 mai 2005 (SSIAP) – conditions de secourisme", "https://sitesecurite.com/contenu/_txt/txt_erp_igh/a2005_05_02.php?id=top"], ["European Resuscitation Council – Guidelines 2025 First Aid", "https://www.erc.edu/media/i2vllpae/gl2025-12-faid-e.pdf"], ["European Resuscitation Council – Guidelines 2025 Adult Basic Life Support", "https://www.resuscitationjournal.com/article/S0300-9572(25)00283-7/fulltext"], ["Resuscitation Council UK – 2025 Adult Basic Life Support Guidelines (déclinaison ERC)", "https://www.resus.org.uk/professional-library/2025-resuscitation-guidelines/adult-basic-life-support-guidelines"], ["Conseil français de réanimation cardio-pulmonaire (CFRC) – Recommandations ERC 2025", "https://www.cfrc.fr/recommandations"], ["INRS – ED 4085, aide-mémoire SST, 6e édition (septembre 2024)", "https://www.inrs.fr/media.html?refINRS=ED+4085"], ["Croix-Rouge française – Arrêt cardiaque (profondeur des compressions)", "https://www.croix-rouge.fr/les-gestes-de-premiers-secours/arret-cardiaque"], ["ssiap.pro – Arrêté du 7 juillet 2026 (références techniques nationales)", "https://ssiap.pro/premiers-secours-2026-references-techniques-nationales-ssiap/"]], "a_venir": "Un arrêté du 7 juillet 2026 fixe de nouvelles références techniques nationales pour la formation aux premiers secours (sécurité civile), avec une entrée en application annoncée au 1er janvier 2027. Le référentiel SST de l'INRS peut évoluer à cette occasion : cette rubrique sera mise à jour dès la publication des nouveaux textes."};
+const SST = {
+ "version": "Document de référence du dispositif SST, version 8 (01/2021), et Guide des données techniques et conduites à tenir SST, version V5_01/2024 (INRS). Aucune version plus récente trouvée en octobre 2026. Le cahier des charges d'habilitation SST (dispositions spécifiques, version 6 de mars 2026) concerne l'organisation des formations ; il ne modifie pas les gestes.",
+ "intro": [
+  "Le sauveteur secouriste du travail (SST) est un salarié formé pour porter les premiers secours à une victime d'accident ou de malaise au travail, en attendant les secours spécialisés.",
+  "Il a aussi un rôle de prévention : il repère les dangers dans son entreprise et les signale aux personnes chargées de la prévention.",
+  "Pour l'agent SSIAP, le secourisme est obligatoire : l'accès à la formation SSIAP 1 exige un SST ou un PSE1 en cours de validité, ou un PSC de moins de deux ans (arrêté du 2 mai 2005, art. 4). Sur site, l'agent est souvent le premier à intervenir et à guider les secours.",
+  "Ces fiches aident à réviser : les gestes s'apprennent et se pratiquent en formation SST avec un formateur certifié."
+ ],
+ "formation": [
+  "Formation initiale : 14 heures minimum en présentiel (plus le temps pour les risques spécifiques de l'entreprise si besoin). Groupe de 4 à 10 personnes. (Document de référence SST V8)",
+  "Le certificat SST est valable 24 mois. (Document de référence SST V8)",
+  "MAC (Maintien et actualisation des compétences) : 7 heures en présentiel, tous les 24 mois, pour prolonger le certificat. (Document de référence SST V8)",
+  "Certificat expiré : le SST ne peut plus exercer en tant que SST. Il peut suivre un MAC pour récupérer sa certification, si le délai écoulé ne compromet pas la réussite aux épreuves ; sinon, il est conseillé de refaire une formation initiale. (Document de référence SST V8)",
+  "Le certificat SST (modèle national) est délivré obligatoirement par l'intermédiaire d'une entité habilitée par l'INRS. La formation est assurée par un formateur SST certifié. (Document de référence SST V8)",
+  "Un SST à jour de son MAC est réputé détenir l'unité d'enseignement PSC1 (Prévention et secours civiques de niveau 1, devenue PSC en 2024). (Document de référence SST V8)",
+  "Titulaires du PSE1, du PSE2 ou de l'AFGSU : ils peuvent suivre une formation SST allégée. Le titulaire d'un certificat APS (acteur prévention secours) est réputé détenir le certificat SST. (Document de référence SST V8)",
+  "Titulaires du PSC (ex-PSC1) de moins de 2 ans : formation passerelle complémentaire possible pour obtenir le SST (page INRS « Accident, malaise »).",
+  "Code du travail R.4224-15 : un membre du personnel reçoit la formation de secouriste dans chaque atelier où sont accomplis des travaux dangereux, et sur chaque chantier de 20 travailleurs au moins pendant plus de 15 jours avec travaux dangereux. Ces secouristes ne remplacent pas les infirmiers.",
+  "Code du travail R.4224-16 : en l'absence d'infirmiers (ou s'ils ne sont pas présents en permanence), l'employeur, après avis du médecin du travail, prend les mesures pour assurer les premiers secours, en liaison avec les secours extérieurs ; ces mesures sont écrites et tenues à disposition de l'inspection du travail.",
+  "DAE dans les ERP (décret n° 2018-1186 du 19 décembre 2018) : obligatoire depuis le 1er janvier 2020 pour les ERP de catégories 1 à 3, le 1er janvier 2021 pour la catégorie 4, le 1er janvier 2022 pour certains ERP de 5e catégorie (structures pour personnes âgées ou handicapées, établissements de soins, gares, hôtels-restaurants d'altitude, refuges de montagne, établissements sportifs clos et couverts, salles polyvalentes sportives). Le DAE doit être visible et facilement accessible en permanence ; le propriétaire veille à sa maintenance."
+ ],
+ "plan": {
+  "intervention": [
+   [
+    "Protéger",
+    "Repérer les dangers persistants, puis les supprimer ou les isoler. Si c'est impossible, soustraire la victime au danger. Le dégagement d'urgence est exceptionnel : seulement face à un danger réel, immédiat et non contrôlable qui menace la vie de la victime."
+   ],
+   [
+    "Examiner",
+    "Rechercher dans l'ordre : saigne-t-elle abondamment ? s'étouffe-t-elle ? répond-elle ? respire-t-elle ? pour choisir l'action à mener."
+   ],
+   [
+    "Faire alerter ou alerter",
+    "Transmettre le message d'alerte aux secours adaptés (interne à l'entreprise ou 15, 18, 112, 114), de préférence par un témoin."
+   ],
+   [
+    "Secourir",
+    "Faire les gestes adaptés à l'état de la victime, du plus urgent au moins urgent, puis la surveiller jusqu'à l'arrivée des secours."
+   ]
+  ],
+  "prevention": [
+   [
+    "Situer son rôle dans la prévention",
+    "Le SST est un acteur de la prévention dans son entreprise ; il connaît les personnes chargées de la prévention et s'approprie les enjeux de la prévention."
+   ],
+   [
+    "Repérer les dangers et informer",
+    "Repérer les dangers dans une situation de travail et informer les personnes qui pourraient y être exposées."
+   ],
+   [
+    "Déterminer les risques",
+    "Déterminer les risques et les dommages qu'ils pourraient causer."
+   ],
+   [
+    "Supprimer ou réduire",
+    "Supprimer, ou à défaut réduire, les risques sur lesquels il peut agir."
+   ],
+   [
+    "Transmettre et proposer",
+    "Transmettre aux personnes chargées de la prévention les informations sur toute situation dangereuse et, si possible, proposer des pistes d'amélioration."
+   ]
+  ],
+  "ref": "INRS, Document de référence SST, V8 01/2021 (compétences C2 à C8) ; INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024"
+ },
+ "alerte": {
+  "numeros": [
+   [
+    "15",
+    "SAMU : problème urgent de santé ou avis médical urgent."
+   ],
+   [
+    "18",
+    "Sapeurs-pompiers : secours d'urgence aux personnes, accidents divers, incendies."
+   ],
+   [
+    "112",
+    "Numéro d'urgence valable dans toute l'Union européenne (réservé aux appels d'urgence)."
+   ],
+   [
+    "114",
+    "Pour les personnes sourdes, malentendantes ou qui ne peuvent pas parler : SMS, visio, tchat, application."
+   ]
+  ],
+  "interne": "Dans l'entreprise : appliquer d'abord la procédure d'alerte interne prévue (PC sécurité, numéro interne).",
+  "message": [
+   "Identité de l'appelant et numéro de téléphone d'où il appelle.",
+   "Lieu exact de l'accident (adresse, bâtiment, atelier, étage…).",
+   "Nature de l'événement (ce qui s'est passé).",
+   "Nombre de victimes.",
+   "État de chaque victime.",
+   "Actions déjà engagées (gestes faits)."
+  ],
+  "consignes": [
+   "Faire alerter par un témoin quand c'est possible ; le SST reste avec la victime.",
+   "Le témoin revient rendre compte au SST : l'alerte est donnée.",
+   "Répondre aux questions posées.",
+   "Ne jamais raccrocher le premier : attendre que l'opérateur le dise.",
+   "SST seul face à un arrêt cardiaque : alerter avec son portable en mode haut-parleur et commencer la RCP tout de suite."
+  ],
+  "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Faire alerter ou alerter)"
+ },
+ "fiches": [
+  {
+   "t": "La victime saigne abondamment",
+   "signes": "Perte de sang prolongée, venant d'une plaie ou d'un orifice naturel, qui ne s'arrête pas toute seule : elle imbibe un mouchoir en tissu ou en papier en quelques secondes.",
+   "faire": [
+    "Se protéger les mains (gants à usage unique, ou à défaut un sac plastique).",
+    "Demander à la victime de comprimer immédiatement l'endroit qui saigne ; sinon, comprimer soi-même fortement avec la paume ou les doigts.",
+    "Allonger la victime.",
+    "Faire alerter les secours (ou alerter soi-même).",
+    "Si la compression d'un membre est efficace, et seulement dans ce cas, un pansement compressif peut la remplacer.",
+    "Si la compression d'un membre est inefficace ou impossible (nombreuses victimes, plaie inaccessible, corps étranger…) : poser un garrot, idéalement 5 à 7 cm au-dessus de la plaie (entre le cœur et la plaie), jamais sur une articulation. Garrot du commerce de préférence ; sinon lien de toile solide, non élastique, d'au moins 1,5 m de long et 3 à 5 cm de large, 2 tours autour du membre.",
+    "Garrot : toujours visible, ne jamais le retirer sans avis médical.",
+    "Surveiller la victime, lui parler, la rassurer, la protéger du froid et des intempéries ; rappeler les secours si son état s'aggrave.",
+    "Saignement de nez : asseoir, tête penchée en avant, comprimer les narines avec deux doigts pendant 10 minutes sans relâcher.",
+    "Vomissement ou crachat de sang : alerter immédiatement ; victime consciente en position confortable, victime qui ne répond pas sur le côté."
+   ],
+   "pas": [
+    "Ne pas relâcher la compression avant l'arrivée des secours.",
+    "Ne pas poser le garrot sur une articulation.",
+    "Ne pas retirer ni desserrer un garrot.",
+    "Ne pas toucher le sang sans protection."
+   ],
+   "chiffres": [
+    "Garrot : idéalement 5 à 7 cm au-dessus de la plaie",
+    "Lien : au moins 1,5 m de long, 3 à 5 cm de large, 2 tours",
+    "Saignement de nez : 10 minutes de compression"
+   ],
+   "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Secourir 1)"
+  },
+  {
+   "t": "La victime s'étouffe",
+   "signes": "Obstruction totale : la victime ne peut plus parler, crier, tousser ni respirer ; elle porte souvent les mains à la gorge et s'agite. Obstruction partielle : elle peut encore parler, crier, tousser et respirer, parfois avec un bruit anormal.",
+   "faire": [
+    "Obstruction partielle : ne pas faire de claques ni de compressions ; installer la victime dans la position où elle se sent le mieux, l'encourager à tousser, faire alerter les secours, surveiller.",
+    "Obstruction totale (adulte, grand enfant), victime debout ou assise : la pencher d'abord en avant, puis donner 1 à 5 claques vigoureuses dans le dos, entre les omoplates, avec le talon de la main.",
+    "Si les claques sont inefficaces : 1 à 5 compressions abdominales (méthode de Heimlich), poing fermé au creux de l'estomac, au-dessus du nombril, tirer vers soi et vers le haut.",
+    "Femme enceinte ou personne obèse (abdomen impossible à encercler) : remplacer les compressions abdominales par 1 à 5 compressions thoraciques, debout derrière la victime, contre son dos.",
+    "Nourrisson : le placer à plat ventre sur l'avant-bras, tête maintenue et plus basse que le corps, puis 1 à 5 claques dans le dos ; si c'est inefficace, le retourner sur le dos et faire 1 à 5 compressions thoraciques avec la pulpe de 2 doigts au milieu de la poitrine. Jamais de compressions abdominales.",
+    "Tant que ce n'est pas efficace : refaire 1 à 5 claques, puis 1 à 5 compressions.",
+    "Arrêter dès que le corps étranger est expulsé (la victime tousse, respire, reprend des couleurs) : installer confortablement, desserrer les vêtements, faire alerter les secours (avis médical), surveiller.",
+    "Si la victime perd connaissance : l'accompagner au sol, faire alerter, commencer la RCP."
+   ],
+   "pas": [
+    "Ne pas faire de claques ni de compressions si l'obstruction est partielle.",
+    "Jamais de compressions abdominales chez le nourrisson.",
+    "Ne pas oublier l'avis médical après des compressions abdominales."
+   ],
+   "chiffres": [
+    "1 à 5 claques dans le dos",
+    "1 à 5 compressions abdominales (ou thoraciques)",
+    "Nourrisson : pulpe de 2 doigts, compressions thoraciques"
+   ],
+   "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Secourir 2)"
+  },
+  {
+   "t": "La victime se plaint d'un malaise (sensations pénibles, signes anormaux)",
+   "signes": "La victime dit qu'elle ne se sent pas bien, ou on observe des signes anormaux d'apparition soudaine. Signes d'AVC : faiblesse ou paralysie d'un bras, déformation de la face, troubles de la vision, difficulté de langage ou de compréhension, mal de tête sévère et inhabituel, perte d'équilibre. Accident cardiaque : douleur dans la poitrine. Autres : sueurs abondantes sans effort, pâleur intense, difficulté à respirer ou à parler, douleur abdominale intense, fièvre (> 37,8 °C).",
+   "faire": [
+    "Observer les signes (depuis la version V5, l'observation vient avant la mise au repos).",
+    "Mettre la victime au repos : l'allonger confortablement ou la laisser dans la position où elle se sent le mieux ; en cas de gêne pour respirer, position assise ; la rassurer.",
+    "Écouter et questionner la victime et son entourage : âge, première fois ou non, type et endroit de la douleur, durée du malaise, maladie ou hospitalisation récente, traitement en cours.",
+    "Prendre un avis médical (15 ou procédure interne) sans attendre et transmettre les signes observés ; signes d'AVC ou douleur dans la poitrine : alerter immédiatement.",
+    "Appliquer les consignes du médecin. Le SST ne donne un traitement habituel que sur consigne du médecin ; il peut donner du sucre si la victime le demande d'elle-même.",
+    "Surveiller la victime, la protéger du froid, rappeler les secours si son état s'aggrave."
+   ],
+   "pas": [
+    "Ne pas laisser la victime repartir travailler ou rentrer seule sans avis médical.",
+    "Ne pas donner de médicament de sa propre initiative.",
+    "Ne pas attendre que les signes disparaissent pour appeler."
+   ],
+   "chiffres": [
+    "Fièvre : plus de 37,8 °C",
+    "Avis médical : immédiatement"
+   ],
+   "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Secourir 3)"
+  },
+  {
+   "t": "La victime se plaint de brûlures",
+   "signes": "Rougeur, douleur, cloques. Brûlure grave : cloque(s) de surface totale supérieure à la moitié de la paume de la victime, destruction profonde (aspect blanchâtre ou noirâtre), brûlure du visage, du cou, des mains ou d'une articulation, brûlure électrique, chimique ou interne.",
+   "faire": [
+    "Si les vêtements brûlent : empêcher la victime de courir, étouffer les flammes (vêtement, couverture), puis la rouler au sol.",
+    "Brûlure thermique : refroidir immédiatement par ruissellement d'eau courante tempérée pendant au moins 10 minutes, idéalement 20 minutes.",
+    "Retirer vêtements et bijoux sur ou près de la zone brûlée, sauf ce qui colle à la peau.",
+    "Brûlure grave : faire alerter les secours dès le début de l'arrosage et suivre leurs consignes.",
+    "Brûlure simple : poursuivre le refroidissement jusqu'à disparition de la douleur, puis protéger avec un pansement stérile ou un film plastique non adhésif ; suivre le protocole du médecin du travail.",
+    "Brûlure chimique : se protéger (gants), faire rincer immédiatement et abondamment à l'eau courante tempérée pendant au moins 15 minutes, retirer les vêtements imbibés, alerter en donnant le nom du produit.",
+    "Projection dans l'œil : rincer à l'eau courante tempérée pendant au moins 15 minutes, sans que l'eau coule dans l'autre œil ; alerter.",
+    "Brûlure électrique : arroser la zone visible, alerter (toujours grave).",
+    "Brûlure interne (ingestion ou inhalation) : installer en position assise pour faciliter la respiration, demander un avis médical, garder les informations sur le produit (emballage, étiquette).",
+    "Surveiller, protéger du froid en laissant la brûlure visible."
+   ],
+   "pas": [
+    "Ne jamais percer les cloques.",
+    "Aucun produit sur la brûlure sans avis médical.",
+    "Ne pas retirer les vêtements collés à la peau.",
+    "Brûlure interne : ne jamais faire vomir, ne jamais donner à boire."
+   ],
+   "chiffres": [
+    "Eau courante tempérée",
+    "Brûlure thermique : au moins 10 min, idéalement 20 min",
+    "Brûlure chimique ou œil : au moins 15 min",
+    "Grave si cloque > moitié de la paume de la victime"
+   ],
+   "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Secourir 4)"
+  },
+  {
+   "t": "La victime se plaint d'une douleur empêchant certains mouvements",
+   "signes": "Après une chute, un choc ou un faux mouvement : douleur vive, impossibilité ou difficulté de bouger, gonflement, déformation. Après un coup à la tête, signes parfois retardés : vomissements, maux de tête persistants, agitation ou somnolence, propos incohérents, perte de mémoire, faiblesse d'un membre.",
+   "faire": [
+    "Demander fermement à la victime de ne pas bouger la partie atteinte.",
+    "Suspicion d'atteinte du cou ou du dos (rachis) : demander de ne pas bouger la tête et stabiliser la tête à deux mains dans la position où on la trouve.",
+    "Membre : ne pas le mobiliser ; laisser la victime dans la position où elle a le moins mal.",
+    "Après un coup à la tête, si des signes apparaissent (tout de suite ou plusieurs minutes après) : allonger la victime.",
+    "Faire alerter les secours et respecter leurs consignes.",
+    "Surveiller, parler à la victime, la protéger du froid ; rappeler les secours si son état s'aggrave."
+   ],
+   "pas": [
+    "Ne pas réaligner une fracture déplacée.",
+    "Ne pas déplacer la victime (sauf danger vital).",
+    "Ne pas la faire marcher ou se relever pour « tester »."
+   ],
+   "chiffres": [
+    "Tête : maintien à 2 mains",
+    "Signes après un choc à la tête : parfois plusieurs minutes plus tard"
+   ],
+   "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Secourir 5)"
+  },
+  {
+   "t": "La victime se plaint d'une plaie qui ne saigne pas abondamment",
+   "signes": "Plaie grave : par projectile, outil, objet tranchant, morsure, injection de produit, piqûre de matériel de soin, corps étranger, plaie écrasée, membre sectionné, ou plaie du cou, de l'œil, de la face, du thorax, de l'abdomen. Plaie simple : petite coupure ou éraflure superficielle, peu de sang, loin d'un orifice naturel et de l'œil.",
+   "faire": [
+    "Plaie grave — installer selon l'endroit : thorax en position assise ; abdomen allongée, jambes fléchies ; œil allongée, les deux yeux fermés, tête maintenue à deux mains.",
+    "Plaie grave : faire alerter les secours et surveiller.",
+    "Membre sectionné : allonger la victime, protéger le moignon ; envelopper le segment dans un linge propre (ou des compresses), le mettre dans un sac plastique fermé, puis dans un second sac contenant de l'eau fraîche, ou mieux de l'eau et des glaçons ; récupérer aussi les fragments ; confier aux secours.",
+    "Plaie simple : se laver les mains, nettoyer la plaie à l'eau et au savon, rincer, sécher.",
+    "Plaie simple : appliquer un antiseptique préconisé par le médecin du travail, puis un pansement adhésif.",
+    "Plaie simple : se relaver les mains ; conseiller de consulter pour vérifier la vaccination antitétanique, ou si la plaie devient chaude, rouge, gonflée, douloureuse, ou en cas de fièvre."
+   ],
+   "pas": [
+    "Ne jamais retirer un corps étranger planté dans la plaie.",
+    "Pas de glace en contact direct avec un membre sectionné.",
+    "Ne pas négliger une plaie simple qui s'infecte."
+   ],
+   "chiffres": [
+    "Membre sectionné : 2 sacs, glace jamais en contact direct",
+    "Tétanos : faire vérifier la vaccination"
+   ],
+   "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Secourir 6)"
+  },
+  {
+   "t": "La victime ne répond pas mais elle respire",
+   "signes": "Elle ne répond pas aux questions et ne réagit pas quand on lui secoue doucement les épaules. Après bascule de la tête en arrière et élévation du menton, on voit le ventre ou la poitrine se soulever, on entend et on sent le souffle.",
+   "faire": [
+    "Libérer les voies aériennes : une main sur le front, deux doigts sous la pointe du menton, basculer doucement la tête en arrière et élever le menton (nourrisson : tête en position neutre).",
+    "Vérifier la respiration 10 secondes au plus : regarder, écouter, sentir.",
+    "Sans traumatisme (malaise, par exemple) : placer la victime en position latérale de sécurité (PLS). Femme enceinte ou personne obèse : de préférence sur le côté gauche (côté droit si impossible).",
+    "En cas de traumatisme (chute, choc) ou si l'origine est inconnue : laisser la victime sur le dos et garder ses voies aériennes libres en maintenant la tête basculée en arrière (nourrisson : tête en position neutre). La mettre sur le côté si elle vomit ou régurgite.",
+    "Faire alerter immédiatement les secours. SST seul : après la PLS, aller alerter puis revenir.",
+    "Surveiller en permanence la respiration ; la protéger du froid ; rappeler les secours si son état change.",
+    "Si la respiration s'arrête : remettre sur le dos et commencer la RCP.",
+    "Nourrisson : le tenir sur le côté dans les bras, son dos contre le SST.",
+    "Convulsions : ne pas toucher la victime, écarter les objets dangereux ; à la fin, refaire l'examen et la mettre en PLS si besoin.",
+    "Victime qui vomit : la mettre sur le côté en gardant si possible l'axe tête-cou-tronc."
+   ],
+   "pas": [
+    "Ne pas mettre d'emblée en PLS une victime traumatisée ou dont on ignore l'origine de l'état : la laisser sur le dos, voies aériennes libres, sauf si elle vomit.",
+    "Ne rien mettre dans la bouche de la victime.",
+    "Ne pas immobiliser de force une personne qui convulse."
+   ],
+   "chiffres": [
+    "Respiration : 10 secondes au plus",
+    "PLS : côté gauche pour femme enceinte ou obèse",
+    "Traumatisme ou origine inconnue : sur le dos, tête basculée"
+   ],
+   "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Examiner ; Secourir 7)"
+  },
+  {
+   "t": "La victime ne répond pas et ne respire pas (arrêt cardiaque)",
+   "signes": "Elle ne répond pas, ne réagit pas, et après libération des voies aériennes on ne perçoit aucune respiration pendant 10 secondes au plus. Une respiration anormale (gasps : mouvements lents, bruyants, inefficaces) doit être traitée comme une absence de respiration.",
+   "faire": [
+    "Faire alerter les secours et réclamer un DAE. SST seul : alerter avec son téléphone en haut-parleur ; aller chercher le DAE seulement s'il est à proximité immédiate.",
+    "Commencer immédiatement la RCP : cycles de 30 compressions thoraciques puis 2 insufflations.",
+    "Compressions adulte : talon de la main au centre de la poitrine, bras tendus, enfoncer le thorax de 5 à 6 cm, à un rythme de 100 à 120 compressions par minute ; laisser la poitrine remonter complètement entre deux compressions.",
+    "Insufflations : tête basculée en arrière, menton élevé, nez pincé, souffler progressivement jusqu'à ce que la poitrine commence à se soulever ; 2 insufflations, puis reprendre aussitôt les compressions.",
+    "Si les insufflations sont impossibles ou refusées : faire uniquement les compressions, sans interruption.",
+    "Dès l'arrivée du DAE : le mettre en marche et suivre ses instructions ; dénuder et sécher la poitrine, coller les électrodes comme sur le schéma.",
+    "Pendant l'analyse et le choc : personne ne touche la victime ; annoncer « écartez-vous ».",
+    "Après le choc (ou si pas de choc) : reprendre immédiatement la RCP selon le DAE.",
+    "Continuer jusqu'à l'arrivée des secours ou la reprise d'une respiration normale.",
+    "Enfant et nourrisson : même conduite, mais commencer par 5 insufflations, puis faire des cycles de 15 compressions et 2 insufflations. Enfant : compressions avec une main. Nourrisson : compressions avec 2 doigts au milieu de la poitrine, insufflations par la bouche et le nez en même temps.",
+    "DAE chez l'enfant ou le nourrisson : suivre les indications de l'appareil et le schéma de pose des électrodes (chez le nourrisson, une électrode devant au milieu du thorax, l'autre dans le dos)."
+   ],
+   "pas": [
+    "Ne jamais retirer les électrodes ni éteindre le DAE avant l'arrivée des secours.",
+    "Ne pas toucher la victime pendant l'analyse ou le choc.",
+    "Ne pas interrompre les compressions plus que nécessaire.",
+    "Ne pas attendre le DAE pour commencer la RCP."
+   ],
+   "chiffres": [
+    "Adulte : 30 compressions / 2 insufflations",
+    "100 à 120 compressions par minute",
+    "Profondeur adulte : 5 à 6 cm",
+    "Enfant, nourrisson : 5 insufflations puis 15 / 2"
+   ],
+   "ref": "INRS, Guide des données techniques et conduites à tenir SST, V5_01/2024 (Examiner ; Secourir 8) ; INRS, ED 4085 (aide-mémoire SST, 6e édition, septembre 2024)"
+  }
+ ],
+ "quiz": [
+  [
+   "Quelle est la durée minimale de la formation initiale SST ?",
+   [
+    "7 heures",
+    "10 heures",
+    "14 heures",
+    "21 heures"
+   ],
+   2,
+   "14 heures en présentiel au minimum. Source : INRS, document de référence SST V8."
+  ],
+  [
+   "Combien de temps le certificat SST est-il valable ?",
+   [
+    "12 mois",
+    "36 mois",
+    "Sans limite de durée",
+    "24 mois"
+   ],
+   3,
+   "24 mois ; il est prolongé par un MAC. Source : INRS, document de référence SST V8."
+  ],
+  [
+   "Quelles affirmations sur le MAC SST sont exactes ?",
+   [
+    "Il peut se faire entièrement en e-learning",
+    "Il dure 7 heures en présentiel",
+    "Il dure 14 heures",
+    "Il a lieu tous les 24 mois"
+   ],
+   [
+    1,
+    3
+   ],
+   "MAC : 7 h en présentiel, tous les 24 mois. Source : INRS, document de référence SST V8."
+  ],
+  [
+   "Quel est l'ordre des 4 actions du plan d'intervention SST ?",
+   [
+    "Alerter, protéger, examiner, secourir",
+    "Protéger, examiner, faire alerter ou alerter, secourir",
+    "Examiner, protéger, secourir, alerter",
+    "Protéger, alerter, secourir, examiner"
+   ],
+   1,
+   "Protéger, examiner, faire alerter ou alerter, secourir. Source : INRS, guide des données techniques V5."
+  ],
+  [
+   "Lors de l'examen, quelle question le SST se pose-t-il en premier ?",
+   [
+    "Respire-t-elle ?",
+    "Répond-elle ?",
+    "Saigne-t-elle abondamment ?",
+    "A-t-elle mal ?"
+   ],
+   2,
+   "Ordre : saigne-t-elle abondamment, s'étouffe-t-elle, répond-elle, respire-t-elle. Source : INRS, guide V5."
+  ],
+  [
+   "Quels éléments font partie du message d'alerte ?",
+   [
+    "Le nombre de victimes",
+    "Le numéro de sécurité sociale de la victime",
+    "Le lieu exact de l'accident",
+    "Les actions déjà engagées"
+   ],
+   [
+    0,
+    2,
+    3
+   ],
+   "Message : identité et numéro de rappel, lieu, nature, nombre de victimes, état, actions engagées. Source : INRS, guide V5."
+  ],
+  [
+   "Quel numéro permet aux personnes sourdes ou malentendantes d'alerter par SMS, visio ou tchat ?",
+   [
+    "112",
+    "115",
+    "119",
+    "114"
+   ],
+   3,
+   "Le 114. Source : INRS, guide V5 (numéros harmonisés avec le PSC1)."
+  ],
+  [
+   "Pendant l'appel aux secours, que doit faire la personne qui alerte ?",
+   [
+    "Raccrocher dès que le lieu est donné",
+    "Répondre aux questions posées",
+    "Attendre que l'opérateur l'autorise à raccrocher",
+    "Rappeler toutes les 2 minutes"
+   ],
+   [
+    1,
+    2
+   ],
+   "Répondre aux questions et ne jamais raccrocher le premier. Source : INRS, guide V5."
+  ],
+  [
+   "Pendant combien de temps au plus le SST vérifie-t-il la respiration ?",
+   [
+    "5 secondes",
+    "10 secondes",
+    "30 secondes",
+    "1 minute"
+   ],
+   1,
+   "10 secondes au plus. Source : INRS, guide V5 ; même durée maximale dans les recommandations ERC."
+  ],
+  [
+   "Quels chiffres de RCP chez l'adulte sont exacts ?",
+   [
+    "100 à 120 compressions par minute",
+    "Profondeur de 5 à 6 cm",
+    "15 compressions pour 2 insufflations",
+    "Profondeur de 2 à 3 cm"
+   ],
+   [
+    0,
+    1
+   ],
+   "Adulte : 100 à 120/min, 5 à 6 cm, cycles de 30 compressions / 2 insufflations (15/2 concerne l'enfant et le nourrisson). Source : INRS, guide V5 ; ED 4085."
+  ],
+  [
+   "Un enfant de 5 ans ne répond pas et ne respire pas. Par quoi le SST commence-t-il la RCP ?",
+   [
+    "30 compressions thoraciques",
+    "5 insufflations",
+    "2 insufflations",
+    "La recherche du pouls pendant 1 minute"
+   ],
+   1,
+   "Chez l'enfant et le nourrisson : 5 insufflations d'abord, puis cycles de 15 compressions / 2 insufflations. Source : INRS, ED 4085 ; guide V5."
+  ],
+  [
+   "Le DAE arrive pendant une RCP. Que fait le SST ?",
+   [
+    "Il met le DAE en marche et suit ses instructions",
+    "Il termine d'abord 5 minutes de RCP",
+    "Il veille à ce que personne ne touche la victime pendant l'analyse",
+    "Il retire les électrodes si la victime bouge"
+   ],
+   [
+    0,
+    2
+   ],
+   "Mise en marche dès son arrivée, personne ne touche la victime pendant l'analyse et le choc, électrodes jamais retirées. Source : INRS, guide V5."
+  ],
+  [
+   "Une victime adulte s'étouffe : elle ne peut plus parler ni tousser. Quel est le premier geste ?",
+   [
+    "Des compressions abdominales",
+    "Lui donner à boire",
+    "1 à 5 claques vigoureuses dans le dos",
+    "L'allonger en PLS"
+   ],
+   2,
+   "D'abord 1 à 5 claques dans le dos (victime penchée en avant), puis 1 à 5 compressions abdominales si inefficace. Source : INRS, guide V5."
+  ],
+  [
+   "Chez une femme enceinte qui s'étouffe, par quoi remplace-t-on les compressions abdominales ?",
+   [
+    "Des compressions thoraciques",
+    "Des insufflations",
+    "Des claques sur la poitrine",
+    "Rien, on attend les secours"
+   ],
+   0,
+   "1 à 5 compressions thoraciques (aussi pour une personne obèse). Source : INRS, guide V5."
+  ],
+  [
+   "Une victime tousse fort après une fausse route mais parle et respire. Que fait le SST ?",
+   [
+    "Il l'encourage à tousser",
+    "Il donne des claques dans le dos",
+    "Il fait des compressions abdominales",
+    "Il la surveille"
+   ],
+   [
+    0,
+    3
+   ],
+   "Obstruction partielle : le SST ne fait pas de claques ni de compressions ; il l'installe, l'encourage à tousser, fait alerter et surveille. Source : INRS, guide V5."
+  ],
+  [
+   "Comment refroidir une brûlure thermique selon le référentiel SST ?",
+   [
+    "Eau courante tempérée pendant au moins 10 minutes, idéalement 20",
+    "Glaçons directement sur la peau",
+    "Eau glacée pendant 2 minutes",
+    "Pommade grasse puis pansement"
+   ],
+   0,
+   "Ruissellement d'eau courante tempérée, au moins 10 min, idéalement 20 min. Source : INRS, guide V5."
+  ],
+  [
+   "Quels signes indiquent une brûlure grave ?",
+   [
+    "Une cloque plus grande que la moitié de la paume de la victime",
+    "Une simple rougeur sur l'avant-bras",
+    "Une brûlure du visage ou des mains",
+    "Un aspect blanchâtre ou noirâtre"
+   ],
+   [
+    0,
+    2,
+    3
+   ],
+   "Ces critères imposent de faire alerter dès le début de l'arrosage. Source : INRS, guide V5."
+  ],
+  [
+   "Une compression directe ne suffit pas à arrêter un saignement abondant à la cuisse. Que fait le SST ?",
+   [
+    "Il pose un garrot 5 à 7 cm au-dessus de la plaie",
+    "Il pose un garrot sur le genou",
+    "Il desserre le garrot toutes les 10 minutes",
+    "Il laisse saigner en attendant les secours"
+   ],
+   0,
+   "Garrot idéalement 5 à 7 cm au-dessus de la plaie, jamais sur une articulation, jamais retiré sans avis médical. Source : INRS, guide V5."
+  ],
+  [
+   "Une victime ne répond pas mais respire. Lesquelles de ces conduites du SST sont exactes ?",
+   [
+    "Après un malaise sans chute ni choc, il la met en PLS",
+    "Après une chute d'échelle, il la met d'emblée en PLS",
+    "Après une chute, ou si l'origine est inconnue, il la laisse sur le dos, tête basculée en arrière",
+    "Si elle vomit, il la laisse sur le dos"
+   ],
+   [
+    0,
+    2
+   ],
+   "Sans traumatisme : PLS. Traumatisme ou origine inconnue : la victime reste sur le dos, voies aériennes libres par la bascule de la tête (nourrisson : tête en position neutre), et elle est mise sur le côté si elle vomit. Dans tous les cas : faire alerter et surveiller la respiration. Source : INRS, guide V5_01/2024 (Secourir 7)."
+  ],
+  [
+   "Selon le Code du travail (R.4224-15), où un membre du personnel doit-il être formé au secourisme ?",
+   [
+    "Dans chaque atelier où sont accomplis des travaux dangereux",
+    "Uniquement dans les entreprises de plus de 500 salariés",
+    "Sur un chantier de 20 travailleurs au moins pendant plus de 15 jours avec travaux dangereux",
+    "Uniquement dans les ERP de 1re catégorie"
+   ],
+   [
+    0,
+    2
+   ],
+   "Article R.4224-15 du Code du travail ; ces secouristes ne remplacent pas les infirmiers."
+  ]
+ ],
+ "sources": [
+  [
+   "INRS – Document de référence du dispositif SST, version 8 (01/2021)",
+   "https://www.inrs.fr/dam/inrs/PDF/document-reference-sst.pdf"
+  ],
+  [
+   "INRS – Guide des données techniques et conduites à tenir SST, V5_01/2024 (copie diffusée par un organisme habilité)",
+   "https://fredmauriceformation.jimdofree.com/app/download/10235263886/Guide+des+donn%C3%A9es+techniques+v5.01_2024+version+surlign%C3%A9e.pdf"
+  ],
+  [
+   "Académie d'Amiens (CRESST) – Principales modifications du guide des données techniques V5_01/2024",
+   "https://cresst.ac-amiens.fr/IMG/pdf/principales_modifications_du_guide_des_donnees_techniques_v5_01_2024.pdf"
+  ],
+  [
+   "Académie d'Amiens (CRESST) – Les documents de l'INRS (versions en vigueur)",
+   "https://cresst.ac-amiens.fr/082-les-documents-de-l-inrs.html"
+  ],
+  [
+   "INRS – Cahier des charges habilitation, dispositions spécifiques SST, version 6 (mars 2026)",
+   "https://www.inrs.fr/dam/jcr:5e578ef1-8608-4509-a098-822d5853d5a1/CDC-dispositions-specifiques-SST-mars-2026.pdf"
+  ],
+  [
+   "INRS – ED 4085 Sauvetage secourisme du travail (aide-mémoire, 6e édition, septembre 2024 ; copie diffusée par un organisme habilité)",
+   "https://fredmauriceformation.jimdofree.com/app/download/10297370886/ED_4085_6eme_edition.pdf"
+  ],
+  [
+   "INRS – Organisation des secours : accident, malaise",
+   "https://www.inrs.fr/demarche/organisation-secours/accident-malaise.html"
+  ],
+  [
+   "Code du travail – Article R.4224-15",
+   "https://code.travail.gouv.fr/code-du-travail/r4224-15"
+  ],
+  [
+   "Code du travail – Article R.4224-16",
+   "https://code.travail.gouv.fr/code-du-travail/r4224-16"
+  ],
+  [
+   "Décret n° 2018-1186 du 19 décembre 2018 relatif aux défibrillateurs automatisés externes",
+   "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037839290"
+  ],
+  [
+   "Arrêté du 2 mai 2005 (SSIAP) – conditions de secourisme",
+   "https://sitesecurite.com/contenu/_txt/txt_erp_igh/a2005_05_02.php?id=top"
+  ],
+  [
+   "European Resuscitation Council – Guidelines 2025 First Aid",
+   "https://www.erc.edu/media/i2vllpae/gl2025-12-faid-e.pdf"
+  ],
+  [
+   "European Resuscitation Council – Guidelines 2025 Adult Basic Life Support",
+   "https://www.resuscitationjournal.com/article/S0300-9572(25)00283-7/fulltext"
+  ],
+  [
+   "Resuscitation Council UK – 2025 Adult Basic Life Support Guidelines (déclinaison ERC)",
+   "https://www.resus.org.uk/professional-library/2025-resuscitation-guidelines/adult-basic-life-support-guidelines"
+  ],
+  [
+   "Conseil français de réanimation cardio-pulmonaire (CFRC) – Recommandations ERC 2025",
+   "https://www.cfrc.fr/recommandations"
+  ],
+  [
+   "INRS – ED 4085, aide-mémoire SST, 6e édition (septembre 2024)",
+   "https://www.inrs.fr/media.html?refINRS=ED+4085"
+  ],
+  [
+   "Croix-Rouge française – Arrêt cardiaque (profondeur des compressions)",
+   "https://www.croix-rouge.fr/les-gestes-de-premiers-secours/arret-cardiaque"
+  ],
+  [
+   "ssiap.pro – Arrêté du 7 juillet 2026 (références techniques nationales)",
+   "https://ssiap.pro/premiers-secours-2026-references-techniques-nationales-ssiap/"
+  ]
+ ],
+ "a_venir": "Un arrêté du 7 juillet 2026 fixe de nouvelles références techniques nationales pour les gestes qui sauvent, le PSC et le PSE (secourisme de sécurité civile). Il ne modifie pas le référentiel SST de l'INRS, que suivent ces fiches : elles seront mises à jour si l'INRS publie une nouvelle version."
+};
 (function () {
   const li = a => a.map(x => `<li>${esc(x)}</li>`).join("");
   const steps = a => `<div class="flow">${a.map((s, i) => `<div class="st"><i>${pad(i + 1)}</i><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join("")}</div>`;
@@ -7077,7 +7954,8 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
     return ex.concat(MENU.slice(0, Math.max(2, 6 - ex.length))).concat([["Me cacher", "hide"]]);
   };
   window.__vimoChips = smartChips;
-  const ask = () => say(pick(["Qu'est-ce que tu veux faire ?", "On travaille quoi aujourd'hui ?", "Je t'emmène où ?"]), { chips: smartChips(), prio: 3, mood: "wave" });
+  window.__vimoSay = say;
+  const ask = () => say(pick(Math.random() < .35 ? VOC.hello() : VOC.ask), { chips: smartChips(), prio: 3, mood: "wave" });
   chipsEl.addEventListener("click", ev => {
     const c = ev.target.closest(".mm-chip"); if (!c) return;
     const g = c.dataset.go; bub.hidden = true; lastPrio = 0;
@@ -7115,14 +7993,17 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   const seen = new Set();
   const PAGE = {
     accueil: () => { if (!store.get("ms-vimo-vu")) { store.set("ms-vimo-vu", "1"); say("Salut, moi c'est Vimo ! Je veille sur le site et je change de forme quand ça me chante. Qu'est-ce que tu veux faire ?", { chips: smartChips(), prio: 3, mood: "wave" }); } else ask(); },
-    parcours: () => say(pick(["56 chapitres en trois blocs : SSIAP 1, SSIAP 2 et ADS. Commence par le début ou va droit au chapitre qui t'intéresse.", "Chaque chapitre a son schéma, sa vidéo quand il y en a une, et 10 questions à la fin."])),
-    textes: () => say("Les textes officiels qui font foi, avec un lien vers chacun."),
-    qcm: () => say("Examen blanc : chrono, plusieurs bonnes réponses possibles, correction à la fin. Pendant l'épreuve, je me tais.", { dur: 7000 }),
-    glossaire: () => say("Tape un sigle, je te le traduis. Les sigles en rouge dans une définition t'emmènent vers leur fiche."),
-    cas: () => say(pick(["Mets-toi à la place de l'agent : à chaque étape, la bonne décision.", "Pas de panique : on lit, on réfléchit, on décide."])),
-    sst: () => say("Les gestes qui sauvent : un schéma et une vidéo par situation, puis un quiz."),
-    apropos: () => say("Un site construit par une équipe d'agents en poste. Une erreur ? Le bouton « Signaler » est là pour ça."),
-    journal: () => say("Le site avance chaque semaine : voici les nouveautés.")
+    parcours: () => say(pick(VOC.page.parcours)),
+    textes: () => say(pick(VOC.page.textes)),
+    qcm: () => say(pick(VOC.page.qcm), { dur: 7000 }),
+    glossaire: () => say(pick(VOC.page.glossaire)),
+    cas: () => say(pick(VOC.page.cas)),
+    sst: () => say(pick(VOC.page.sst)),
+    apropos: () => say(pick(VOC.page.apropos)),
+    journal: () => say(pick(VOC.page.journal)),
+    newsletter: () => say(pick(VOC.page.newsletter)),
+    progres: () => say(pick(VOC.page.progres)),
+    doutes: () => say(pick(VOC.page.doutes))
   };
   function onPage() {
     const h = (location.hash || "#accueil").slice(1);
@@ -7131,7 +8012,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
       const c = CH.find(x => x.n === +m[1]); if (!c || seen.has(h)) return; seen.add(h);
       const prev = store.get("ms-ch-" + c.n);
       if (prev) { say(`Chapitre ${pad(c.n)} : la dernière fois, tu as eu ${prev.replace("/", " sur ")} aux questions. ${+prev.split("/")[0] >= 8 ? "On confirme ?" : "On vise mieux ?"}`); return; }
-      say(pick([`Chapitre ${pad(c.n)} : ${c.t}. Les 10 questions à la fin te diront si c'est acquis.`, `${c.t} : lis l'essentiel, regarde le schéma, puis teste-toi.`, `C'est parti pour le chapitre ${pad(c.n)}. Les sigles soulignés s'expliquent en un geste.`]));
+      say(pick(VOC.chap).replace("{n}", pad(c.n)).replace("{t}", c.t));
       return;
     }
     const k = /^cas/.test(h) ? "cas" : /^qcm/.test(h) ? "qcm" : /^bloc-/.test(h) ? "parcours" : h;
@@ -7150,8 +8031,8 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
       const r = pend; pend = null;
       setTimeout(() => {
         const fb = r.querySelector(".fbz .fb"); if (!fb) return;
-        if (!fb.classList.contains("bad")) { streak++; say(streak >= 3 && streak % 3 === 0 ? `${streak} bonnes réponses d'affilée, chapeau !` : pick(["Bien vu !", "Exact !", "C'est ça !", "Parfait.", "Tu maîtrises."]), { prio: 2, mood: "joy", dur: 3500 }); }
-        else { streak = 0; say(pick(["Pas grave, lis bien l'explication.", "Presque ! L'explication est juste en dessous.", "On apprend de ses erreurs : relis la correction."]), { prio: 2, mood: "oops", dur: 4500 }); }
+        if (!fb.classList.contains("bad")) { streak++; say(streak >= 3 && streak % 3 === 0 ? `${streak} bonnes réponses d'affilée, chapeau !` : pick(VOC.good), { prio: 2, mood: "joy", dur: 3500 }); }
+        else { streak = 0; say(pick(VOC.bad), { prio: 2, mood: "oops", dur: 4500 }); }
       }, 40);
       return;
     }
@@ -7166,8 +8047,11 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   /* un « le savais-tu ? » de temps en temps, si on lit sans bouger */
   setInterval(() => {
     if (Date.now() - lastAct < 50000 || Date.now() - lastSay < 90000 || document.hidden || Math.random() > (window.__vimoLevel ? window.__vimoLevel() : 1)) return;
-    const e = pick(GLO.filter(x => x.l && x.s.length <= 6));
-    say(`Le savais-tu ? ${e.s}, c'est « ${e.l} ».`, { prio: 0, mood: "think", dur: 7000 }); lastAct = Date.now();
+    const r = Math.random();
+    if (r < .2 && window.__vimoNews) say(window.__vimoNews(), { prio: 0, mood: "wave", dur: 9000, chips: [["Le flash info", "#newsletter"]] });
+    else if (r < .6) say("Le savais-tu ? " + pick(VOC.tips), { prio: 0, mood: "think", dur: 9000 });
+    else { const e = pick(GLO.filter(x => x.l && x.s.length <= 6)); say(`Le savais-tu ? ${e.s}, c'est « ${e.l} ».`, { prio: 0, mood: "think", dur: 7000 }); }
+    lastAct = Date.now();
   }, 15000);
 })();
 
@@ -7200,7 +8084,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   const formFor = h => MAP[h] || (/^sst/.test(h) ? pick(["kit", "dae"]) : "ext");
   addEventListener("hashchange", () => {
     const h = (location.hash || "#accueil").slice(1), f = formFor(h);
-    if (f !== form) setTimeout(() => { morph(f); if (!saidForm[f]) { saidForm[f] = 1; setTimeout(() => { const t = wrap.querySelector(".mm-txt"), b = wrap.querySelector(".mm-bub"); if (b && b.hidden) { t.textContent = LINE[f]; wrap.querySelector(".mm-chips").innerHTML = ""; b.hidden = false; setTimeout(() => { b.hidden = true; }, 4000); } }, 1100); } }, 350);
+    if (f !== form) setTimeout(() => { morph(f); if (!saidForm[f]) { saidForm[f] = 1; setTimeout(() => { const t = wrap.querySelector(".mm-txt"), b = wrap.querySelector(".mm-bub"); if (b && b.hidden) { t.textContent = VOC.form[f] ? pick(VOC.form[f]) : LINE[f]; wrap.querySelector(".mm-chips").innerHTML = ""; b.hidden = false; setTimeout(() => { b.hidden = true; }, 4000); } }, 1100); } }, 350);
   });
   /* de temps en temps, une pirouette ou un déguisement passager */
   setInterval(() => {
@@ -7308,7 +8192,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
     if (!has("sleep")) return;
     wrap.classList.remove("sleep"); wrap.classList.add("startle", "act");
     setTimeout(() => wrap.classList.remove("startle", "act"), 900);
-    if (Math.random() < .6) setTimeout(() => quip(pick(["Hein ? Je ne dormais pas !", "Oh ! Tu es là !", "Je veillais… les yeux fermés.", "Présent ! Tout est sous contrôle."])), 350);
+    if (Math.random() < .6) setTimeout(() => quip(pick(VOC.wake)), 350);
   }
   /* le regard suit le doigt ou la souris */
   let raf = 0, pe = null;
@@ -7339,8 +8223,8 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   const ACTS = {
     lookAround: () => act("looking", 2600, () => { look(-2.4, 0); setTimeout(() => look(2.4, 0), 700); setTimeout(() => look(0, -2), 1400); setTimeout(() => look(0, 0), 2100); }),
     stretch: () => act("stretch", 1700),
-    scratch: () => act("scratch", 1900, () => { if (Math.random() < .35) quip(pick(["Hmm… voyons voir.", "Qu'est-ce que je voulais dire, déjà ?", "Ça me gratte, ce détecteur."])); }),
-    sneeze: () => act("sneeze", 1500, () => setTimeout(() => { window.__memo && window.__memo.cloud(); if (Math.random() < .5) quip(pick(["Atchoum ! Trop de fumée par ici…", "Atchoum ! Pardon."]), 2500); }, 750)),
+    scratch: () => act("scratch", 1900, () => { if (Math.random() < .35) quip(pick(VOC.scratch)); }),
+    sneeze: () => act("sneeze", 1500, () => setTimeout(() => { window.__memo && window.__memo.cloud(); if (Math.random() < .5) quip(pick(VOC.sneeze), 2500); }, 750)),
     dance: () => act("dance", 2600),
     hum: () => act("hum", 2800),
     yawn: () => act("yawn", 2300),
@@ -7366,7 +8250,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
     wrap.classList.add("squish"); setTimeout(() => wrap.classList.remove("squish"), 280);
     if (taps.length >= 4) {
       taps = []; wrap.classList.add("dizzy", "act"); setTimeout(() => wrap.classList.remove("dizzy", "act"), 2800);
-      setTimeout(() => { txt.textContent = pick(["Ouh là, j'ai la tête qui tourne !", "Doucement, je ne suis pas un bouton !", "Stop, stop… je vois des étoiles."]); chips.innerHTML = ""; bub.hidden = false; setTimeout(() => { bub.hidden = true; }, 3200); }, 80);
+      setTimeout(() => { txt.textContent = pick(VOC.dizzy); chips.innerHTML = ""; bub.hidden = false; setTimeout(() => { bub.hidden = true; }, 3200); }, 80);
     }
   });
   /* il se réjouit avec toi : petite danse après 3 bonnes réponses ou un bon examen */
@@ -7469,7 +8353,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   /* il réagit au bouton « Précédent » */
   document.addEventListener("click", ev => {
     if (ev.target.closest(".back-btn") && !has("off")) {
-      setTimeout(() => { if (window.__memoMorph) window.__memoMorph(null, "spin"); if (bub.hidden || true) quip(pick(["On revient en arrière, hop !", "Retour à la page d'avant.", "Marche arrière enclenchée !"]), 2200); }, 250);
+      setTimeout(() => { if (window.__memoMorph) window.__memoMorph(null, "spin"); if (bub.hidden || true) quip(pick(VOC.back), 2200); }, 250);
     }
   });
   /* il vient près de l'endroit où tu touches l'écran, avec un geste rapide */
@@ -7484,10 +8368,10 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
     setTimeout(() => { const g = pick(["thumb", "hello", "nod"]); wrap.classList.add(g, "act"); setTimeout(() => wrap.classList.remove(g, "act"), 1100); }, 760);
   }, { passive: true });
   /* à chaque mise à jour du site, il l'annonce aux habitués */
-  const V0 = store.get("ms-version"), VER = "2026-10-06-relecture";
+  const V0 = store.get("ms-version"), VER = "2026-10-07-recherche";
   if (V0 !== VER) {
     store.set("ms-version", VER);
-    if (V0) setTimeout(() => { if (has("off")) return; wrap.classList.add("joy"); setTimeout(() => wrap.classList.remove("joy"), 1500); quip("Le site vient d'être corrigé après la relecture d'un agent du métier : dégagements, extincteurs, alarme et SSI, fumées, PLS, et l'examen blanc SSIAP 1 passe à 30 questions. Merci à lui !", 9000, [["Points à vérifier", "#doutes"], ["Les nouveautés", "#journal"]]); }, 4200);
+    if (V0) setTimeout(() => { if (has("off")) return; wrap.classList.add("joy"); setTimeout(() => wrap.classList.remove("joy"), 1500); quip("Nouveau : une recherche sur tout le site, le Flash info, la lettre Mémo World, les textes classés par type l'historique des corrections faites grâce à vous, et moi, je parle beaucoup plus !", 9000, [["Flash info", "#newsletter"], ["L'historique", "#journal"]]); }, 4200);
   }
 })();
 
@@ -7707,7 +8591,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
 })();
 
 /* ---- points à vérifier ---- */
-const DOUTES = [{"id": "d1", "u": "SSIAP", "ch": [11], "t": "Extincteurs : la répartition exacte des règles entre MS 38 et MS 39", "sait": "Les règles sur les extincteurs (nombre, emplacement, types) figurent dans les articles MS du règlement de sécurité des ERP.", "doute": "Quelles règles relèvent précisément de MS 38 et lesquelles de MS 39 ?", "rep": "MS 38 fixe les moyens de secours et leur entretien ; MS 39 fixe la dotation : 1 appareil pour 200 m² et par niveau, avec au moins 2 appareils par établissement. En 5e catégorie, PE 26 prévoit 1 appareil pour 300 m² et 1 par niveau. Le Code du travail (R.4227-29) s'applique aussi là où il y a des salariés."}, {"id": "d2", "u": "SSIAP", "ch": [2, 21], "t": "Arrêté du 2 mai 2005 : numéros des annexes et durée de la remise à niveau SSIAP 1", "sait": "L'arrêté du 2 mai 2005 fixe les programmes, les examens et le recyclage des SSIAP. La remise à niveau SSIAP 1 est indiquée à 21 h.", "doute": "Une source indique 35 h pour la remise à niveau SSIAP 1, et la numérotation exacte des annexes reste à confirmer."}, {"id": "d3", "u": "SSIAP", "ch": [15, 30], "t": "SSI : l'article exact de la temporisation de 5 minutes", "sait": "Le processus d'alarme peut comporter une temporisation, limitée à 5 minutes.", "doute": "Est-ce MS 64 ou MS 66 qui fixe cette durée ?", "rep": "C'est MS 66 : la temporisation ne peut pas dépasser 5 minutes et n'est admise qu'avec un personnel qualifié présent pour exploiter l'alarme. Dans les établissements de soins, U 45 impose une alarme générale sélective sans temporisation dans les niveaux comportant des locaux à sommeil."}, {"id": "d4", "u": "SSIAP", "ch": [], "t": "Glossaire : la norme de rattachement de l'UGCIS", "sait": "L'UGCIS (unité de gestion centralisée des issues de secours) fait partie des matériels du SSI.", "doute": "Faut-il la rattacher à la norme NF S 61-934 ou à une autre norme ?"}, {"id": "d5", "u": "Secourisme", "ch": [], "t": "SST : le nouveau référentiel prévu au 1er janvier 2027", "sait": "Un arrêté du 7 juillet 2026 prévoit une réforme applicable au 1er janvier 2027. Nos fiches suivent le référentiel INRS en vigueur.", "doute": "Les annexes détaillées ne sont pas encore publiées : qu'est-ce qui changera dans les gestes enseignés ?"}, {"id": "d6", "u": "ADS", "ch": [38], "t": "Formation APS : le détail heure par heure de l'arrêté du 1er septembre 2025", "sait": "175 h au total : un tronc commun de 41 h et un module de 134 h, dont une partie possible à distance.", "doute": "Les intitulés exacts et les heures de chaque sous-module restent à relire sur le texte officiel."}, {"id": "d7", "u": "ADS", "ch": [47, 54], "t": "Palpation aux manifestations de plus de 300 spectateurs (CSI, art. L.613-3)", "sait": "La palpation y est possible sous le contrôle d'un officier de police judiciaire, par une personne du même sexe.", "doute": "Un agrément particulier est-il encore exigé pour les agents ? Les sources se contredisent."}, {"id": "d8", "u": "ADS", "ch": [38, 39], "t": "Niveau B1 en français : exigé aussi au renouvellement de la carte ?", "sait": "Le niveau B1 est exigé pour entrer en formation et pour obtenir la carte professionnelle (décret n° 2022-198).", "doute": "Est-il aussi exigé au renouvellement ? Les sources se contredisent."}, {"id": "d9", "u": "ADS", "ch": [41], "t": "Code de déontologie : la numérotation des articles après 2022", "sait": "Le code de déontologie figure aux articles R.631-1 et suivants du Code de la sécurité intérieure.", "doute": "Certains articles ont-ils changé de numéro depuis 2022, par exemple celui sur la présentation de la carte professionnelle ?"}, {"id": "d10", "u": "ADS", "ch": [55], "t": "Convention collective (IDCC 1351) : coefficients et reprise du personnel", "sait": "La grille commence au coefficient 120. La reprise du personnel est encadrée par l'accord du 5 mars 2002, modifié.", "doute": "Quel coefficient correspond exactement à quel poste (APS, SSIAP 1…) ? L'avenant de 2021 sur la reprise est-il étendu ?"}, {"id": "d11", "u": "ADS", "ch": [54], "t": "Grands événements : l'article qui fixe le délai de déclaration", "sait": "Une manifestation de plus de 1 500 personnes se déclare au maire (à Paris, au préfet de police), au moins un mois avant.", "doute": "Quel article précis, parmi les R.211-22 et suivants du CSI, fixe ce délai ?"}, {"id": "d12", "u": "ADS", "ch": [38, 39], "t": "Autorisations préalable et provisoire : l'article des 6 mois", "sait": "Ces autorisations sont valables 6 mois.", "doute": "Quel article réglementaire fixe cette durée ?"}];
+const DOUTES = [{"id": "d1", "u": "SSIAP", "ch": [11], "t": "Extincteurs : la répartition exacte des règles entre MS 38 et MS 39", "sait": "Les règles sur les extincteurs (nombre, emplacement, types) figurent dans les articles MS du règlement de sécurité des ERP.", "doute": "Quelles règles relèvent précisément de MS 38 et lesquelles de MS 39 ?", "rep": "MS 38 fixe les moyens de secours et leur entretien ; MS 39 fixe la dotation : 1 appareil pour 200 m² et par niveau, avec au moins 2 appareils par établissement. En 5e catégorie, PE 26 prévoit 1 appareil pour 300 m² et 1 par niveau. Le Code du travail (R.4227-29) s'applique aussi là où il y a des salariés."}, {"id": "d2", "u": "SSIAP", "ch": [2, 21], "t": "Arrêté du 2 mai 2005 : numéros des annexes et durée de la remise à niveau SSIAP 1", "sait": "L'arrêté du 2 mai 2005 fixe les programmes, les examens et le recyclage des SSIAP. La remise à niveau SSIAP 1 est indiquée à 21 h.", "doute": "Une source indique 35 h pour la remise à niveau SSIAP 1, et la numérotation exacte des annexes reste à confirmer."}, {"id": "d3", "u": "SSIAP", "ch": [15, 30], "t": "SSI : l'article exact de la temporisation de 5 minutes", "sait": "Le processus d'alarme peut comporter une temporisation, limitée à 5 minutes.", "doute": "Est-ce MS 64 ou MS 66 qui fixe cette durée ?", "rep": "C'est MS 66 : la temporisation ne peut pas dépasser 5 minutes et n'est admise qu'avec un personnel qualifié présent pour exploiter l'alarme. Dans les établissements de soins, U 45 impose une alarme générale sélective sans temporisation dans les niveaux comportant des locaux à sommeil."}, {"id": "d4", "u": "SSIAP", "ch": [], "t": "Glossaire : la norme de rattachement de l'UGCIS", "sait": "L'UGCIS (unité de gestion centralisée des issues de secours) fait partie des matériels du SSI.", "doute": "Faut-il la rattacher à la norme NF S 61-934 ou à une autre norme ?"}, {"id": "d5", "u": "Secourisme", "ch": [], "t": "Secourisme de sécurité civile : ce que change l'arrêté du 7 juillet 2026", "sait": "Cet arrêté fixe de nouvelles références techniques nationales pour les gestes qui sauvent, le PSC et le PSE. Le SST, lui, suit le référentiel de l'INRS.", "doute": "Quels gestes du PSC et du PSE changent concrètement, et à partir de quand ?"}, {"id": "d6", "u": "ADS", "ch": [38], "t": "Formation APS : le détail heure par heure de l'arrêté du 1er septembre 2025", "sait": "175 h au total : un tronc commun de 41 h et un module de 134 h, dont une partie possible à distance.", "doute": "Les intitulés exacts et les heures de chaque sous-module restent à relire sur le texte officiel."}, {"id": "d7", "u": "ADS", "ch": [47, 54], "t": "Palpation aux manifestations de plus de 300 spectateurs (CSI, art. L.613-3)", "sait": "La palpation y est possible sous le contrôle d'un officier de police judiciaire, par une personne du même sexe.", "doute": "Un agrément particulier est-il encore exigé pour les agents ? Les sources se contredisent."}, {"id": "d8", "u": "ADS", "ch": [38, 39], "t": "Niveau B1 en français : exigé aussi au renouvellement de la carte ?", "sait": "Le niveau B1 est exigé pour entrer en formation et pour obtenir la carte professionnelle (décret n° 2022-198).", "doute": "Est-il aussi exigé au renouvellement ? Les sources se contredisent."}, {"id": "d9", "u": "ADS", "ch": [41], "t": "Code de déontologie : la numérotation des articles après 2022", "sait": "Le code de déontologie figure aux articles R.631-1 et suivants du Code de la sécurité intérieure.", "doute": "Certains articles ont-ils changé de numéro depuis 2022, par exemple celui sur la présentation de la carte professionnelle ?"}, {"id": "d10", "u": "ADS", "ch": [55], "t": "Convention collective (IDCC 1351) : coefficients et reprise du personnel", "sait": "La grille commence au coefficient 120. La reprise du personnel est encadrée par l'accord du 5 mars 2002, modifié.", "doute": "Quel coefficient correspond exactement à quel poste (APS, SSIAP 1…) ? L'avenant de 2021 sur la reprise est-il étendu ?"}, {"id": "d11", "u": "ADS", "ch": [54], "t": "Grands événements : l'article qui fixe le délai de déclaration", "sait": "Une manifestation de plus de 1 500 personnes se déclare au maire (à Paris, au préfet de police), au moins un mois avant.", "doute": "Quel article précis, parmi les R.211-22 et suivants du CSI, fixe ce délai ?"}, {"id": "d12", "u": "ADS", "ch": [38, 39], "t": "Autorisations préalable et provisoire : l'article des 6 mois", "sait": "Ces autorisations sont valables 6 mois.", "doute": "Quel article réglementaire fixe cette durée ?"}];
 (function () {
   const MAIL = "contact.limitlessprojets@gmail.com";
   const box = document.getElementById("doutes-box"); if (!box) return;
@@ -7803,6 +8687,239 @@ const DOUTES = [{"id": "d1", "u": "SSIAP", "ch": [11], "t": "Extincteurs : la r�
   }).observe(box, { childList: true });
 })();
 
+/* ---- v28 : textes classés par type ---- */
+(function () {
+  const ALL = [["Code", "Code de la construction et de l'habitation", "Définit les ERP et les IGH, les classe, et fixe les obligations de l'exploitant.", "ERP : R.143-1 et s. · IGH : R.146-1 et s.", "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006074096", null, "SSIAP"], ["Code", "Code du travail", "La sécurité des salariés, la prévention incendie et l'intervention des entreprises extérieures.", "Prévention : L.4121-1 · Incendie : R.4227-1 à R.4227-57 · Extincteurs : R.4227-29 · Entreprises extérieures : R.4512-2 et s.", "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006072050", null, "SSIAP · ADS"], ["Code", "Code de la sécurité intérieure", "Encadre la sécurité privée : activités, carte professionnelle, pouvoirs de l'agent, CNAPS, déontologie.", "Activités : L.611-1 · Bagages et palpation : L.613-2 · Véhicules : L.613-2-1 · Carte professionnelle : L.612-20", "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000025503132", null, "ADS · SSIAP"], ["Arrêté", "Arrêté du 25 juin 1980", "Le règlement de sécurité des ERP : dispositions générales (GN, CO, DF, EL, MS…) et règles propres à chaque type.", "Dégagements : CO 38 · Extincteurs : MS 38 et MS 39 · SSI : MS 53 à MS 69 · Temporisation : MS 66", "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000290033", null, "SSIAP"], ["Arrêté", "Arrêté du 22 juin 1990", "Les règles des petits établissements : les ERP de 5e catégorie.", "Articles PE · Extincteurs : PE 26", null, "À consulter sur Légifrance", "SSIAP"], ["Arrêté", "Arrêté du 30 décembre 2011", "Le règlement de sécurité des immeubles de grande hauteur (IGH).", "Colonnes : GH 54 et GH 55", "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000025167121", null, "SSIAP"], ["Arrêté", "Arrêté du 2 mai 2005", "Le texte du métier : missions, emploi et qualification des agents SSIAP 1, 2 et 3.", "Missions : art. 2 · Examens : art. 4 à 6 et annexe IX · Recyclage : art. 7", "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000448223", null, "SSIAP"], ["Normes", "Normes NF S 61-930 à 61-940", "Les règles techniques du SSI : conception, installation, exploitation, matériels.", "931 général · 932 installation · 933 exploitation · 937 DAS", null, "Normes AFNOR, consultables sur abonnement", "SSIAP"], ["Référentiel", "Secourisme : SST, PSC et PSE", "Le SST suit le référentiel et le guide des données techniques de l'INRS. Le PSC et le PSE relèvent de la sécurité civile.", "SST : référentiel et guide INRS · PSE1 : arrêté du 24 août 2007 modifié · Références techniques GQS, PSC, PSE : arrêté du 7 juillet 2026", null, "Référentiels INRS et Sécurité civile", "SSIAP · ADS"], ["Code", "Code pénal", "Il définit les infractions et les peines, ainsi que les causes d'irresponsabilité comme la légitime défense.", "Art. 122-5 (légitime défense) · Art. 122-6 (présomption de légitime défense) · Art. 122-7 (état de nécessité) · Art. 223-6 (non-assistance à personne en péril) · Art. 224-1 (arrestation, séquestration) · Art. 225-1 et 225-2 (discrimination)", "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006070719/", null, "ADS"], ["Code", "Code de procédure pénale", "Il fixe les règles de l'enquête et ce que peut faire un simple citoyen face à un flagrant délit.", "Art. 53 (définition du flagrant délit) · Art. 73 (appréhension de l'auteur d'un flagrant délit) · Art. 78-2 (contrôle d'identité réservé à la police judiciaire)", "https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006071154/", null, "ADS"], ["Code", "Code de déontologie des personnes physiques ou morales exerçant des activités privées de sécurité ou des activités de formation aux activités privées de sécurité (Code de la sécurité intérieure, partie réglementaire)", "Il fixe les devoirs de l'agent : respect des lois, sobriété, confidentialité, pas de violence hors légitime défense, pas de confusion avec la police.", "Art. R.631-1 à R.631-33 · R.631-4 (respect des lois) · R.631-6 (sobriété) · R.631-9 (confidentialité) · R.631-10 (pas de violence hors légitime défense) · R.631-11 (armement) · R.631-12 (pas de confusion avec un service public)", "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000025503132/LEGISCTA000029656360/", null, "ADS"], ["Arrêté", "Arrêté du 1er septembre 2025 portant cahier des charges applicable à la formation initiale aux activités privées de sécurité et aux activités de recherches privées", "Il fixe le programme et la durée minimale de la formation initiale de l'agent (175 h), en vigueur depuis le 1er octobre 2025.", "Annexe II (tronc commun, 41 h) · Annexe III (surveillance humaine ou gardiennage, 134 h) · Art. 10 (abrogation de l'arrêté du 27 juin 2017) · Art. 11 (CQP déjà agréés) · Art. 14 (entrée en vigueur)", "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000052197461", null, "ADS"], ["Arrêté", "Arrêté du 27 février 2017 relatif à la formation continue des agents privés de sécurité", "Il organise le stage de maintien et d'actualisation des compétences (MAC) obligatoire pour renouveler la carte professionnelle.", "Art. 4 (déroulement en présentiel) · Annexes (contenu de la MAC APS, 34 h)", "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034104578", null, "ADS"], ["Arrêté", "Arrêté du 18 juillet 2023 relatif aux tenues des agents privés de sécurité", "Il impose sur la tenue la mention « SÉCURITÉ PRIVÉE » au dos et le numéro de carte sur la poitrine, depuis le 1er octobre 2024.", "Art. 6 (mention « SÉCURITÉ PRIVÉE », numéro de carte, logo de l'entreprise)", "https://www.legifrance.gouv.fr/search/all?query=%22arr%C3%AAt%C3%A9+du+18+juillet+2023+relatif+aux+tenues+des+agents+priv%C3%A9s+de+s%C3%A9curit%C3%A9%22", null, "ADS"], ["Décret", "Décret n° 2022-198 du 17 février 2022 relatif au niveau de connaissance de la langue française requis pour l'exercice des activités privées de sécurité", "Il exige un niveau de français B1 pour entrer en formation et obtenir la carte professionnelle.", "Art. R.612-15 · Art. R.612-22 · Art. R.622-13 · Art. R.622-20 du Code de la sécurité intérieure (3° bis ajouté)", "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000045189349", null, "ADS"], ["Loi", "Loi n° 2026-798 du 18 août 2026 visant à offrir des réponses immédiates aux phénomènes troublant l'ordre public, la sécurité et la tranquillité de nos concitoyens (dite « RIPOST »)", "Elle déplace et élargit l'inspection visuelle des véhicules (nouvel article L.613-2-1 du CSI), depuis le 20 août 2026. Les conditions de la palpation de sécurité ne changent pas.", "Art. 51 (L.613-2 du CSI : palpation inchangée) · Art. L.613-2-1 du CSI (inspection visuelle des véhicules, avec le consentement exprès du conducteur) · Art. 53 (expérimentation de caméras individuelles, en attente de décret)", "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000054707332", null, "ADS"], ["Convention collective", "Convention collective nationale des entreprises de prévention et de sécurité du 15 février 1985 (IDCC 1351)", "Elle fixe les règles de travail de la branche : classification, coefficients, salaires minimaux, temps de travail.", "Accord de classification · Grille des salaires minimaux · Avenants", "https://www.legifrance.gouv.fr/conv_coll/id/KALICONT000005635405", null, "ADS"], ["Plan", "Plan Vigipirate (Secrétariat général de la défense et de la sécurité nationale – SGDSN)", "Il fixe le niveau de menace terroriste (Vigilance, Vigilance renforcée, Alerte attentat) et les mesures de vigilance à appliquer.", "Plan 2026 : Vigilance · Vigilance renforcée · Alerte attentat · Posture actuelle : Vigilance renforcée (depuis le 22 juin 2026)", "https://www.info.gouv.fr/risques/le-plan-vigipirate", "Consultable sur le site du SGDSN (sgdsn.gouv.fr) et sur info.gouv.fr", "ADS"], ["Décret", "Décret n° 2017-1844 du 29 décembre 2017 relatif à l'exercice de certaines activités privées de sécurité avec le port d'une arme", "Il encadre l'armement des agents : catégories d'armes autorisées, autorisation du préfet, formation et entraînement.", "Armes de catégorie B et D · Autorisation du préfet · Formation et entraînement des agents armés", "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000036339980", null, "ADS"]];
+  TEXTS.length = 0; ALL.forEach(t => TEXTS.push(t));
+  const hubN = document.querySelector('.hub [data-n="tx"]'); if (hubN) hubN.textContent = TEXTS.length;
+  const CATS = [["Code", "Codes"], ["Loi", "Lois"], ["Décret", "Décrets"], ["Arrêté", "Arrêtés"], ["Convention collective", "Conventions collectives"], ["Normes", "Normes"], ["Référentiel", "Référentiels et plans", ["Référentiel", "Plan"]]];
+  const inCat = (t, c) => (c[2] || [c[0]]).includes(t[0]);
+  const box = $("#texts"), chips = $("#tx-chips"); if (!box || !chips) return;
+  const card = (t, i) => {
+    const [k, ti, d, a, l, nl, u] = t;
+    const site = l ? (l.includes("legifrance") ? "Légifrance" : l.replace(/^https?:\/\/(www\.)?/, "").split("/")[0]) : "";
+    return `<div class="txt" id="tx-${i}"><div class="tx-top"><span class="kind">${k}</span>${(u || "").split(" · ").map(x => `<span class="tx-u ${x === "ADS" ? "ads" : "ssiap"}">${x}</span>`).join("")}</div><h3>${ti}</h3><p>${d}</p><span class="arts">${a}</span>${l ? `<a class="go" href="${l}" target="_blank" rel="noopener">Lire sur ${site} ↗</a>` : `<span class="nolink">${nl}</span>`}</div>`;
+  };
+  let cur = "all";
+  function draw() {
+    chips.innerHTML = `<button type="button" data-c="all" aria-pressed="${cur === "all"}">Tous <i>${TEXTS.length}</i></button>` + CATS.map(c => { const n = TEXTS.filter(t => inCat(t, c)).length; return n ? `<button type="button" data-c="${c[0]}" aria-pressed="${cur === c[0]}">${c[1]} <i>${n}</i></button>` : ""; }).join("");
+    box.innerHTML = CATS.filter(c => cur === "all" || cur === c[0]).map(c => {
+      const L = TEXTS.map((t, i) => [t, i]).filter(([t]) => inCat(t, c)); if (!L.length) return "";
+      return `<div class="tx-grp"><h3 class="tx-h">${c[1]} <i>${L.length}</i></h3><div class="texts-g">${L.map(([t, i]) => card(t, i)).join("")}</div></div>`;
+    }).join("");
+  }
+  chips.addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; cur = b.dataset.c; draw(); chips.scrollIntoView({ block: "nearest" }); });
+  window.__txShow = i => { cur = "all"; draw(); return document.getElementById("tx-" + i); };
+  draw();
+})();
+
+/* ---- v28 : univers (feu pour le SSIAP, noir et blanc pour l'ADS) ---- */
+(function () {
+  const set = ads => { document.body.dataset.univ = ads ? "ads" : "fire"; };
+  const fromHash = () => { const h = location.hash, m = h.match(/^#ch-(\d+)$/); set((m && +m[1] >= 37) || /^#(bloc-3|qcm-a)$/.test(h)); };
+  addEventListener("hashchange", fromHash); fromHash();
+  document.addEventListener("click", e => { const q = e.target.closest("#qmodes .qm"); if (q) set(q.dataset.m === "a"); });
+})();
+
+/* ---- v28 : bannière Flash info ---- */
+window.__flash = [["nl-vigi", "Vigipirate : posture « Vigilance renforcée » depuis le 22 juin 2026."], ["nl-vigi", "Plan Vigipirate 2026 : 3 niveaux · Vigilance, Vigilance renforcée, Alerte attentat."], ["nl-ripost", "Loi RIPOST : inspection visuelle des véhicules par l'agent privé, art. L.613-2-1 du CSI (20/08/2026)."], ["nl-secours", "Premiers secours : nouvelles références GQS, PSC, PSE (arrêté du 7 juillet 2026). Le SST ne change pas."], ["nl-atmp", "AT-MP : nouvelle indemnisation de l'incapacité permanente à partir du 1er novembre 2026."], ["nl-carte", "Carte « grands événements » pérennisée (décret n° 2026-670, selon la presse spécialisée)."]];
+(function () {
+  const fl = document.getElementById("flash"), tr = document.getElementById("fl-track"); if (!fl || !tr) return;
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  if (store.get("ms-flash-off") === "2026-10-06") return;
+  fl.hidden = false;
+  const rm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const items = [...tr.children];
+  if (rm) {
+    fl.classList.add("rm"); let k = 0; items[0].classList.add("on");
+    setInterval(() => { if (fl.matches(":hover, :focus-within")) return; items[k].classList.remove("on"); k = (k + 1) % items.length; items[k].classList.add("on"); }, 7000);
+  } else {
+    items.forEach(n => { const c = n.cloneNode(true); c.setAttribute("aria-hidden", "true"); c.tabIndex = -1; tr.appendChild(c); });
+    requestAnimationFrame(() => tr.style.setProperty("--fl-d", Math.max(30, Math.round(tr.scrollWidth / 2 / 55)) + "s"));
+  }
+  fl.querySelector(".fl-x").addEventListener("click", () => { fl.hidden = true; store.set("ms-flash-off", "2026-10-06"); });
+})();
+
+/* ---- v28 : lettre Mémo World ---- */
+(function () {
+  document.addEventListener("click", e => {
+    const a = e.target.closest("[data-nl]"); if (!a) return;
+    e.preventDefault(); const id = a.dataset.nl;
+    const go = () => { const el = document.getElementById(id); if (el) { el.scrollIntoView({ block: "center", behavior: "smooth" }); el.classList.add("srch-hit"); setTimeout(() => el.classList.remove("srch-hit"), 2600); } };
+    if (location.hash === "#newsletter") go(); else { location.hash = "#newsletter"; setTimeout(go, 120); }
+  });
+  const ok = document.getElementById("nl-ok"), btn = document.getElementById("nl-btn"); if (!ok || !btn) return;
+  const upd = () => { btn.setAttribute("aria-disabled", ok.checked ? "false" : "true"); btn.href = ok.checked ? mailto("Inscription à la lettre Mémo World", "Bonjour,\n\nJe souhaite recevoir la lettre Mémo World à cette adresse e-mail. J'accepte qu'elle serve uniquement à cet envoi.\n\nMerci !") : "#newsletter"; };
+  ok.addEventListener("change", upd); upd();
+  btn.addEventListener("click", e => { if (!ok.checked) { e.preventDefault(); ok.focus(); ok.closest("label").classList.add("need"); setTimeout(() => ok.closest("label").classList.remove("need"), 1600); } });
+})();
+
+/* ---- v28 : recherche sur tout le site ---- */
+(function () {
+  const ov = document.getElementById("srch"), q = document.getElementById("srch-q"), res = document.getElementById("srch-res"), meta = document.getElementById("srch-meta"), filt = document.getElementById("srch-filt"), sugg = document.getElementById("srch-sugg");
+  if (!ov) return;
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const nc = c => { const n = c.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase(); return n.length === 1 ? n : c.toLowerCase().slice(0, 1) || c; };
+  const norm = s => { let o = ""; for (const c of s) o += nc(c); return o.replace(/[’']/g, " "); };
+  const strip = s => String(s || "").replace(/<[^>]+>/g, "").replace(/&nbsp;| /g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+  const esc2 = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  const TYPES = [["all", "Tout"], ["ch", "Chapitres"], ["gl", "Glossaire"], ["cas", "Cas pratiques"], ["sst", "Secourisme"], ["tx", "Textes"], ["dt", "Points à vérifier"], ["pg", "Pages"]];
+  const LBL = { ch: "Chapitre", gl: "Sigle", cas: "Cas pratique", sst: "Secourisme", tx: "Texte officiel", dt: "Point à vérifier", pg: "Page" };
+  let IDX = null;
+  const univOf = n => n >= 37 ? "ADS" : n >= 21 ? "SSIAP 2" : "SSIAP 1";
+  function build() {
+    IDX = [];
+    const add = (type, title, body, go, extra) => { const t = strip(title), b = strip(body); IDX.push({ type, title: t, body: b, nt: norm(t + " " + (extra || "")), nb: norm(b), go }); };
+    CH.forEach(c => add("ch", `Chapitre ${pad(c.n)} · ${c.t}`, [].concat(c.obj || [], c.ess || [], c.terrain || [], c.retenir || [], c.refs || []).join(" · "), { h: "#ch-" + pad(c.n), u: univOf(c.n) }, `ch ${c.n} chapitre ${c.n} ${univOf(c.n)}`));
+    GLO.forEach(g => add("gl", `${g.s} · ${g.l}`, `${g.d} ${g.r ? "· " + g.r : ""}`, { gl: g.s, s: norm(g.s).replace(/[^a-z0-9]/g, "") }));
+    CAS.forEach(c => add("cas", c.t, `${c.lieu || ""} ${c.quand || ""}`, { h: "#" + c.id, u: c.lvl ? "SSIAP " + c.lvl : "" }));
+    SST.fiches.forEach((f, k) => add("sst", f.t, `${f.signes || ""} · ${[].concat(f.faire || []).join(" · ")}`, { sst: k }, "sst secourisme"));
+    TEXTS.forEach((t, i) => add("tx", t[1], `${t[2]} · ${t[3]}`, { tx: i, u: t[6] || "" }, t[0]));
+    if (typeof DOUTES !== "undefined") DOUTES.forEach(d => add("dt", d.t, `${d.sait || ""} ${d.doute || ""} ${d.rep || ""}`, { dt: d.id }));
+    [["Accueil", "#accueil", "accueil memo world"], ["Le parcours : tous les chapitres", "#parcours", "parcours chapitres bloc ssiap 1 ssiap 2 ads cours"], ["Examens blancs", "#qcm", "examen blanc qcm test chronometre questions"], ["Glossaire des sigles", "#glossaire", "glossaire sigles abreviations"], ["Cas pratiques", "#cas", "cas pratiques mise en situation"], ["Secourisme SST", "#sst", "sst secourisme premiers secours sauveteur"], ["Les textes officiels", "#textes", "textes officiels lois codes arretes decrets normes legifrance"], ["Ma progression", "#progres", "progression score statistiques resultats transfert"], ["Points à vérifier", "#doutes", "points a verifier doutes questions"], ["Historique du site", "#journal", "historique mises a jour corrections nouveautes merci"], ["Flash info et lettre Mémo World", "#newsletter", "flash info newsletter lettre actualite veille reglementation"], ["À propos et contact", "#apropos", "a propos contact mentions legales"]]
+      .forEach(([t, h, k]) => add("pg", t, "", { h }, k));
+  }
+  const STOP = new Set(["le", "la", "les", "de", "des", "du", "un", "une", "et", "a", "en", "l", "d", "au", "aux", "est", "pour", "que", "qui", "sur"]);
+  const wstart = (s, t) => { let i = s.indexOf(t); while (i > -1) { if (i === 0 || !/[a-z0-9]/.test(s[i - 1])) return true; i = s.indexOf(t, i + 1); } return false; };
+  function search(raw) {
+    if (!IDX) build();
+    const nq = norm(raw).replace(/[^a-z0-9.\- ]/g, " ").replace(/\s+/g, " ").trim(); if (!nq) return { toks: [], list: [] };
+    let toks = nq.split(" ").filter(t => t && !STOP.has(t)); if (!toks.length) toks = nq.split(" ");
+    const compact = nq.replace(/[^a-z0-9]/g, "");
+    const list = [];
+    for (const it of IDX) {
+      let sc = 0, ok = true;
+      for (const t of toks) {
+        const inT = it.nt.includes(t), inB = it.nb.includes(t);
+        if (!inT && !inB) { ok = false; break; }
+        if (inT) sc += wstart(it.nt, t) ? 30 : 12; else sc += wstart(it.nb, t) ? 5 : 2;
+        if (inB) sc += Math.min(4, it.nb.split(t).length - 1);
+      }
+      if (!ok) continue;
+      if (toks.length > 1) { if (it.nt.includes(nq)) sc += 40; else if (it.nb.includes(nq)) sc += 14; }
+      if (it.type === "gl" && it.go.s === compact) sc += 120;
+      if (it.type === "pg") sc += 6;
+      if (it.type === "dt") sc -= 8;
+      if (it.type === "ch") sc += 3;
+      list.push([sc, it]);
+    }
+    list.sort((a, b) => b[0] - a[0]);
+    return { toks, nq, list: list.map(x => x[1]) };
+  }
+  function mark(text, toks) {
+    const n = norm(text), hit = new Array(text.length).fill(false);
+    toks.forEach(t => { if (t.length < 2 && toks.length > 1) return; let i = n.indexOf(t); while (i > -1) { for (let k = i; k < i + t.length; k++) hit[k] = true; i = n.indexOf(t, i + t.length); } });
+    let o = "", on = false; for (let k = 0; k < text.length; k++) { if (hit[k] !== on) { o += hit[k] ? "<mark>" : "</mark>"; on = hit[k]; } o += esc2(text[k]); } if (on) o += "</mark>"; return o;
+  }
+  function snip(text, toks, nq) {
+    if (!text) return "";
+    const n = norm(text); let i = nq ? n.indexOf(nq) : -1;
+    if (i < 0) for (const t of toks) { i = n.indexOf(t); if (i > -1) break; }
+    if (i < 0) i = 0;
+    const a = Math.max(0, i - 60), b = Math.min(text.length, i + 130);
+    return (a > 0 ? "…" : "") + mark(text.slice(a, b), toks) + (b < text.length ? "…" : "");
+  }
+  let cur = [], type = "all", sel = -1, lastQ = "";
+  const SUG = ["MS 39", "CMSI", "Désenfumage", "Unité de passage", "Légitime défense", "Palpation", "PLS", "Vigipirate", "Permis de feu", "Main courante"];
+  function recent() { try { return JSON.parse(store.get("ms-srch-recent") || "[]"); } catch (e) { return []; } }
+  function remember(s) { s = s.trim(); if (s.length < 2) return; const r = recent().filter(x => norm(x) !== norm(s)); r.unshift(s); store.set("ms-srch-recent", JSON.stringify(r.slice(0, 5))); }
+  function drawSugg() {
+    const r = recent();
+    sugg.innerHTML = (r.length ? `<p>Vos dernières recherches</p><div>${r.map(s => `<button type="button" data-s="${esc2(s)}">${esc2(s)}</button>`).join("")}</div>` : "") + `<p>Essayez</p><div>${SUG.map(s => `<button type="button" data-s="${esc2(s)}">${esc2(s)}</button>`).join("")}</div>`;
+  }
+  function draw() {
+    const raw = q.value; lastQ = raw;
+    if (!raw.trim()) { res.innerHTML = ""; filt.innerHTML = ""; meta.textContent = ""; sugg.hidden = false; drawSugg(); return; }
+    sugg.hidden = true;
+    const r = search(raw); cur = r.list;
+    const cnt = t => t === "all" ? cur.length : cur.filter(x => x.type === t).length;
+    if (type !== "all" && !cnt(type)) type = "all";
+    filt.innerHTML = TYPES.filter(([t]) => cnt(t)).map(([t, l]) => `<button type="button" data-t="${t}" aria-pressed="${t === type}">${l} <i>${cnt(t)}</i></button>`).join("");
+    const L = (type === "all" ? cur : cur.filter(x => x.type === type)).slice(0, 40);
+    meta.textContent = cur.length ? `${cur.length} résultat${cur.length > 1 ? "s" : ""}${cur.length > 40 && L.length === 40 ? " · les 40 plus pertinents" : ""}` : "";
+    sel = -1;
+    res.innerHTML = L.length ? L.map((it, k) => `<li><a href="${it.go.h || "#"}" data-k="${cur.indexOf(it)}"><span class="sr-t"><em class="sr-k ${it.type}">${LBL[it.type]}${it.go.u ? " · " + esc2(it.go.u) : ""}</em></span><b>${mark(it.title, r.toks)}</b>${it.body ? `<span class="sr-s">${snip(it.body, r.toks, r.nq)}</span>` : ""}</a></li>`).join("")
+      : `<li class="sr-none"><b>Aucun résultat pour « ${esc2(raw.trim())} ».</b><span>Vérifiez l'orthographe, essayez un mot plus court ou un sigle (ex. : SSI, ERP). Le terme manque vraiment ? Signalez-le : <a href="${mailto("Mémo World · terme introuvable", "Bonjour, j'ai cherché « " + raw.trim() + " » sur le site sans résultat.")}">écrivez-nous</a>.</span></li>`;
+  }
+  let qt = 0; q.addEventListener("input", () => { clearTimeout(qt); qt = setTimeout(draw, 90); });
+  filt.addEventListener("click", e => { const b = e.target.closest("button[data-t]"); if (!b) return; type = b.dataset.t; draw(); });
+  sugg.addEventListener("click", e => { const b = e.target.closest("button[data-s]"); if (!b) return; q.value = b.dataset.s; draw(); q.focus(); });
+  let lastFocus = null;
+  function open(v) {
+    if (!ov.hidden) { q.focus(); return; }
+    lastFocus = document.activeElement; ov.hidden = false; document.body.classList.add("srch-open");
+    if (typeof v === "string") q.value = v; draw(); setTimeout(() => { q.focus(); q.select(); }, 30);
+  }
+  function close() { if (ov.hidden) return; ov.hidden = true; document.body.classList.remove("srch-open"); if (lastFocus && lastFocus.focus) try { lastFocus.focus({ preventScroll: true }); } catch (e) {} }
+  window.__srch = { open, close, search };
+  /* surligne le passage trouvé dans la page d'arrivée */
+  function spot(rootSel, toks, nq) {
+    const root = document.querySelector(rootSel); if (!root || !toks.length) return;
+    const els = [...root.querySelectorAll("p, li, td, h2, h3, h4, .arts, summary, .dt h4")].filter(e => e.offsetParent !== null);
+    let best = els.find(e => nq && norm(e.textContent).includes(nq)) || els.find(e => toks.every(t => norm(e.textContent).includes(t))) || els.find(e => norm(e.textContent).includes(toks[0]));
+    if (!best) return; best.scrollIntoView({ block: "center" }); best.classList.add("srch-hit"); setTimeout(() => best.classList.remove("srch-hit"), 2800);
+  }
+  function go(it) {
+    remember(lastQ); const r = search(lastQ); close();
+    const G = it.go, nav = h => { if (location.hash === h) return false; location.hash = h; return true; };
+    if (it.type === "gl") { if (location.hash === "#glossaire") { const g = document.getElementById("gl-q"); g.value = G.gl; g.dispatchEvent(new Event("input")); window.scrollTo(0, 0); } else { window.__glq = G.gl; location.hash = "#glossaire"; } return; }
+    if (it.type === "sst") { nav("#sst"); setTimeout(() => { const f = document.querySelectorAll("#sst .sst-f")[G.sst]; if (f) { f.open = true; f.scrollIntoView({ block: "start" }); f.classList.add("srch-hit"); setTimeout(() => f.classList.remove("srch-hit"), 2800); } }, 160); return; }
+    if (it.type === "tx") { nav("#textes"); setTimeout(() => { const el = window.__txShow && window.__txShow(G.tx); if (el) { el.scrollIntoView({ block: "center" }); el.classList.add("srch-hit"); setTimeout(() => el.classList.remove("srch-hit"), 2800); } }, 160); return; }
+    if (it.type === "dt") { nav("#doutes"); setTimeout(() => { const el = document.getElementById("doute-" + G.dt); if (el) { el.scrollIntoView({ block: "center" }); el.classList.add("srch-hit"); setTimeout(() => el.classList.remove("srch-hit"), 2800); } }, 160); return; }
+    if (it.type === "ch") { nav(G.h); setTimeout(() => spot("#chap", r.toks, r.nq), 260); return; }
+    if (it.type === "cas") { nav(G.h); return; }
+    nav(G.h);
+  }
+  res.addEventListener("click", e => { const a = e.target.closest("a[data-k]"); if (!a) return; e.preventDefault(); go(cur[+a.dataset.k]); });
+  q.addEventListener("keydown", e => {
+    const A = [...res.querySelectorAll("a[data-k]")];
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") { if (!A.length) return; e.preventDefault(); sel = (sel + (e.key === "ArrowDown" ? 1 : -1) + A.length) % A.length; A.forEach((a, k) => a.classList.toggle("on", k === sel)); A[sel].scrollIntoView({ block: "nearest" }); }
+    else if (e.key === "Enter") { e.preventDefault(); const a = A[sel > -1 ? sel : 0]; if (a) go(cur[+a.dataset.k]); }
+  });
+  ov.addEventListener("click", e => { if (e.target === ov || e.target.closest(".srch-x")) close(); });
+  addEventListener("keydown", e => {
+    if (e.key === "Escape" && !ov.hidden) { close(); return; }
+    const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement || {}).tagName || "") || (document.activeElement && document.activeElement.isContentEditable);
+    if ((e.key === "/" && !typing) || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k")) { e.preventDefault(); open(); }
+  });
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-srch]"); if (!b) return; e.preventDefault();
+    const m = document.getElementById("menu"); if (m && !m.hidden) { const x = document.getElementById("menu-x"); if (x) x.click(); }
+    open();
+  });
+  addEventListener("hashchange", close);
+  /* Vimo montre la recherche une fois */
+  setTimeout(function hint(n) {
+    if (store.get("ms-vimo-srch") === "1" || (location.hash && location.hash !== "#accueil")) return;
+    const pill = document.querySelector("#accueil .srch-pill");
+    if (pill && window.__vimoPoint && window.__vimoPoint(pill, "Cherche ce que tu veux ici : un article, un sigle, un chapitre.")) store.set("ms-vimo-srch", "1");
+    else if ((n || 0) < 4) setTimeout(() => hint((n || 0) + 1), 4000);
+  }, 9000);
+})();
+
+/* ---- v29 : Vimo relaie la veille (Flash info) ---- */
+(function () {
+  const say = window.__vimoSay, wrap = document.getElementById("mascot"); if (!say || !wrap) return;
+  const store = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const F = window.__flash || [], FID = "2026-10-06"; if (!F.length) return;
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  /* 1. une fois par nouveau flash : il l'annonce */
+  setTimeout(function tryNews(n) {
+    if (store.get("ms-vimo-flash") === FID) return;
+    const bub = wrap.querySelector(".mm-bub");
+    if (wrap.classList.contains("off") || /^#qcm-/.test(location.hash) || !bub.hidden || (window.__memo && window.__memo.busy())) { if ((n || 0) < 6) setTimeout(() => tryNews((n || 0) + 1), 5000); return; }
+    store.set("ms-vimo-flash", FID);
+    say(`Flash info : ${F.length} nouvelles dans la réglementation. La première : ${F[0][1]}`, { prio: 3, mood: "wave", dur: 14000, chips: [["Lire le flash", "#newsletter"], ["Plus tard", "#" + ((location.hash || "#accueil").slice(1) || "accueil")]] });
+  }, 13000);
+  /* 2. de temps en temps, une actu à la place d'un « Le savais-tu ? » */
+  window.__vimoNews = () => { const f = pick(F); return "Actu : " + f[1]; };
+  /* 3. sur la page du flash, il montre la bannière la première fois */
+  addEventListener("hashchange", () => {
+    if (location.hash !== "#newsletter" || store.get("ms-vimo-flashpt") === "1") return;
+    setTimeout(() => { const el = document.querySelector("#newsletter .nl-flash"); if (el && window.__vimoPoint && window.__vimoPoint(el, "Ici, la veille de la semaine, avec ses sources.")) store.set("ms-vimo-flashpt", "1"); }, 2500);
+  });
+})();
+
 /* ---- menu à trois traits ---- */
 (function () {
   const m = $("#menu"), s = $("#scrim"), btn = $("#burger");
@@ -7822,7 +8939,7 @@ function route() {
     $("#v-home").hidden = true; $("#v-chap").hidden = false; window.scrollTo(0, 0); return;
   }
   $("#v-chap").hidden = true; $("#v-home").hidden = false;
-  const PAGES = ["accueil", "parcours", "textes", "qcm", "apropos", "journal", "glossaire", "cas", "sst", "progres", "doutes"];
+  const PAGES = ["accueil", "parcours", "textes", "qcm", "apropos", "journal", "glossaire", "cas", "sst", "progres", "doutes", "newsletter"];
   const page = PAGES.includes(h) ? h : /^bloc-/.test(h) ? "parcours" : /^cas(1?-\d+|-s[12])$/.test(h) ? "cas" : /^qcm-[12ra]$/.test(h) ? "qcm" : "accueil";
   if (page === "cas") renderCas(h);
   if (/^qcm-[12ra]$/.test(h)) setMode(h.slice(4));
