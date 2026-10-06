@@ -469,6 +469,16 @@ body.menu-open { overflow: hidden; }
 .btn-rep:hover, .btn-rep:focus-visible { background: var(--fire); color: #fff; }
 footer a.mail, #apropos a.mail { color: var(--fire); font-weight: 700; word-break: break-all; }
 
+
+/* ---- v14 : rubriques de l'accueil ---- */
+.hub { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.hub a { display: grid; gap: 2px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--fire); border-radius: 12px; padding: 14px 14px 12px; text-decoration: none; color: var(--ink); transition: border-color .15s, transform .15s; }
+.hub a:hover, .hub a:focus-visible { border-color: var(--ink); border-top-color: var(--fire); transform: translateY(-2px); }
+.hub b { font-family: var(--font-display); font-size: 40px; line-height: 1; color: var(--fire); }
+.hub span { font-weight: 800; font-size: 15.5px; }
+.hub i { font-style: normal; font-size: 13px; color: var(--muted); margin-top: 4px; }
+@media (max-width: 420px) { .hub b { font-size: 34px; } .hub a { padding: 12px; } }
+
 /* ---- QCM : cases à cocher ---- */
 .hint { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); margin: -6px 0 10px; }
 .opt { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; }
@@ -549,24 +559,17 @@ footer a.mail, #apropos a.mail { color: var(--fire); font-weight: 700; word-brea
         <a class="btn" href="#qcm">Faire un examen blanc</a>
       </div>
     </div>
-    <div class="ecs" aria-label="Illustration : façade d'un tableau de signalisation incendie">
-      <div class="ecs-head"><b>ECS · ZONES</b><span id="clock">--/-- · --:--</span></div>
-      <div class="zone"><span class="led"></span><span>ZD 01</span><span>Surface de vente</span><span class="st">veille</span></div>
-      <div class="zone"><span class="led"></span><span>ZD 02</span><span>Réserves</span><span class="st">veille</span></div>
-      <div class="zone"><span class="led f"></span><span>ZD 03</span><span>Local technique</span><span class="st">FEU</span></div>
-      <div class="zone"><span class="led d"></span><span>ZD 04</span><span>Galerie</span><span class="st">dérangement</span></div>
-      <div class="zone"><span class="led"></span><span>ZD 05</span><span>Bureaux</span><span class="st">veille</span></div>
-    </div>
+    <nav class="hub" aria-label="Ce que contient le site">
+      <a href="#parcours"><b data-n="ch">36</b><span>chapitres</span><i>Le parcours SSIAP 1 et 2 →</i></a>
+      <a href="#qcm"><b data-n="q">360</b><span>questions</span><i>Examens blancs chronométrés →</i></a>
+      <a href="#cas"><b data-n="cas">14</b><span>cas pratiques</span><i>Agent et chef d'équipe →</i></a>
+      <a href="#glossaire"><b data-n="gl">374</b><span>sigles</span><i>Le glossaire →</i></a>
+      <a href="#sst"><b data-n="sst">8</b><span>fiches secourisme</span><i>Les gestes SST →</i></a>
+      <a href="#textes"><b data-n="tx">10</b><span>textes officiels</span><i>Les références →</i></a>
+    </nav>
   </div>
 
   <div class="wrap">
-    <div class="stats">
-      <div><b>36</b><span>chapitres</span></div>
-      <div><b>360</b><span>questions</span></div>
-      <div><b>14</b><span>cas pratiques</span></div>
-      <div><b>374</b><span>sigles</span></div>
-    </div>
-
     <div class="land-blk">
       <h2>Pourquoi ce site existe</h2>
       <p>La formation SSIAP dure quelques jours. Ensuite, on se retrouve seul au PC avec des textes longs, éparpillés, parfois renumérotés, et des notions qu'on n'utilise pas tous les jours. Au moment de l'exercice, du recyclage ou de l'intervention, il faut pourtant les avoir en tête.</p>
@@ -6219,7 +6222,7 @@ function drawReview() {
 setMode("1");
 
 /* ---- horloge ECS ---- */
-(function tick() { const d = new Date(); $("#clock").textContent = `${pad(d.getDate())}/${pad(d.getMonth() + 1)} · ${pad(d.getHours())}:${pad(d.getMinutes())}`; setTimeout(tick, 30000); })();
+(function tick() { const d = new Date(); if ($("#clock")) $("#clock").textContent = `${pad(d.getDate())}/${pad(d.getMonth() + 1)} · ${pad(d.getHours())}:${pad(d.getMinutes())}`; setTimeout(tick, 30000); })();
 
 
 /* ---- glossaire ---- */
@@ -6470,6 +6473,12 @@ renderChapter = function (n) {
   const s = $("#sst-box"); if (s) s.insertAdjacentHTML("beforeend", reportBox("Mémo SSIAP · Rubrique Secourisme SST", "rubrique Secourisme SST"));
   const g = $("#glossaire .wrap"); if (g) g.insertAdjacentHTML("beforeend", reportBox("Mémo SSIAP · Glossaire", "glossaire, sigle : …"));
   const k = $("#cas .wrap"); if (k) k.insertAdjacentHTML("beforeend", reportBox("Mémo SSIAP · Cas pratiques", "cas pratique n° …"));
+})();
+
+/* ---- accueil : chiffres calculés sur le contenu réel ---- */
+(function () {
+  const n = { ch: CH.length, q: CH.reduce((s, c) => s + (c.qcm ? c.qcm.length : 0), 0), cas: CAS.length, gl: GLO.length, sst: SST.fiches.length, tx: TEXTS.length };
+  document.querySelectorAll(".hub [data-n]").forEach(b => { if (n[b.dataset.n]) b.textContent = n[b.dataset.n]; });
 })();
 
 /* ---- menu à trois traits ---- */
