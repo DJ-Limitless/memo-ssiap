@@ -605,6 +605,18 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
 .mm-arm-l path, .mm-arm-r path { fill: none; stroke-width: 4; stroke-linecap: round; }
 @media (prefers-reduced-motion: reduce) { .mm-led { animation: none; } }
 
+
+/* ---- v19 : Vimo en liberté ---- */
+#mascot { --px: 0px; --py: 0px; --dur: 0ms; left: 0; top: 0; right: auto; bottom: auto; width: 62px; height: 74px; display: block; transform: translate3d(var(--px), var(--py), 0); transition: transform var(--dur) ease-in-out, opacity .3s; }
+#mascot .mm-btn { transform: none; transition: transform .25s; }
+#mascot.face-l .mm-btn { transform: scaleX(-1); }
+#mascot .mm-bub { position: absolute; left: 0; top: -90px; width: max-content; max-width: min(270px, calc(100vw - 24px)); margin: 0; border-radius: 14px; }
+#mascot .mm-bub.below { animation-name: mmPopDown; }
+@keyframes mmPopDown { from { transform: translateY(-6px) scale(.96); opacity: 0; } to { transform: none; opacity: 1; } }
+#mascot.roam .mm-body { animation: mmStep .34s ease-in-out infinite; }
+#mascot.hop .mm-svg { animation: mmHop .9s ease-in-out; }
+@keyframes mmHop { 0% { transform: translateY(0) scaleY(1); } 12% { transform: translateY(0) scaleY(.85); } 50% { transform: translateY(-46px) scaleY(1.05) rotate(-8deg); } 88% { transform: translateY(0) scaleY(.9); } 100% { transform: translateY(0) scaleY(1); } }
+
 /* ---- QCM : cases à cocher ---- */
 .hint { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); margin: -6px 0 10px; }
 .opt { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; }
@@ -825,7 +837,7 @@ h4.vids-h { font-family: var(--font-display); font-size: 18px; text-transform: u
     <div class="wrap">
       <div class="sec-head"><h2>Mises à jour</h2><p>Le site avance chaque semaine.</p></div>
       <div class="log">
-        <div><time>06/10/2026</time><span>Nouveau : Vimo, le petit guide du site. Il change de forme (extincteur, détecteur, trousse de secours) selon la rubrique, vous accueille, vous propose où aller, réagit à vos réponses et s'efface pendant les examens blancs. On peut le cacher depuis le menu. Le mini-lecteur vidéo est aussi plus discret.</span></div>
+        <div><time>06/10/2026</time><span>Nouveau : Vimo, le petit guide du site. Il se promène librement sur l'écran, change souvent de forme (extincteur, détecteur, trousse de secours) selon la rubrique, vous accueille, vous propose où aller, réagit à vos réponses et s'efface pendant les examens blancs. On peut le cacher depuis le menu. Le mini-lecteur vidéo est aussi plus discret.</span></div>
         <div><time>06/10/2026</time><span>Nouveau : des vidéos d'organismes officiels (INRS, Croix-Rouge, pompiers…) dans les chapitres, les fiches de secourisme et les débriefings des cas pratiques. Chaque vidéo a été vérifiée (chaîne officielle, sujet), et elle ne se charge que si vous appuyez sur lecture.</span></div>
         <div><time>06/10/2026</time><span>Nouveau : un schéma pour chaque fiche de secourisme (examen de la victime, saignement, étouffement, malaise, brûlures, douleur, plaies, PLS, RCP et DAE), et dans le glossaire les sigles cités dans une définition renvoient directement à leur propre fiche.</span></div>
         <div><time>06/10/2026</time><span>Nouveau : bouton « Signaler une erreur » en bas de chaque chapitre (le mail s'ouvre avec le chapitre déjà indiqué), et une adresse de contact : contact.limitlessprojets@gmail.com.</span></div>
@@ -6879,6 +6891,7 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
     setTimeout(() => { wrap.classList.remove("m-" + style); busy = false; }, style === "poof" ? 1000 : 900);
   }
   window.__memoMorph = morph;
+  window.__memo = { cloud, busy: () => busy, setBusy: v => { busy = v; }, setForm: f => { btn.innerHTML = FORMS[f]; form = f; }, forms: () => Object.keys(FORMS), form: () => form };
   const formFor = h => /^sst/.test(h) ? "kit" : (h === "glossaire" || /^ch-(15|29|30)$/.test(h) || h === "cas-4") ? "det" : "ext";
   addEventListener("hashchange", () => {
     const h = (location.hash || "#accueil").slice(1), f = formFor(h);
@@ -6888,10 +6901,73 @@ drawCasEnd = function () { _drawCasEnd2(); const r = $("#cas-box .ref"), h = vid
   setInterval(() => {
     if (document.hidden || busy || wrap.classList.contains("quiet") || wrap.classList.contains("away")) return;
     const r = Math.random();
-    if (r < .05) morph(null, "spin");
-    else if (r < .08) { const base = form, other = pick(Object.keys(FORMS).filter(k => k !== form)); morph(other, "poof"); setTimeout(() => { if (form === other) morph(base, "spin"); }, 12000); }
+    if (r < .14) morph(null, "spin");
+    else if (r < .34) { const base = form, other = pick(Object.keys(FORMS).filter(k => k !== form)); morph(other, "poof"); setTimeout(() => { if (form === other) morph(base, pick(["spin", "poof"])); }, 9000 + Math.random() * 8000); }
   }, 6000);
   btn.addEventListener("click", () => { if (Math.random() < .35) morph(null, "spin"); });
+})();
+
+/* ---- Vimo en liberté ---- */
+(function () {
+  const wrap = document.getElementById("mascot"); if (!wrap || !window.__memo) return;
+  const M = window.__memo, bub = wrap.querySelector(".mm-bub"), reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const W = 62, H = 74, pick = a => a[Math.floor(Math.random() * a.length)];
+  let x = 0, y = 0, moving = false;
+  const vw = () => document.documentElement.clientWidth, vh = () => innerHeight;
+  const home = () => { const vp = document.getElementById("vplayer"), up = vp && !vp.hidden && vp.classList.contains("mini") ? vp.offsetHeight + 14 : 0; return [vw() - W - 8, vh() - H - 8 - up]; };
+  const clampX = v => Math.max(6, Math.min(vw() - W - 6, v)), clampY = v => Math.max(78, Math.min(vh() - H - 6, v));
+  const set = (nx, ny, dur) => { wrap.style.setProperty("--dur", (dur || 0) + "ms"); x = clampX(nx); y = clampY(ny); wrap.style.setProperty("--px", x + "px"); wrap.style.setProperty("--py", y + "px"); };
+  function placeBub() {
+    if (bub.hidden) return;
+    const bw = bub.offsetWidth, bh = bub.offsetHeight, V = vw();
+    const bx = Math.max(10, Math.min(V - bw - 10, x + W / 2 - bw / 2));
+    const above = y - bh - 8 > 70, by = above ? y - bh - 8 : y + H + 8;
+    bub.style.left = (bx - x) + "px"; bub.style.top = (by - y) + "px";
+    bub.classList.toggle("below", !above);
+  }
+  new MutationObserver(placeBub).observe(bub, { attributes: true, childList: true, subtree: true, characterData: true });
+  const blocked = (nx, ny) => { const vp = document.getElementById("vplayer"); if (!vp || vp.hidden || !vp.classList.contains("mini")) return false; const r = vp.getBoundingClientRect(); return nx + W > r.left - 8 && nx < r.right + 8 && ny + H > r.top - 8 && ny < r.bottom + 8; };
+  function spot() {
+    for (let i = 0; i < 12; i++) {
+      const edge = Math.random();
+      const nx = edge < .3 ? 6 + Math.random() * 30 : edge < .6 ? vw() - W - 6 - Math.random() * 30 : 6 + Math.random() * (vw() - W - 12);
+      const ny = Math.random() < .55 ? vh() - H - 6 - Math.random() * 60 : 90 + Math.random() * (vh() - H - 170);
+      if (!blocked(clampX(nx), clampY(ny))) return [nx, ny];
+    }
+    return home();
+  }
+  const face = nx => wrap.classList.toggle("face-l", nx < x - 4);
+  function walk(nx, ny) {
+    const d = Math.hypot(nx - x, ny - y), dur = Math.max(700, Math.min(4200, d / 0.11));
+    face(nx); moving = true; wrap.classList.add("roam"); set(nx, ny, dur);
+    setTimeout(() => { wrap.classList.remove("roam"); moving = false; placeBub(); }, dur + 50);
+  }
+  function hop(nx, ny) {
+    const dur = 900; face(nx); moving = true; wrap.classList.add("hop"); set(nx, ny, dur);
+    setTimeout(() => { wrap.classList.remove("hop"); moving = false; placeBub(); }, dur + 50);
+  }
+  function teleport(nx, ny, morphTo) {
+    if (M.busy()) return; M.setBusy(true); moving = true;
+    wrap.classList.add("m-poof"); M.cloud();
+    setTimeout(() => { set(nx, ny, 0); if (morphTo) M.setForm(morphTo); M.cloud(); }, 420);
+    setTimeout(() => { wrap.classList.remove("m-poof"); M.setBusy(false); moving = false; placeBub(); }, 1000);
+  }
+  const free = () => !wrap.classList.contains("off") && !wrap.classList.contains("quiet") && !wrap.classList.contains("away") && bub.hidden && !moving && !M.busy() && !document.hidden;
+  set(...home(), 0);
+  addEventListener("resize", () => set(x, y, 0));
+  setInterval(() => { if (!moving && !M.busy() && blocked(x, y)) { const h = home(); moving = true; set(h[0], h[1], 500); setTimeout(() => { moving = false; placeBub(); }, 550); } }, 400);
+  if (reduce) { setInterval(() => set(...home(), 0), 1000); return; }
+  (function loop() {
+    setTimeout(loop, 3500 + Math.random() * 4500);
+    if (wrap.classList.contains("quiet")) { const h = home(); if (Math.abs(h[0] - x) + Math.abs(h[1] - y) > 4) walk(...h); return; }
+    if (!free()) return;
+    const r = Math.random(), [nx, ny] = Math.random() < .2 ? home() : spot();
+    if (r < .5) walk(nx, ny);
+    else if (r < .75) hop(clampX(x + (Math.random() * 240 - 120)), clampY(y + (Math.random() * 160 - 100)));
+    else teleport(nx, ny, Math.random() < .6 ? pick(M.forms().filter(f => f !== M.form())) : null);
+  })();
+  /* s'il est au milieu de l'écran quand il parle avec des choix, il reste immobile ; un clic sur un lien le fait revenir près du bord */
+  addEventListener("hashchange", () => { if (Math.random() < .5 && free()) walk(...spot()); });
 })();
 
 /* ---- menu à trois traits ---- */
