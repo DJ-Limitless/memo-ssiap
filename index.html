@@ -458,6 +458,17 @@ body.menu-open { overflow: hidden; }
 .sst-form, .sst-src { max-width: 760px; padding-left: 20px; display: grid; gap: 6px; font-size: 15px; }
 .sst-src a { color: var(--fire); }
 
+
+/* ---- v13 : signaler une erreur ---- */
+.report { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin: 18px 0 6px; max-width: 760px; background: var(--surface); border: 1px dashed var(--line); border-radius: 12px; padding: 12px 14px; }
+.report div { display: grid; gap: 2px; flex: 1 1 220px; }
+.report b { font-size: 15px; }
+.report span { font-size: 13.5px; color: var(--muted); }
+.btn-rep { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 14.5px; text-decoration: none; color: var(--fire); border: 2px solid var(--fire); border-radius: 999px; padding: 8px 14px; min-height: 44px; box-sizing: border-box; }
+.btn-rep svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+.btn-rep:hover, .btn-rep:focus-visible { background: var(--fire); color: #fff; }
+footer a.mail, #apropos a.mail { color: var(--fire); font-weight: 700; word-break: break-all; }
+
 /* ---- QCM : cases à cocher ---- */
 .hint { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); margin: -6px 0 10px; }
 .opt { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; }
@@ -675,7 +686,7 @@ body.menu-open { overflow: hidden; }
           <p><b>Mémo SSIAP est un travail d'équipe.</b> Des agents SSIAP 1 et SSIAP 2 en poste, sur un même site, ont mis en commun leurs connaissances, leurs questions et leur expérience du terrain pour construire ces fiches.</p>
           <p>Chacun y a apporté sa part : un point du règlement mal compris, une situation vécue en ronde, un thème qui revient souvent en formation ou au recyclage. Le projet est coordonné et mis en ligne par Jérémy, chef d'équipe SSIAP 2.</p>
           <p>Le résultat est un parcours complet, pour ceux qui veulent devenir SSIAP comme pour les agents en poste. Chaque information renvoie à son texte officiel.</p>
-          <p>Vous repérez une erreur ou une mise à jour d'un texte ? Signalez-la : le site est relu et complété chaque semaine, ensemble.</p>
+          <p>Vous repérez une erreur ou une mise à jour d'un texte ? Signalez-la à <a class="mail" href="mailto:contact.limitlessprojets@gmail.com?subject=M%C3%A9mo%20SSIAP">contact.limitlessprojets@gmail.com</a>, ou avec le bouton « Signaler une erreur » en bas de chaque chapitre : le site est relu et complété chaque semaine, ensemble.</p>
         </div>
       </div>
     </div>
@@ -685,6 +696,7 @@ body.menu-open { overflow: hidden; }
     <div class="wrap">
       <div class="sec-head"><h2>Mises à jour</h2><p>Le site avance chaque semaine.</p></div>
       <div class="log">
+        <div><time>06/10/2026</time><span>Nouveau : bouton « Signaler une erreur » en bas de chaque chapitre (le mail s'ouvre avec le chapitre déjà indiqué), et une adresse de contact : contact.limitlessprojets@gmail.com.</span></div>
         <div><time>06/10/2026</time><span>Nouveau : rubrique Secourisme SST (plan d'intervention, alerte, 8 fiches par situation avec les chiffres clés, quiz de 20 questions), d'après le référentiel INRS en vigueur et relue par un correcteur indépendant.</span></div>
         <div><time>06/10/2026</time><span>Nouveau : 10 questions par chapitre (360 au total, examens blancs moins répétitifs), 6 cas pratiques SSIAP 1 (ronde, levée de doute, évacuation, arrêt cardiaque, permis de feu, feu sur le quai), sigles cliquables dans les chapitres et liens directs vers les textes officiels (Légifrance, Code du travail). Tout relu par des correcteurs indépendants.</span></div>
         <div><time>06/10/2026</time><span>Double vérification complète : glossaire (374 sigles, 3 relectures avec recherche des références), logique des 14 cas pratiques, largeur des unités de passage corrigée (à partir de 3 UP : 0,60 m par UP, CO 36) et secourisme mis à jour (PSC et PSE : arrêtés du 15 juin 2024).</span></div>
@@ -712,7 +724,8 @@ body.menu-open { overflow: hidden; }
   <div class="wrap">
     <p><b>Mémo SSIAP</b> · version 2 du parcours (36 chapitres), à jour au 6 octobre 2026.</p>
     <p>Ces fiches aident à réviser et à travailler au quotidien. Elles ne remplacent ni la formation officielle, ni les consignes de votre établissement. Les textes cités font foi.</p>
-    <p><b>Mentions légales</b> · Éditeur : Jérémy, particulier, site personnel et non commercial. Hébergeur : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. Données : le site ne collecte aucune donnée personnelle et n'utilise pas de cookies. Vos résultats de QCM sont gardés uniquement sur votre appareil. La fréquentation est mesurée de façon anonyme, sans cookie (GoatCounter).</p>
+    <p>Contact, erreur à signaler, proposition : <a class="mail" href="mailto:contact.limitlessprojets@gmail.com?subject=M%C3%A9mo%20SSIAP">contact.limitlessprojets@gmail.com</a></p>
+    <p><b>Mentions légales</b> · Éditeur : Jérémy, particulier, site personnel et non commercial. Contact : contact.limitlessprojets@gmail.com. Hébergeur : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. Données : le site ne collecte aucune donnée personnelle et n'utilise pas de cookies. Vos résultats de QCM sont gardés uniquement sur votre appareil. La fréquentation est mesurée de façon anonyme, sans cookie (GoatCounter).</p>
   </div>
 </footer>
 
@@ -6435,6 +6448,28 @@ const SST = {"version": "Document de référence du dispositif SST, version 8 (0
   }));
   $("#sst-box").querySelectorAll(".sst-toc a").forEach(a => a.addEventListener("click", e => { e.preventDefault(); document.getElementById(a.getAttribute("href").slice(1)).scrollIntoView(); }));
   linkSigles($("#sst-box"));
+})();
+
+/* ---- signaler une erreur ---- */
+const MAIL = "contact.limitlessprojets@gmail.com";
+const mailto = (subj, body) => `mailto:${MAIL}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+function reportBox(subj, where) {
+  const body = `Bonjour,\n\nJe signale une erreur ou une mise à jour (${where}).\n\nCe qui est écrit sur le site :\n\n\nCe qui devrait être écrit :\n\n\nSource (texte, article, lien) :\n\n\nMerci !`;
+  return `<div class="report"><div><b>Une erreur, un texte modifié ?</b><span>Signalez-le : chaque remarque est vérifiée et le site est corrigé.</span></div><a class="btn-rep" href="${mailto(subj, body)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V4h11l1 2h4v9h-6l-1-2H6v8z"/></svg>Signaler une erreur</a></div>`;
+}
+const _renderChapter2 = renderChapter;
+renderChapter = function (n) {
+  const ok = _renderChapter2(n);
+  if (ok) {
+    const c = CH.find(x => x.n === n), ref = $("#chap .ref");
+    if (c && ref && !$("#chap .report")) ref.insertAdjacentHTML("afterend", reportBox(`Mémo SSIAP · Chapitre ${pad(n)} · ${c.t}`, `chapitre ${pad(n)}, « ${c.t} »`));
+  }
+  return ok;
+};
+(function () {
+  const s = $("#sst-box"); if (s) s.insertAdjacentHTML("beforeend", reportBox("Mémo SSIAP · Rubrique Secourisme SST", "rubrique Secourisme SST"));
+  const g = $("#glossaire .wrap"); if (g) g.insertAdjacentHTML("beforeend", reportBox("Mémo SSIAP · Glossaire", "glossaire, sigle : …"));
+  const k = $("#cas .wrap"); if (k) k.insertAdjacentHTML("beforeend", reportBox("Mémo SSIAP · Cas pratiques", "cas pratique n° …"));
 })();
 
 /* ---- menu à trois traits ---- */
